@@ -1,0 +1,48 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.PostgreSQLDialect
+        </property>
+
+        <property name = "hibernate.connection.driver_class">
+            org.postgresql.Driver
+        </property>
+
+        <property name = "hibernate.connection.url">
+            jdbc:postgres://172.17.0.3/inzynierka
+        </property>
+
+        <property name = "hibernate.connection.username">
+            psotgres
+        </property>
+
+        <property name = "hibernate.connection.password">
+            pgpass
+        </property>
+
+        <property name="hibernate.c3p0.min_size">
+            5
+        </property>
+
+        <property name="hibernate.c3p0.max_size">
+            100
+        </property>
+
+        <property name="hibernate.c3p0.acquire_increment">
+            1
+        </property>
+
+        <!-- List of XML mapping files -->
+        <mapping resource = "inz/model/Cart.hbm.xml"/>
+        <mapping resource = "inz/model/Category.hbm.xml"/>
+        <mapping resource = "inz/model/Product.hbm.xml"/>
+        <mapping resource = "inz/model/Promotion.hbm.xml"/>
+        <mapping resource = "inz/model/Shop.hbm.xml"/>
+        <mapping resource = "inz/model/User.hbm.xml"/>
+
+    </session-factory>
+</hibernate-configuration>
