@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "hhtp://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name = "inz.model.Cart" table = "cart">
+        <meta attribute = "class-description">
+            This class contains carts details
+        </meta>
+
+        <id name = "cartId" type = "big_integer" column = "cartid">
+            <generator class = "native" />
+        </id>
+
+        <property name = "userId" type = "big_integer">
+            <column name = "userid" not-null = "true" />
+        </property>
+
+        <property name = "products" type = "string">
+            <column name = "products" not-null = "true" />
+        </property>
+
+        <property name = "price" type = "double">
+            <column name = "price" not-null = "true" />
+        </property>
+    </class>
+</hibernate-mapping>

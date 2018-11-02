@@ -1,23 +1,40 @@
 package inz.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger userdId;
     private String name;
     private String surname;
     private String login;
     private String password;
     private String mail;
+    private boolean isadmin;
+
+    public User(){}
+
+    public User(String name, String surname, String login, String password, String mail, boolean admin) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.isadmin = admin;
+    }
+
+    public BigInteger getUserdId() {
+        return userdId;
+    }
+
+    public void setUserdId(BigInteger userdId) {
+        this.userdId = userdId;
+    }
 
     public String getName() {
         return name;
@@ -57,5 +74,13 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public boolean isAdmin() {
+        return isadmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.isadmin = admin;
     }
 }

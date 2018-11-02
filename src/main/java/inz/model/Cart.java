@@ -9,12 +9,28 @@ import java.math.BigInteger;
 @Entity
 public class Cart {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger cartId;
     private BigInteger userId;
     private String products;
     private double price;
+
+    public Cart(){}
+
+    public Cart(BigInteger userId, String products, double price) {
+        this.userId = userId;
+        this.products = products;
+        this.price = price;
+    }
+
+    public BigInteger getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(BigInteger cartId) {
+        this.cartId = cartId;
+    }
 
     public BigInteger getUserId() {
         return userId;

@@ -10,10 +10,25 @@ import java.math.BigInteger;
 public class Promotion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger promotionId;
     private String name;
     private double value;
+
+    public Promotion(){}
+
+    public Promotion(String name, double value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public BigInteger getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(BigInteger promotionId) {
+        this.promotionId = promotionId;
+    }
 
     public String getName() {
         return name;

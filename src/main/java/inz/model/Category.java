@@ -10,10 +10,25 @@ import java.math.BigInteger;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger categoryId;
     private String name;
     private String description;
+
+    public Category(){}
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public BigInteger getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(BigInteger categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getName() {
         return name;

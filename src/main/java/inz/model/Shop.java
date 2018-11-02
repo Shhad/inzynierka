@@ -10,7 +10,7 @@ import java.math.BigInteger;
 public class Shop {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger shopId;
     private String name;
     private String localization;
@@ -19,6 +19,26 @@ public class Shop {
     private String country;
     private String telnumber;
     private String site;
+
+    public Shop(){}
+
+    public Shop(String name, String localization, String street, String number, String country, String telnumber, String site) {
+        this.name = name;
+        this.localization = localization;
+        this.street = street;
+        this.number = number;
+        this.country = country;
+        this.telnumber = telnumber;
+        this.site = site;
+    }
+
+    public BigInteger getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(BigInteger shopId) {
+        this.shopId = shopId;
+    }
 
     public String getName() {
         return name;

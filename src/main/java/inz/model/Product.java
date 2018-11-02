@@ -10,7 +10,7 @@ import java.math.BigInteger;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger productId;
     private BigInteger categoryId;
     private BigInteger shopId;
@@ -18,8 +18,29 @@ public class Product {
     private String description;
     private double price;
     private String currency;
-    private BigInteger promotionId;
+    private String promotion;
     private String link;
+
+    public Product(){}
+
+    public Product(BigInteger categoryId, BigInteger shopId, String name, String description, double price, String currency, String promotionId, String link) {
+        this.categoryId = categoryId;
+        this.shopId = shopId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.currency = currency;
+        this.promotion = promotionId;
+        this.link = link;
+    }
+
+    public BigInteger getProductId() {
+        return productId;
+    }
+
+    public void setProductId(BigInteger productId) {
+        this.productId = productId;
+    }
 
     public BigInteger getCategoryId() {
         return categoryId;
@@ -69,12 +90,12 @@ public class Product {
         this.currency = currency;
     }
 
-    public BigInteger getPromotionId() {
-        return promotionId;
+    public String getPromotion() {
+        return promotion;
     }
 
-    public void setPromotionId(BigInteger promotionId) {
-        this.promotionId = promotionId;
+    public void setPromotion(String promotion) {
+        this.promotion = promotion;
     }
 
     public String getLink() {
