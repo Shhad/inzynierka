@@ -17,17 +17,19 @@ public class Shop {
     private String street;
     private String number;
     private String country;
+    private String city;
     private String telnumber;
     private String site;
 
     public Shop(){}
 
-    public Shop(String name, String localization, String street, String number, String country, String telnumber, String site) {
+    public Shop(String name, String localization, String street, String number, String country, String city,  String telnumber, String site) {
         this.name = name;
         this.localization = localization;
         this.street = street;
         this.number = number;
         this.country = country;
+        this.city = city;
         this.telnumber = telnumber;
         this.site = site;
     }
@@ -94,5 +96,13 @@ public class Shop {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

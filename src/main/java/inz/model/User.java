@@ -15,7 +15,7 @@ public class User {
     private String login;
     private String password;
     private String mail;
-    private boolean isadmin;
+    private boolean admin;
 
     public User(){}
 
@@ -25,7 +25,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.mail = mail;
-        this.isadmin = admin;
+        this.admin = admin;
     }
 
     public BigInteger getUserdId() {
@@ -77,10 +77,10 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return isadmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        this.isadmin = admin;
+        this.admin = admin;
     }
 }
