@@ -9,6 +9,7 @@ import java.math.BigInteger;
 @Entity
 public class Cart {
 
+    // TODO: zmiana na ulubione,
     // @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger cartId;

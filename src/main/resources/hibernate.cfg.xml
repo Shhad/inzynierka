@@ -17,7 +17,7 @@
         </property>
 
         <property name = "hibernate.connection.username">
-            psotgres
+            postgres
         </property>
 
         <property name = "hibernate.connection.password">
