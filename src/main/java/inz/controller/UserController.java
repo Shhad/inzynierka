@@ -23,6 +23,7 @@ public class UserController {
 
     public UserController() {
         try {
+            /*
             Configuration configuration = new Configuration();
 
             Properties properties = new Properties();
@@ -43,6 +44,12 @@ public class UserController {
             System.out.println("Session Is Connected :: "+session.isConnected());
 
             session.getTransaction().commit();
+            */
+            factory = new Configuration()
+                    .configure()
+                    .addPackage("inz.model")
+                    .addAnnotatedClass(User.class)
+                    .buildSessionFactory();
             System.out.println("Hibernate configured!");
         } catch(Exception e) {
             System.out.println("Hibernate factory not initialized.");
