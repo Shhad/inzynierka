@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @Configuration
+@EnableJpaAuditing
 @ComponentScan(basePackages =  "inz.controller")
 public class Application extends SpringBootServletInitializer {
 

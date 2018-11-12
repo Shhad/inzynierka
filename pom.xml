@@ -29,6 +29,8 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+      <!--SPRING DEPENDENCIES-->
+
       <!-- Spring MVC Dependency -->
       <dependency>
           <groupId>org.springframework</groupId>
@@ -43,12 +45,32 @@
           <version>4.3.7.RELEASE</version>
       </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <version>2.0.4.RELEASE</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+          <version>2.0.6.RELEASE</version>
+      </dependency>
+
       <!-- Hibernate ORM -->
       <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-core</artifactId>
           <version>5.2.10.Final</version>
       </dependency>
+
+
 
       <!-- Hibernate-C3P0 Integration -->
       <dependency>
@@ -104,13 +126,6 @@
           <groupId>postgresql</groupId>
           <artifactId>postgresql</artifactId>
           <version>9.1-901.jdbc4</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-web</artifactId>
-          <version>2.0.4.RELEASE</version>
       </dependency>
 
       <dependency>
