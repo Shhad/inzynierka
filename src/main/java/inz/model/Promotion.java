@@ -1,19 +1,29 @@
 package inz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 @Entity
+@Table(name = "promotion")
 public class Promotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "promotionid")
     private BigInteger promotionId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "value")
     private double value;
+
+    @Column(name = "startdate")
+    private Timestamp startDate;
+
+    @Column(name = "enddate")
+    private Timestamp endDate;
 
     public Promotion(){}
 
@@ -44,5 +54,21 @@ public class Promotion {
 
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
     }
 }

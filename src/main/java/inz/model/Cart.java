@@ -1,27 +1,31 @@
 package inz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
+@Table(name = "cart")
 public class Cart {
 
-    // TODO: zmiana na ulubione,
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cartid", nullable = false)
     private BigInteger cartId;
-    private BigInteger userId;
-    private String products;
+
+    @Column(name = "favouriteid", nullable = false)
+    private BigInteger favouriteId;
+
+    @Column(name = "shopid", nullable = false)
+    private BigInteger shopId;
+
+    @Column(name = "price",nullable = false)
     private double price;
 
     public Cart(){}
 
-    public Cart(BigInteger userId, String products, double price) {
-        this.userId = userId;
-        this.products = products;
+    public Cart(BigInteger favouriteId, BigInteger shopId, double price) {
+        this.favouriteId = favouriteId;
+        this.shopId = shopId;
         this.price = price;
     }
 
@@ -33,20 +37,20 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public BigInteger getUserId() {
-        return userId;
+    public BigInteger getFavouriteId() {
+        return favouriteId;
     }
 
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
+    public void setFavouriteId(BigInteger favouriteId) {
+        this.favouriteId = favouriteId;
     }
 
-    public String getProducts() {
-        return products;
+    public BigInteger getShopId() {
+        return shopId;
     }
 
-    public void setProducts(String products) {
-        this.products = products;
+    public void setShopId(BigInteger shopId) {
+        this.shopId = shopId;
     }
 
     public double getPrice() {

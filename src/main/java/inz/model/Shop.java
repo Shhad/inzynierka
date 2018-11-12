@@ -1,24 +1,39 @@
 package inz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
+@Table(name = "shop")
 public class Shop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "shopid")
     private BigInteger shopId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "localization")
     private String localization;
+
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "number")
     private String number;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "telnumber")
     private String telnumber;
+
+    @Column(name = "site")
     private String site;
 
     public Shop(){}

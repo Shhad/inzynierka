@@ -5,16 +5,30 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userid")
     private BigInteger userdId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "mail")
     private String mail;
+
+    @Column(name = "admin")
     private boolean admin;
 
     public User(){}

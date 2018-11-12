@@ -1,36 +1,47 @@
 package inz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "productid")
     private BigInteger productId;
+
+    @Column(name = "categoryid")
     private BigInteger categoryId;
+
+    @Column(name = "shopid")
     private BigInteger shopId;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private double price;
+
+    @Column(name = "currency", length = 50)
     private String currency;
-    private String promotion;
+
+    @Column(name = "link")
     private String link;
 
     public Product(){}
 
-    public Product(BigInteger categoryId, BigInteger shopId, String name, String description, double price, String currency, String promotionId, String link) {
+    public Product(BigInteger categoryId, BigInteger shopId, String name, String description, double price, String currency, String link) {
         this.categoryId = categoryId;
         this.shopId = shopId;
         this.name = name;
         this.description = description;
         this.price = price;
         this.currency = currency;
-        this.promotion = promotionId;
         this.link = link;
     }
 
@@ -88,14 +99,6 @@ public class Product {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public String getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(String promotion) {
-        this.promotion = promotion;
     }
 
     public String getLink() {
