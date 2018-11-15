@@ -20,7 +20,32 @@ public class UserController {
 
     @GetMapping("/ready")
     public ResponseEntity<?> checkIfSerwerReady() {
-        return new ResponseEntity<String>("READY", HttpStatus.OK);
+        JSONObject response = new JSONObject();
+        response.put("status", "ok");
+
+        return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+    }
+
+    @PutMapping("/checkexist")
+    public ResponseEntity<?> checkIfUserExist(@RequestBody String body) {
+        JSONObject response = new JSONObject();
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(body);
+
+            if(userRepository.userExistByLogin(json.get("login").toString())) {
+                response.put("status", "ok");
+            } else {
+                response.put("status", "failure");
+            }
+
+            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+        } catch (Exception e) {
+            response.put("status", "failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+        }
     }
 
     @PostMapping("/add")
@@ -33,7 +58,7 @@ public class UserController {
 
             newUser.setAdmin(false);
             newUser.setLogin(json.get("login").toString());
-            newUser.setMail(json.get("mail").toString());
+            if(json.containsKey("mail")) newUser.setMail(json.get("mail").toString());
             newUser.setName(json.get("name").toString());
             newUser.setPassword(json.get("password").toString());
             newUser.setSurname(json.get("surname").toString());
