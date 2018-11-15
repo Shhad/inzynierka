@@ -2,11 +2,12 @@ package inz.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +32,7 @@ public class User {
     @Column(name = "admin")
     private boolean admin;
 
-    public User(){}
+    public User() {}
 
     public User(String name, String surname, String login, String password, String mail, boolean admin) {
         this.name = name;

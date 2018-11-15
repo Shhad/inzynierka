@@ -1,12 +1,13 @@
 package inz.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "promotion")
-public class Promotion {
+public class Promotion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

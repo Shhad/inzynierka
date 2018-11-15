@@ -1,13 +1,17 @@
 package inz.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
 @Table(name = "favouriteproducts")
-public class FavouriteProducts {
+public class FavouriteProducts implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private BigInteger id;
 
     @Column(name = "favouritedid")
     private BigInteger favouriteId;

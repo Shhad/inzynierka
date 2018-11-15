@@ -1,11 +1,12 @@
 package inz.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
 @Table(name = "favourite")
-public class Favourite {
+public class Favourite implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
