@@ -12,7 +12,7 @@ public class Promotion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "promotionid")
-    private BigInteger promotionId;
+    private Integer promotionId;
 
     @Column(name = "name")
     private String name;
@@ -33,11 +33,11 @@ public class Promotion implements Serializable {
         this.value = value;
     }
 
-    public BigInteger getPromotionId() {
+    public Integer getPromotionId() {
         return promotionId;
     }
 
-    public void setPromotionId(BigInteger promotionId) {
+    public void setPromotionId(Integer promotionId) {
         this.promotionId = promotionId;
     }
 

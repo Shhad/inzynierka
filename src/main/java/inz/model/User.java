@@ -12,7 +12,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "userid")
-    private BigInteger userdId;
+    private Integer userdId;
 
     @Column(name = "name")
     private String name;
@@ -43,11 +43,11 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
-    public BigInteger getUserdId() {
+    public Integer getUserdId() {
         return userdId;
     }
 
-    public void setUserdId(BigInteger userdId) {
+    public void setUserdId(Integer userdId) {
         this.userdId = userdId;
     }
 

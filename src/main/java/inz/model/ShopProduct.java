@@ -11,34 +11,34 @@ public class ShopProduct implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private BigInteger id;
+    private Integer id;
 
     @Column(name = "shopid")
-    private BigInteger shopId;
+    private Integer shopId;
 
     @Column(name = "productid")
-    private BigInteger productId;
+    private Integer productId;
 
     public ShopProduct() {}
 
-    public ShopProduct(BigInteger shopId, BigInteger productId) {
+    public ShopProduct(Integer shopId, Integer productId) {
         this.shopId = shopId;
         this.productId = productId;
     }
 
-    public BigInteger getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 
-    public BigInteger getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(BigInteger productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 }

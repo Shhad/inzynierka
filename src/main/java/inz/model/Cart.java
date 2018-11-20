@@ -11,46 +11,46 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cartid", nullable = false)
-    private BigInteger cartId;
+    private Integer cartId;
 
     @Column(name = "favouriteid", nullable = false)
-    private BigInteger favouriteId;
+    private Integer favouriteId;
 
     @Column(name = "shopid", nullable = false)
-    private BigInteger shopId;
+    private Integer shopId;
 
     @Column(name = "price",nullable = false)
     private double price;
 
     public Cart(){}
 
-    public Cart(BigInteger favouriteId, BigInteger shopId, double price) {
+    public Cart(Integer favouriteId, Integer shopId, double price) {
         this.favouriteId = favouriteId;
         this.shopId = shopId;
         this.price = price;
     }
 
-    public BigInteger getCartId() {
+    public Integer getCartId() {
         return cartId;
     }
 
-    public void setCartId(BigInteger cartId) {
+    public void setCartId(Integer cartId) {
         this.cartId = cartId;
     }
 
-    public BigInteger getFavouriteId() {
+    public Integer getFavouriteId() {
         return favouriteId;
     }
 
-    public void setFavouriteId(BigInteger favouriteId) {
+    public void setFavouriteId(Integer favouriteId) {
         this.favouriteId = favouriteId;
     }
 
-    public BigInteger getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 

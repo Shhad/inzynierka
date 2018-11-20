@@ -11,13 +11,13 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "productid")
-    private BigInteger productId;
+    private Integer productId;
 
     @Column(name = "categoryid")
-    private BigInteger categoryId;
+    private Integer categoryId;
 
     @Column(name = "shopid")
-    private BigInteger shopId;
+    private Integer shopId;
 
     @Column(name = "name")
     private String name;
@@ -36,7 +36,7 @@ public class Product implements Serializable {
 
     public Product(){}
 
-    public Product(BigInteger categoryId, BigInteger shopId, String name, String description, double price, String currency, String link) {
+    public Product(Integer categoryId, Integer shopId, String name, String description, double price, String currency, String link) {
         this.categoryId = categoryId;
         this.shopId = shopId;
         this.name = name;
@@ -46,27 +46,27 @@ public class Product implements Serializable {
         this.link = link;
     }
 
-    public BigInteger getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(BigInteger productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public BigInteger getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(BigInteger categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public BigInteger getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 

@@ -11,34 +11,34 @@ public class FavouriteProducts implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private BigInteger id;
+    private Integer id;
 
     @Column(name = "favouritedid")
-    private BigInteger favouriteId;
+    private Integer favouriteId;
 
     @Column(name = "productid")
-    private BigInteger productId;
+    private Integer productId;
 
     public FavouriteProducts() {}
 
-    public FavouriteProducts(BigInteger favouriteId, BigInteger productId) {
+    public FavouriteProducts(Integer favouriteId, Integer productId) {
         this.favouriteId = favouriteId;
         this.productId = productId;
     }
 
-    public BigInteger getFavouriteId() {
+    public Integer getFavouriteId() {
         return favouriteId;
     }
 
-    public void setFavouriteId(BigInteger favouriteId) {
+    public void setFavouriteId(Integer favouriteId) {
         this.favouriteId = favouriteId;
     }
 
-    public BigInteger getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(BigInteger productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 }

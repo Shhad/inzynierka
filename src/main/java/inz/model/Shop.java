@@ -11,7 +11,7 @@ public class Shop implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "shopid")
-    private BigInteger shopId;
+    private Integer shopId;
 
     @Column(name = "name")
     private String name;
@@ -50,11 +50,11 @@ public class Shop implements Serializable {
         this.site = site;
     }
 
-    public BigInteger getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 
