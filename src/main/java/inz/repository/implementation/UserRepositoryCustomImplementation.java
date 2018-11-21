@@ -36,6 +36,7 @@ public class UserRepositoryCustomImplementation implements UserRepositoryCustom 
         Query query = entityManager.createNativeQuery("UPDATE inzynierka.users SET mail = ? WHERE id = ?", User.class);
         query.setParameter(1, mail);
         query.setParameter(2, id);
+        query.executeUpdate();
     }
 
     @Override
@@ -43,6 +44,7 @@ public class UserRepositoryCustomImplementation implements UserRepositoryCustom 
         Query query = entityManager.createNativeQuery("UPDATE inzynierka.users SET password = ? WHERE id = ?", User.class);
         query.setParameter(1, pass);
         query.setParameter(2, id);
+        query.executeUpdate();
     }
 }
 

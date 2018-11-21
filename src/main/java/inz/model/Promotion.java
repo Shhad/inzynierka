@@ -14,6 +14,9 @@ public class Promotion implements Serializable {
     @Column(name = "promotionid")
     private Integer promotionId;
 
+    @Column(name = "productid")
+    private Integer productid;
+
     @Column(name = "name")
     private String name;
 
@@ -71,5 +74,13 @@ public class Promotion implements Serializable {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
+    }
+
+    public Integer getProductid() {
+        return productid;
+    }
+
+    public void setProductid(Integer productid) {
+        this.productid = productid;
     }
 }

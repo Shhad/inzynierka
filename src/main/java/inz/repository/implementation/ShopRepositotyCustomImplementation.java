@@ -16,7 +16,7 @@ public class ShopRepositotyCustomImplementation implements ShopRepositoryCustom 
 
     @Override
     public void addShop(Shop shop) {
-        Query query = entityManager.createNativeQuery("INSERT INTO inzynierka.shop (name, localization, street, number, country, city, telnumber, site) VALUES (?,?,?,?,?,?,?,?)", Shop.class);
+        /*Query query = entityManager.createNativeQuery("INSERT INTO inzynierka.shop (name, localization, street, number, country, city, telnumber, site) VALUES (?,?,?,?,?,?,?,?)", Shop.class);
         query.setParameter(1, shop.getName());
         query.setParameter(2, shop.getLocalization());
         query.setParameter(3, shop.getStreet());
@@ -25,6 +25,10 @@ public class ShopRepositotyCustomImplementation implements ShopRepositoryCustom 
         query.setParameter(6, shop.getCity());
         query.setParameter(7, shop.getTelnumber());
         query.setParameter(8, shop.getSite());
+        */
+        entityManager.getTransaction().begin();
+        entityManager.persist(shop);
+        entityManager.getTransaction().commit();
     }
 
     @Override
@@ -45,7 +49,6 @@ public class ShopRepositotyCustomImplementation implements ShopRepositoryCustom 
         for(int i = 0; i < queryResult.size(); i++) {
             result.add(queryResult.get(i).getName());
         }
-
         return result;
     }
 
