@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface ShopProductRepository extends JpaRepository<ShopProduct, BigInteger> {
+public interface ShopProductRepository extends JpaRepository<ShopProduct, Integer> {
 
 }

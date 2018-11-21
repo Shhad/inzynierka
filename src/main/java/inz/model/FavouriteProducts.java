@@ -41,4 +41,12 @@ public class FavouriteProducts implements Serializable {
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
