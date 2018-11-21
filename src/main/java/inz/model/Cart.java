@@ -21,6 +21,9 @@ public class Cart implements Serializable {
 
     @Column(name = "price",nullable = false)
     private double price;
+    
+    @Column(name = "name")
+    private String name;
 
     public Cart(){}
 
@@ -60,5 +63,13 @@ public class Cart implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

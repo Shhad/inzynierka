@@ -15,6 +15,9 @@ public class Favourite implements Serializable {
 
     @Column(name = "userid")
     private Integer userId;
+    
+    @Column(name = "name")
+    private String name;
 
     public Favourite() {}
 
@@ -37,5 +40,13 @@ public class Favourite implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
