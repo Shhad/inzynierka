@@ -16,7 +16,7 @@ public class CartRepositoryCustomImplementation implements CartRepositoryCustom 
 	EntityManager entityManager;
 	
 	@Override
-	public List<Cart> getUserCarts(int userid) {
+	public List<Cart> getUserCarts(Integer userid) {
 		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.cart WHERE favouriteid = (SELECT favouriteid FROM inzynierka.favourite WHERE userid = ?)", Cart.class);
 		query.setParameter(1, userid);
 		
@@ -24,7 +24,7 @@ public class CartRepositoryCustomImplementation implements CartRepositoryCustom 
 	}
 
 	@Override
-	public List<Cart> getFavouriteCart(int favouriteid) {
+	public List<Cart> getFavouriteCart(Integer favouriteid) {
 		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.cart WHERE favouriteid = ?", Cart.class);
 		query.setParameter(1, favouriteid);
 		
