@@ -14,22 +14,22 @@ public class User implements Serializable {
     @Column(name = "userid")
     private Integer userdId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "mail")
     private String mail;
 
-    @Column(name = "admin")
+    @Column(name = "admin", nullable = false)
     private boolean admin;
 
     public User() {}

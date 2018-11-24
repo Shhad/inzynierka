@@ -21,6 +21,14 @@ public class FavouriteProductsRepositoryCustomImplementation implements Favourit
         query.setParameter(2, product.getProductId());
         query.executeUpdate();
     }
+    
+    @Override
+    public void deleteProduct(int productid, int favouriteid) {
+        Query query = entityManager.createNativeQuery("DELETE * FROM inzynierka.favouriteproducts WHERE favouriteid = ? AND productid = ?", FavouriteProducts.class);
+        query.setParameter(1, favouriteid);
+        query.setParameter(2, productid);
+        query.executeUpdate();
+    }
 
     @Override
     public void addProduct(Product product, Favourite favourite) {

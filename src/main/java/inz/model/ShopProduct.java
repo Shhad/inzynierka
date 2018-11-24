@@ -13,10 +13,10 @@ public class ShopProduct implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "shopid")
+    @Column(name = "shopid", nullable = false)
     private Integer shopId;
 
-    @Column(name = "productid")
+    @Column(name = "productid", nullable = false)
     private Integer productId;
 
     public ShopProduct() {}

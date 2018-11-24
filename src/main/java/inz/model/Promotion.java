@@ -14,16 +14,16 @@ public class Promotion implements Serializable {
     @Column(name = "promotionid")
     private Integer promotionId;
 
-    @Column(name = "productid")
+    @Column(name = "productid", nullable = false)
     private Integer productid;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     private double value;
 
-    @Column(name = "startdate")
+    @Column(name = "startdate", nullable = false)
     private Timestamp startDate;
 
     @Column(name = "enddate")

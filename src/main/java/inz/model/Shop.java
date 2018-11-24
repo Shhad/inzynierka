@@ -13,7 +13,7 @@ public class Shop implements Serializable {
     @Column(name = "shopid")
     private Integer shopId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "localization")

@@ -111,5 +111,37 @@ public class ProductRepositoryCustomImplementation implements ProductRepositoryC
         return query.getResultList();
     }
 
+	@Override
+	public List<Product> getAllProductsFromCategory(String category) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.product WHERE categoryid = (SELECT categoryid FROM inzynierka.category WHERE name = ?)", Product.class);
+		query.setParameter(1, category);
+		
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Product> getAllProductsFromShop(String shop) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.product WHERE shopid = (SELECT categoryid FROM inzynierka.shop WHERE name = ?)", Product.class);
+		query.setParameter(1, shop);
+		
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Product> getAllProductsFromFavourite(int favouriteid) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.product WHERE productid IN (SELECT productid FROM inzynierka.favouriteproducts WHERE favouriteid = ?)", Product.class);
+		query.setParameter(1, favouriteid);
+		
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Product> getAllProductsFromCart(int cartid) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.product WHERE productid IN (SELECT productid FROM inzynierka.favouriteproducts WHERE favuriteid IN (SELECT favouriteid FROM inzynierka.cart WHERE cartid = ?))", Product.class);
+		query.setParameter(1, cartid);
+		
+		return query.getResultList();
+	}
+
 
 }

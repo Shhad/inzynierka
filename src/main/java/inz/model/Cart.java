@@ -22,7 +22,7 @@ public class Cart implements Serializable {
     @Column(name = "price",nullable = false)
     private double price;
     
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     public Cart(){}

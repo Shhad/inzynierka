@@ -14,6 +14,26 @@ public class FavouriteRepositoryCustomImplementation implements FavouriteReposit
 
 	@Autowired
 	EntityManager entityManager;
+
+	@Override
+	public List<Favourite> getAllFavourites() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addFavourite(Favourite favourite) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Favourite> getUserFavourites(int userid) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.favourite WHERE userid = ?", Favourite.class);
+		query.setParameter(1, userid);
+		
+		return query.getResultList();
+	}
 	
 	/*
 	@Override

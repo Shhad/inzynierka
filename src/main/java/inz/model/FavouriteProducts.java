@@ -13,10 +13,10 @@ public class FavouriteProducts implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "favouriteid")
+    @Column(name = "favouriteid", nullable = false)
     private Integer favouriteId;
 
-    @Column(name = "productid")
+    @Column(name = "productid", nullable = false)
     private Integer productId;
 
     public FavouriteProducts() {}

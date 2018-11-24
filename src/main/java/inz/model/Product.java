@@ -13,22 +13,22 @@ public class Product implements Serializable {
     @Column(name = "productid")
     private Integer productId;
 
-    @Column(name = "categoryid")
+    @Column(name = "categoryid", nullable = false)
     private Integer categoryId;
 
-    @Column(name = "shopid")
+    @Column(name = "shopid", nullable = false)
     private Integer shopId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "currency", length = 50)
+    @Column(name = "currency", length = 50, nullable = false)
     private String currency;
 
     @Column(name = "link")
