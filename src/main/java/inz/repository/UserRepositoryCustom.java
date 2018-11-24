@@ -1,5 +1,7 @@
 package inz.repository;
 
+import org.springframework.stereotype.Repository;
+
 import inz.model.User;
 
 public interface UserRepositoryCustom {

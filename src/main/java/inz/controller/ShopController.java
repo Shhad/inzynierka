@@ -72,7 +72,7 @@ public class ShopController {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", shopRepository.getShopsNames(name));
+            response.put("data", shopRepository.getShopsName(name));
 
             return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
         } catch(Exception e) {

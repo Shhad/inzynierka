@@ -1,15 +1,19 @@
-package inz.repository.implementation;
+package inz.repository;
 
 import inz.model.Favourite;
 import inz.model.FavouriteProducts;
 import inz.model.Product;
-import inz.repository.FavouriteProductsRepositoryCustom;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public class FavouriteProductsRepositoryCustomImplementation implements FavouriteProductsRepositoryCustom {
+@Repository
+@Transactional(readOnly = true)
+public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsRepositoryCustom {
 
     @Autowired
     EntityManager entityManager;

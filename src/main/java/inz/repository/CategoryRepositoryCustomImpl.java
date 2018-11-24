@@ -1,15 +1,19 @@
-package inz.repository.implementation;
+package inz.repository;
 
 import inz.model.Category;
-import inz.repository.CategoryRepositoryCustom;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRepositoryCustomImplementation implements CategoryRepositoryCustom {
+@Repository
+@Transactional(readOnly = true)
+public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
     @Autowired
     EntityManager entityManager;

@@ -4,6 +4,8 @@ import inz.model.*;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 public interface ProductRepositoryCustom {
 
     boolean modifyProduct(Product product);

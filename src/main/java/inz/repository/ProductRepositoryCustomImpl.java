@@ -1,15 +1,19 @@
-package inz.repository.implementation;
+package inz.repository;
 
 import inz.model.*;
-import inz.repository.ProductRepositoryCustom;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductRepositoryCustomImplementation implements ProductRepositoryCustom {
+@Repository
+@Transactional(readOnly = true)
+public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Autowired
     EntityManager entityManager;

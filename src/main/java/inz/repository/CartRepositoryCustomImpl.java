@@ -1,4 +1,4 @@
-package inz.repository.implementation;
+package inz.repository;
 
 import java.util.List;
 
@@ -6,11 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import inz.model.Cart;
-import inz.repository.CartRepositoryCustom;
 
-public class CartRepositoryCustomImplementation implements CartRepositoryCustom {
+@Repository
+@Transactional(readOnly = true)
+public class CartRepositoryCustomImpl implements CartRepositoryCustom {
 
 	@Autowired
 	EntityManager entityManager;
