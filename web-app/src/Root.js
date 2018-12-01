@@ -4,7 +4,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 
-import DevToolsView from './components/Views/DevToolsView';
 import routes from './routes';
 
 
@@ -16,19 +15,11 @@ export default class Root extends React.Component {
     };
 
     render() {
-        if (DEV) {
-            return (
-                <Provider store={this.props.store}>
-                    <div>
-                        <Router history={this.props.history} routes={routes} />
-                        <DevToolsView />
-                    </div>
-                </Provider>
-            );
-        }
         return (
             <Provider store={this.props.store}>
-                <Router history={this.props.history} routes={routes} />
+                <div>
+                    <Router history={this.props.history} routes={routes} />
+                </div>
             </Provider>
         );
     }
