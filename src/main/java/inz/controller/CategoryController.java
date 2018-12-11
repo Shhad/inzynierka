@@ -20,7 +20,7 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         JSONObject response = new JSONObject();
         try {
@@ -29,15 +29,15 @@ public class CategoryController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @PutMapping("/update")
     public ResponseEntity<?> updateCategory(@RequestBody String body) {
         JSONObject response = new JSONObject();
@@ -46,28 +46,28 @@ public class CategoryController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
-    @GetMapping("/categories")
+
+    @GetMapping("/categories")//napisac wlasny get all
     public ResponseEntity<?> getCategories() {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
             response.put("data", categoryRepository.findAll());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

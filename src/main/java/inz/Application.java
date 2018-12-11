@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableAutoConfiguration
 @EnableJpaRepositories("inz.repository")
 @ComponentScan(basePackages = "inz.controller")
 public class Application extends SpringBootServletInitializer {

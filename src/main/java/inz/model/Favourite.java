@@ -6,6 +6,10 @@ import java.math.BigInteger;
 
 @Entity
 @Table(name = "favourite")
+@SqlResultSetMapping(name="JediResult", classes = {
+        @ConstructorResult(targetClass = Favourite.class,
+                columns = {@ColumnResult(name="favouriteid"), @ColumnResult(name="userid"), @ColumnResult(name="name")})
+})
 public class Favourite implements Serializable {
 
     @Id
@@ -15,15 +19,16 @@ public class Favourite implements Serializable {
 
     @Column(name = "userid", nullable = false)
     private Integer userId;
-    
+
     @Column(name = "name")
     private String name;
 
     public Favourite() {}
 
-    public Favourite(Integer favouriteId, Integer userId) {
+    public Favourite(Integer favouriteId, Integer userId, String name) {
         this.favouriteId = favouriteId;
         this.userId = userId;
+        this.name = name;
     }
 
     public Integer getFavouriteId() {
@@ -41,7 +46,7 @@ public class Favourite implements Serializable {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-    
+
     public String getName() {
         return name;
     }

@@ -23,10 +23,10 @@ public class UserController {
         JSONObject response = new JSONObject();
         response.put("status", "ok");
 
-        return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/checkexist")
+    @PutMapping("/checkexist")//dziala
     public ResponseEntity<?> checkIfUserExist(@RequestBody String body) {
         JSONObject response = new JSONObject();
         try {
@@ -39,16 +39,16 @@ public class UserController {
                 response.put("status", "failure");
             }
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             response.put("status", "failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> createUser(@RequestBody String body) {
         User newUser = new User();
         JSONObject response = new JSONObject();
@@ -67,13 +67,13 @@ public class UserController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
             response.put("status", "failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
@@ -87,16 +87,16 @@ public class UserController {
 
             if(userRepository.getUserByLogin(json.get("login").toString()) != null) {
                 response.put("status", "ok");
-                //TODO: create session
+                response.put("data", userRepository.getUserByLogin(json.get("login").toString()));
             } else {
                 response.put("status", "failure");
                 response.put("msg", "No user with this login and password found!");
             }
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status", "failure");
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
@@ -104,15 +104,16 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@RequestBody User user) {
         JSONObject response = new JSONObject();
         try {
-            userRepository.delete(user);
+            //userRepository.delete(user);
+            userRepository.deleteById(user.getUserdId());
 
             response.put("status", "ok");
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             response.put("status", "failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

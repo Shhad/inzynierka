@@ -20,7 +20,7 @@ public class CartController {
     @Autowired
     private CartRepository cartRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> addCart(@RequestBody Cart cart) {
         JSONObject response = new JSONObject();
         try {
@@ -29,15 +29,15 @@ public class CartController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/user/{userid}")
     public ResponseEntity<?> getUserCarts(@PathVariable("userid") int userid) {
     	JSONObject response = new JSONObject();
@@ -45,15 +45,15 @@ public class CartController {
             response.put("status", "ok");
             response.put("data", cartRepository.getUserCarts(userid));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/favourite/{favouriteid}")
     public ResponseEntity<?> getFavouriteCarts(@PathVariable("favouriteid") int favouriteid) {
     	JSONObject response = new JSONObject();
@@ -61,12 +61,12 @@ public class CartController {
             response.put("status", "ok");
             response.put("data", cartRepository.getFavouriteCart(favouriteid));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

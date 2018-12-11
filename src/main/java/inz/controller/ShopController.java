@@ -17,73 +17,73 @@ import inz.repository.ShopRepository;
 @RestController
 @RequestMapping("/api/shop")
 public class ShopController {
-	
+
 	@Autowired
 	private ShopRepository shopRepository;
-	
-	@PostMapping("/add")
+
+	@PostMapping("/add")//dziala
 	public ResponseEntity<?> addProduct(@RequestBody Shop shop) {
     	JSONObject response = new JSONObject();
         try {
         	shop.setShopId(new Integer((int) shopRepository.count() + 1));
         	shopRepository.saveAndFlush(shop);
-        	
+
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 	}
-	
-	@GetMapping("/shops")
+
+	@GetMapping("/shops")//napisac wlasny getall
 	public ResponseEntity<?> getShops() {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", shopRepository.findAll());
+            response.put("data", shopRepository.findAll().toArray());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 	}
-	
-	@GetMapping("/shops/{name}")
+
+	@GetMapping("/shops/{name}")//nie dziala
 	public ResponseEntity<?> getShopsByName(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
             response.put("data", shopRepository.getShopsByName(name));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 	}
-	
-	@GetMapping("/names/{name}")
+
+	@GetMapping("/names/{name}")//nie dziala
 	public ResponseEntity<?> getShopsNames(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
             response.put("data", shopRepository.getShopsName(name));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
 	}
 }

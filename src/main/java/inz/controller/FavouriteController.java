@@ -9,13 +9,10 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/favourite")
@@ -26,11 +23,11 @@ public class FavouriteController {
 
     @Autowired
     private FavouriteProductsRepository favouriteProductsRepository;
-    
+
     @Autowired
     private FavouriteProductsRepository fpRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         JSONObject response = new JSONObject();
         try {
@@ -39,12 +36,12 @@ public class FavouriteController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
@@ -64,45 +61,66 @@ public class FavouriteController {
 
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
-    @GetMapping("/favourites/{userid}")
+
+    @GetMapping("/all")//zwraca referencje
+    @ResponseBody
+    public ResponseEntity<?> getAllFavourites() {
+        JSONObject response = new JSONObject();
+        try {
+            response.put("status", "ok");
+            List<Favourite> result = new ArrayList<Favourite>();
+            for(Favourite f: favouriteRepository.getAllFavourites()) {
+                result.add(new Favourite(f.getFavouriteId(), f.getUserId(), f.getName()));
+            }
+            response.put("data", result);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception e) {
+            response.put("status","failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/favourites/{userid}")//zwraca referencje
     public ResponseEntity<?> getUserFavourites(@PathVariable("userid") int userid) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
             response.put("data", favouriteRepository.getUserFavourites(userid));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @DeleteMapping("/delete/{favouriteid}/{productid}")
     public ResponseEntity<?> deleteProductFromFavourite(@PathVariable("favouriteid") int favouriteid, @PathVariable("productid") int productid) {
     	JSONObject response = new JSONObject();
         try {
         	favouriteProductsRepository.deleteProduct(productid, favouriteid);
-        	
+
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

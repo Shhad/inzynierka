@@ -20,15 +20,15 @@ public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsR
 
     @Override
     public void deleteProduct(Product product, Favourite favourite) {
-        Query query = entityManager.createNativeQuery("DELETE * FROM inzynierka.favouriteproducts WHERE favouriteid = ? AND productid = ?", FavouriteProducts.class);
+        Query query = entityManager.createNativeQuery("DELETE * FROM \"favouriteproducts\" WHERE favouriteid = ? AND productid = ?", FavouriteProducts.class);
         query.setParameter(1, favourite.getFavouriteId());
         query.setParameter(2, product.getProductId());
         query.executeUpdate();
     }
-    
+
     @Override
     public void deleteProduct(Integer productid, Integer favouriteid) {
-        Query query = entityManager.createNativeQuery("DELETE * FROM inzynierka.favouriteproducts WHERE favouriteid = ? AND productid = ?", FavouriteProducts.class);
+        Query query = entityManager.createNativeQuery("DELETE * FROM \"favouriteproducts\" WHERE favouriteid = ? AND productid = ?", FavouriteProducts.class);
         query.setParameter(1, favouriteid);
         query.setParameter(2, productid);
         query.executeUpdate();
@@ -36,7 +36,7 @@ public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsR
 
     @Override
     public void addProduct(Product product, Favourite favourite) {
-        Query query = entityManager.createNativeQuery("INSERT INTO inzynierka.favouriteproducts (favouriteid, productid) VALUES (?,?)", Favourite.class);
+        Query query = entityManager.createNativeQuery("INSERT INTO \"favouriteproducts\" (favouriteid, productid) VALUES (?,?)", Favourite.class);
         query.setParameter(1, favourite.getFavouriteId());
         query.setParameter(2, product.getProductId());
         query.executeUpdate();
@@ -44,7 +44,7 @@ public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsR
 
     @Override
     public void addProduct(String productid, String favouriteid) {
-        Query query = entityManager.createNativeQuery("INSERT INTO inzynierka.favouriteproducts (favouriteid, productid) VALUES (?,?)", Favourite.class);
+        Query query = entityManager.createNativeQuery("INSERT INTO \"favouriteproducts\" (favouriteid, productid) VALUES (?,?)", Favourite.class);
         query.setParameter(1, favouriteid);
         query.setParameter(2, productid);
         query.executeUpdate();

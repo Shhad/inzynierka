@@ -18,7 +18,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @Override
     public User getUserByLogin(String login) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.users WHERE login = ?", User.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"users\" WHERE login = ?", User.class);
         query.setParameter(1, login);
 
         return (User) query.getResultList().get(0);
@@ -26,7 +26,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @Override
     public boolean userExistByLogin(String login) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM inzynierka.users WHERE login = ?", User.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"users\" WHERE login = ?", User.class);
         query.setParameter(1, login);
 
         if(query.getResultList().isEmpty()) {
@@ -37,7 +37,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @Override
     public void updateUserMail(String mail, Integer id) {
-        Query query = entityManager.createNativeQuery("UPDATE inzynierka.users SET mail = ? WHERE id = ?", User.class);
+        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET mail = ? WHERE id = ?", User.class);
         query.setParameter(1, mail);
         query.setParameter(2, id);
         query.executeUpdate();
@@ -45,7 +45,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @Override
     public void updateUserPassword(String pass, Integer id) {
-        Query query = entityManager.createNativeQuery("UPDATE inzynierka.users SET password = ? WHERE id = ?", User.class);
+        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET password = ? WHERE id = ?", User.class);
         query.setParameter(1, pass);
         query.setParameter(2, id);
         query.executeUpdate();

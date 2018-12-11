@@ -29,15 +29,15 @@ public class ProductController {
             productRepository.saveAndFlush(product);
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status", "failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/promotions")
     public ResponseEntity<?> getPromotionProducts() {
     	JSONObject response = new JSONObject();
@@ -45,15 +45,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllPromotionProducts());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/names/{name}")
     public ResponseEntity<?> getProductsNames(@PathVariable("name") String name ) {
     	JSONObject response = new JSONObject();
@@ -61,15 +61,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getProductsNames(name));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/products/{name}")
     public ResponseEntity<?> getProductsByName(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
@@ -77,15 +77,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllProducts(name));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/products/category/{category}")
     public ResponseEntity<?> getProductsFromCategory(@PathVariable("category") String category) {
     	JSONObject response = new JSONObject();
@@ -93,15 +93,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllProductsFromCategory(category));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/products/shop/{shop}")
     public ResponseEntity<?> getProductsFromShop(@PathVariable("shop") String shop) {
     	JSONObject response = new JSONObject();
@@ -109,15 +109,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllProductsFromShop(shop));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/products/favourite/{favouriteid}")
     public ResponseEntity<?> getProductsFromFavourite(@PathVariable("favouriteid") int favouriteid) {
     	JSONObject response = new JSONObject();
@@ -125,15 +125,15 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllProductsFromFavourite(favouriteid));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping("/products/cart/{cartid}")
     public ResponseEntity<?> getProductsFromCart(@PathVariable("cartid") int cartid) {
     	JSONObject response = new JSONObject();
@@ -141,29 +141,29 @@ public class ProductController {
             response.put("status", "ok");
             response.put("data", productRepository.getAllProductsFromCart(cartid));
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
-    
+
     @PutMapping("/modify")
     public ResponseEntity<?> modifyProduct(@RequestBody Product product) {
     	JSONObject response = new JSONObject();
         try {
         	productRepository.modifyProduct(product);
-        	
+
             response.put("status", "ok");
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
             response.put("status","failure");
             response.put("msg", e.getMessage());
 
-            return new ResponseEntity<String>(response.toJSONString(), HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }
