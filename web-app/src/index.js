@@ -5,11 +5,12 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './Root';
 import configureStore, { browserHistory } from './store';
-import history from './history';
 
 const store = configureStore();
 
 render(
-    <Root store={store} history={browserHistory} />,
+        <AppContainer>
+            <Root store={store} history={browserHistory} />
+        </AppContainer>,
     document.getElementById('root')
-)
+);

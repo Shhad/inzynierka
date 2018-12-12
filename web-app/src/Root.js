@@ -2,12 +2,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import {Switch, Route, Router} from 'react-router';
 
-import routes from './routes';
+import { App } from "./components/AppContainer";
+import { User } from "./components/UserContainer";
+import { Favourite } from "./components/FavouriteContainer";
 
 
 export default class Root extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     static propTypes = {
         store: PropTypes.object.isRequired,
@@ -17,9 +23,15 @@ export default class Root extends React.Component {
     render() {
         return (
             <Provider store={this.props.store}>
-                <div>
-                    <Router history={this.props.history} routes={routes} />
-                </div>
+                    <Router history={this.props.history}>
+                        <div>
+                            <Switch>
+                                <Route exact path="/" component={App}/>
+                                <Route path="/userpanel" component={User}/>
+                                <Route path="/favourite" component={Favourite}/>
+                            </Switch>
+                        </div>
+                    </Router>
             </Provider>
         );
     }

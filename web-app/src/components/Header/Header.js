@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import history from '../../history';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -94,10 +96,27 @@ const styles = theme => ({
 });
 
 class Header extends React.Component {
-    state = {
-        anchorEl: null,
-        mobileMoreAnchorEl: null,
-        auth: true,
+    constructor(props) {
+        super(props);
+        console.log(this.props);
+        this.state = {
+            search: String,
+            anchorEl: null,
+            mobileMoreAnchorEl: null,
+            auth: true,
+        };
+    }
+
+    handleChangeSearch = (event) => {
+        const target = event.target;
+        const value = target.value;
+        this.setState({search: value});
+        console.log(this.state.search);
+    };
+
+    passHandleChangeSearch = () => {
+        console.log(this.props);
+        this.props.change(this.state.search);
     };
 
     handleChange = event => {
@@ -121,6 +140,18 @@ class Header extends React.Component {
         this.setState({ mobileMoreAnchorEl: null });
     };
 
+    goToFavourites = () => {
+        history.push('/favourite');
+    };
+
+    goToUserProfile = () => {
+        history.push('/userpanel');
+    };
+
+    goToCarts = () => {
+        history.push('/carts');
+    };
+
     openNewWindow = () => window.open(window.location.href, '_blank');
 
     render() {
@@ -137,9 +168,9 @@ class Header extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.handleMenuClose}>Ulubione</MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>Moje koszyki</MenuItem>
-                <MenuItem onClick={this.handleMenuClose}>Konto</MenuItem>
+                <MenuItem onClick={this.goToFavourites}>Ulubione</MenuItem>
+                <MenuItem onClick={this.goToCarts}>Moje koszyki</MenuItem>
+                <MenuItem onClick={this.goToUserProfile}>Konto</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>Wyloguj</MenuItem>
             </Menu>
         );
@@ -194,13 +225,13 @@ class Header extends React.Component {
                             minWidth: '60px',
                             marginRight: '10px'
                         }}>
-                            <img src={'../../resources/img/shopping_cart.jpg'} alt={'App icon'} />
+                            <ShoppingCart />
                         </FlatButton>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                             ShopMe v0.0.1
                         </Typography>
                         <div className={classes.search}>
-                            <div className={classes.searchIcon}>
+                            <div className={classes.searchIcon} onClick={this.passHandleChangeSearch}>
                                 <SearchIcon />
                             </div>
                             <InputBase
@@ -209,16 +240,13 @@ class Header extends React.Component {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
+                                onChange={this.handleChangeSearch}
                             />
                         </div>
+                        <SearchIcon onClick={this.passHandleChangeSearch}/>
                         <div className={classes.grow} />
                         {auth &&
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <MailIcon/>
-                                </Badge>
-                            </IconButton>
                             <IconButton color="inherit">
                                 <Badge badgeContent={17} color="secondary">
                                     <NotificationsIcon/>

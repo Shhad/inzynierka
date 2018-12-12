@@ -1,13 +1,15 @@
 import {
     Map,
-    List
+    List,
+    fromJS
 } from 'immutable';
 
 const INITIAL_STATE = Map({
     productList: List([]),
     view: Map({
         isLoading: false,
-        errorLoading: false
+        errorLoading: false,
+        errorMessage: String
     })
 });
 
@@ -25,14 +27,30 @@ export default function (state = INITIAL_STATE, action) {
                 productList: action.payload,
                 view: {
                     isLoading: false,
-                    errorLoading: false
+                    errorLoading: false,
+                    errorMessage: 'Wykonano idealnie.'
                 }
             });
         case 'GET_PRODUCTS_FAILURE':
             return state.merge({
                 view: {
                     isLoading: false,
-                    errorLoading: true
+                    errorLoading: true,
+                    errorMessage: 'Wystąpił błąd podczas pobierania produktów.'
+                }
+            });
+        case 'ADD_PRODUCT_SUCCESS':
+            return state.merge({
+                view: {
+                    errorLoading: false,
+                    errorMessage: ''
+                }
+            });
+        case 'ADD_PRODUCT_FAILURE':
+            return state.merge({
+                view: {
+                    errorLoading: true,
+                    errorMessage: 'Wystąpił błąd podczas dodawania produktu.'
                 }
             });
         default: return state;
