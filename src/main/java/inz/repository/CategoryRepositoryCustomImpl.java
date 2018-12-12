@@ -20,7 +20,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
     @Override
     public List<String> getCategoryNames(String name) {
-        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"category\" WHERE name LIKE ? + '%'", Category.class);
+        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"category\" WHERE name LIKE CONCAT(?,'%')", Category.class);
         query.setParameter(1, name);
 
         List<Category> queryResult = query.getResultList();
@@ -30,5 +30,12 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
         }
 
         return result;
+    }
+
+    @Override
+    public int getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"category\"", Category.class);
+
+        return (int)query.getSingleResult();
     }
 }

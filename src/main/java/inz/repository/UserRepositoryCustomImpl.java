@@ -50,5 +50,12 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         query.setParameter(2, id);
         query.executeUpdate();
     }
+
+    @Override
+    public int getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"users\"", User.class);
+
+        return (int)query.getSingleResult();
+    }
 }
 

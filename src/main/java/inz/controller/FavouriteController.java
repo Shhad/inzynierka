@@ -24,14 +24,11 @@ public class FavouriteController {
     @Autowired
     private FavouriteProductsRepository favouriteProductsRepository;
 
-    @Autowired
-    private FavouriteProductsRepository fpRepository;
-
     @PostMapping("/add")//dziala
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         JSONObject response = new JSONObject();
         try {
-            favourite.setFavouriteId(new Integer((int)favouriteRepository.count() + 1));
+            favourite.setFavouriteId(favouriteRepository.getCount() + 1);
             favouriteRepository.saveAndFlush(favourite);
 
             response.put("status", "ok");
@@ -55,7 +52,7 @@ public class FavouriteController {
             FavouriteProducts favouriteProducts = new FavouriteProducts();
             favouriteProducts.setFavouriteId(new Integer(json.get("favouriteid").toString()));
             favouriteProducts.setFavouriteId(new Integer(json.get("productid").toString()));
-            favouriteProducts.setId(new Integer((int)favouriteProductsRepository.count() + 1));
+            favouriteProducts.setId(favouriteProductsRepository.getCount() + 1);
 
             favouriteProductsRepository.saveAndFlush(favouriteProducts);
 
@@ -76,11 +73,7 @@ public class FavouriteController {
         JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            List<Favourite> result = new ArrayList<Favourite>();
-            for(Favourite f: favouriteRepository.getAllFavourites()) {
-                result.add(new Favourite(f.getFavouriteId(), f.getUserId(), f.getName()));
-            }
-            response.put("data", result);
+            response.put("data", favouriteRepository.findAll());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {

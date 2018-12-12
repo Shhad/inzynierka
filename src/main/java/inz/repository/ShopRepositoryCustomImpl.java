@@ -20,25 +20,15 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
     EntityManager entityManager;
 
     @Override
-    public void addShop(Shop shop) {
-        /*Query query = entityManager.createNativeQuery("INSERT INTO \"shop\" (name, localization, street, number, country, city, telnumber, site) VALUES (?,?,?,?,?,?,?,?)", Shop.class);
-        query.setParameter(1, shop.getName());
-        query.setParameter(2, shop.getLocalization());
-        query.setParameter(3, shop.getStreet());
-        query.setParameter(4, shop.getNumber());
-        query.setParameter(5, shop.getCountry());
-        query.setParameter(6, shop.getCity());
-        query.setParameter(7, shop.getTelnumber());
-        query.setParameter(8, shop.getSite());
-        */
-        entityManager.getTransaction().begin();
-        entityManager.persist(shop);
-        entityManager.getTransaction().commit();
+    public int getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"shop\"", Shop.class);
+
+        return (int)query.getSingleResult();
     }
 
     @Override
     public List<Shop> getShopsByName(String name) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"shop\" WHERE name LIKE ? + '%'", Shop.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
         query.setParameter(1, name);
 
         return query.getResultList();
@@ -46,7 +36,7 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
 
     @Override
     public List<String> getShopsName(String name) {
-        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"shop\" WHERE name LIKE ? + '%'", Shop.class);
+        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
         query.setParameter(1, name);
 
         List<Shop> queryResult = query.getResultList();

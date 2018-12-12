@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 public interface ShopRepositoryCustom {
 
-    void addShop(Shop shop);
     List<Shop> getShopsByName(String name);
     List<String> getShopsName(String name);
+    int getCount();
 }

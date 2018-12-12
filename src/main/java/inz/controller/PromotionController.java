@@ -18,7 +18,7 @@ public class PromotionController {
     @Autowired
     PromotionRepository promotionRepository;
 
-    @PostMapping("/add")
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> addPromotion(@RequestBody Promotion promotion) {
         JSONObject response = new JSONObject();
         try {

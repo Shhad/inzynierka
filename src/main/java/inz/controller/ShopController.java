@@ -39,12 +39,12 @@ public class ShopController {
         }
 	}
 
-	@GetMapping("/shops")//napisac wlasny getall
+	@GetMapping("/shops")//dziala
 	public ResponseEntity<?> getShops() {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", shopRepository.findAll().toArray());
+            response.put("data", shopRepository.findAll());
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {

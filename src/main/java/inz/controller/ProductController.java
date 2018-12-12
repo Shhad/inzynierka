@@ -1,8 +1,13 @@
 package inz.controller;
 
+import inz.model.Favourite;
 import inz.model.Product;
+import inz.model.Shop;
+import inz.repository.CategoryRepository;
 import inz.repository.ProductRepository;
+import inz.repository.ShopRepository;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -21,11 +29,17 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @PostMapping("/add")
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ShopRepository shopRepository;
+
+    @PostMapping("/add")//dziala
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         JSONObject response = new JSONObject();
         try {
-        	product.setProductId(new Integer((int)productRepository.count() + 1));
+        	product.setProductId(productRepository.getCount() + 1);
             productRepository.saveAndFlush(product);
             response.put("status", "ok");
 
@@ -38,7 +52,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/promotions")
+    @GetMapping("/promotions")//dziala
     public ResponseEntity<?> getPromotionProducts() {
     	JSONObject response = new JSONObject();
         try {
@@ -54,7 +68,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/names/{name}")
+    @GetMapping("/names/{name}")//dziala
     public ResponseEntity<?> getProductsNames(@PathVariable("name") String name ) {
     	JSONObject response = new JSONObject();
         try {
@@ -70,7 +84,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/{name}")
+    @GetMapping("/products/{name}")//dziala
     public ResponseEntity<?> getProductsByName(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {
@@ -87,7 +101,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/category/{category}")
-    public ResponseEntity<?> getProductsFromCategory(@PathVariable("category") String category) {
+    public ResponseEntity<?> getProductsFromCategory(@PathVariable("category") int category) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
@@ -103,7 +117,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/shop/{shop}")
-    public ResponseEntity<?> getProductsFromShop(@PathVariable("shop") String shop) {
+    public ResponseEntity<?> getProductsFromShop(@PathVariable("shop") int shop) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
@@ -150,6 +164,38 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/products/filter")
+    public ResponseEntity<?> getProductsFromFilter(@RequestBody String body) {
+        JSONObject response = new JSONObject();
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(body);
+
+            List<Integer> categories = new ArrayList<Integer>();
+            List<Integer> shops = new ArrayList<Integer>();
+
+            for(Favourite f: (List<Favourite>)json.get("favourites")) {
+                System.out.println(f.getName());
+                categories.add(f.getFavouriteId());
+            }
+
+            for(Shop s: (List<Shop>)json.get("shops")) {
+                System.out.println(s.getName());
+                categories.add(s.getShopId());
+            }
+
+            response.put("status", "ok");
+            response.put("data", productRepository.getFromFilter(categories, shops, json.get("name").toString()));
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception e) {
+            response.put("status","failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
     @PutMapping("/modify")
     public ResponseEntity<?> modifyProduct(@RequestBody Product product) {
     	JSONObject response = new JSONObject();
@@ -166,4 +212,6 @@ public class ProductController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
+
+
 }

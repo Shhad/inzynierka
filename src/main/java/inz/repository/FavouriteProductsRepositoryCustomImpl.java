@@ -43,10 +43,17 @@ public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsR
     }
 
     @Override
-    public void addProduct(String productid, String favouriteid) {
+    public void addProduct(Integer productid, Integer favouriteid) {
         Query query = entityManager.createNativeQuery("INSERT INTO \"favouriteproducts\" (favouriteid, productid) VALUES (?,?)", Favourite.class);
         query.setParameter(1, favouriteid);
         query.setParameter(2, productid);
         query.executeUpdate();
+    }
+
+    @Override
+    public int getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"favouriteproducts\"", FavouriteProducts.class);
+
+        return (int)query.getSingleResult();
     }
 }

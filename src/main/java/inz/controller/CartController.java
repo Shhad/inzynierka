@@ -24,7 +24,7 @@ public class CartController {
     public ResponseEntity<?> addCart(@RequestBody Cart cart) {
         JSONObject response = new JSONObject();
         try {
-            cart.setCartId(new Integer((int)cartRepository.count() + 1));
+            cart.setCartId(cartRepository.getCount() + 1);
             cartRepository.saveAndFlush(cart);
 
             response.put("status", "ok");

@@ -10,4 +10,5 @@ public interface CartRepositoryCustom {
 
 	List<Cart> getUserCarts(Integer userid);
 	List<Cart> getFavouriteCart(Integer favouriteid);
+	int getCount();
 }

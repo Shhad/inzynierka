@@ -8,7 +8,6 @@ import inz.model.Favourite;
 
 public interface FavouriteRepositoryCustom {
 
-	List<Favourite> getAllFavourites();
-    void addFavourite(Favourite favourite);
     List<Favourite> getUserFavourites(int userid);
+    int getCount();
 }

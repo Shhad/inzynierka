@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepositoryCustom {
 
     List<String> getCategoryNames(String name);
+    int getCount();
 }

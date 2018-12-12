@@ -24,7 +24,7 @@ public class CategoryController {
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         JSONObject response = new JSONObject();
         try {
-            category.setCategoryId(new Integer((int)categoryRepository.count() + 1));
+            category.setCategoryId(categoryRepository.getCount() + 1);
             categoryRepository.saveAndFlush(category);
 
             response.put("status", "ok");
@@ -38,24 +38,7 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCategory(@RequestBody String body) {
-        JSONObject response = new JSONObject();
-        try {
-            //TODO
-
-            response.put("status", "ok");
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch(Exception e) {
-            response.put("status","failure");
-            response.put("msg", e.getMessage());
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("/categories")//napisac wlasny get all
+    @GetMapping("/categories")//dziala
     public ResponseEntity<?> getCategories() {
     	JSONObject response = new JSONObject();
         try {

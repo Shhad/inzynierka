@@ -38,32 +38,14 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public void addProduct(Product product) {
-
-        Query query = entityManager.createNativeQuery("INSERT  INTO \"product\" (categoryid, shopid, name, description, price, currency, link) VALUES (?,?,?,?,?,?,?)", Product.class);
-        query.setParameter(1, product.getCategoryId());
-        query.setParameter(2, product.getShopId());
-        query.setParameter(3, product.getName());
-        query.setParameter(4, product.getDescription());
-        query.setParameter(5, product.getPrice());
-        query.setParameter(6, product.getCurrency());
-        query.setParameter(7, product.getLink());
-        /*
-        entityManager.getTransaction().begin();
-        entityManager.persist(product);
-        entityManager.getTransaction().commit();
-        */
-    }
-
-    @Override
     public List<Product> getAllPromotionProducts() {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"promotion\" WHERE productid IS NOT NULL )", Product.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"promotion\" WHERE productid IS NOT NULL) ORDER BY price DESC", Product.class);
         return query.getResultList();
     }
 
     @Override
     public List<String> getProductsNames(String name) {
-        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"product\" WHERE name LIKE ? + '%'", Product.class);
+        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"product\" WHERE name LIKE CONCAT(?,'%')", Product.class);
         query.setParameter(1, name);
 
         List<Product> queryResult = query.getResultList();
@@ -77,7 +59,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Override
     public List<Product> getAllProducts(String name) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE name LIKE ? + '%'", Product.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE name LIKE CONCAT('%', ?,'%') ORDER BY price DESC", Product.class);
         query.setParameter(1, name);
 
         return query.getResultList();
@@ -116,16 +98,16 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
 	@Override
-	public List<Product> getAllProductsFromCategory(String category) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE categoryid = (SELECT categoryid FROM \"category\" WHERE name = ?)", Product.class);
+	public List<Product> getAllProductsFromCategory(int category) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE categoryid = ?", Product.class);
 		query.setParameter(1, category);
 
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Product> getAllProductsFromShop(String shop) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE shopid = (SELECT categoryid FROM \"shop\" WHERE name = ?)", Product.class);
+	public List<Product> getAllProductsFromShop(int shop) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE shopid = ?", Product.class);
 		query.setParameter(1, shop);
 
 		return query.getResultList();
@@ -147,5 +129,20 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 		return query.getResultList();
 	}
 
+    @Override
+    public List<Product> getFromFilter(List<Integer> categories, List<Integer> shops, String name) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE shopid IN(?) AND categoryid IN(?) AND name LIKE CONCAT('%',?,'%') ORDER BY price DESC", Product.class);
+        query.setParameter(1, categories);
+        query.setParameter(2, shops);
+        query.setParameter(3, name);
 
+        return query.getResultList();
+    }
+
+    @Override
+    public int getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"product\"", Product.class);
+
+        return (int)query.getSingleResult();
+    }
 }

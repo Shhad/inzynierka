@@ -35,4 +35,11 @@ public class CartRepositoryCustomImpl implements CartRepositoryCustom {
 		return query.getResultList();
 	}
 
+	@Override
+	public int getCount() {
+		Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"cart\"", Cart.class);
+
+		return (int)query.getSingleResult();
+	}
+
 }
