@@ -6,6 +6,7 @@ import inz.model.Shop;
 import inz.repository.CategoryRepository;
 import inz.repository.ProductRepository;
 import inz.repository.ShopRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -164,7 +166,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/filter")
+    @GetMapping("/products/filter") //dziala
     public ResponseEntity<?> getProductsFromFilter(@RequestBody String body) {
         JSONObject response = new JSONObject();
         try {
@@ -174,14 +176,24 @@ public class ProductController {
             List<Integer> categories = new ArrayList<Integer>();
             List<Integer> shops = new ArrayList<Integer>();
 
-            for(Favourite f: (List<Favourite>)json.get("favourites")) {
-                System.out.println(f.getName());
-                categories.add(f.getFavouriteId());
+            JSONArray cat = (JSONArray) json.get("categories");
+            Iterator i = cat.iterator();
+
+            while (i.hasNext()) {
+                JSONObject category = (JSONObject) i.next();
+                String categoryid = category.get("categoryid").toString();
+                System.out.println(categoryid);
+                categories.add(Integer.parseInt(categoryid));
             }
 
-            for(Shop s: (List<Shop>)json.get("shops")) {
-                System.out.println(s.getName());
-                categories.add(s.getShopId());
+            JSONArray sh = (JSONArray) json.get("shops");
+            i = sh.iterator();
+
+            while (i.hasNext()) {
+                JSONObject shop = (JSONObject) i.next();
+                String shopid = shop.get("shopid").toString();
+                System.out.println(shopid);
+                shops.add(Integer.parseInt(shopid));
             }
 
             response.put("status", "ok");

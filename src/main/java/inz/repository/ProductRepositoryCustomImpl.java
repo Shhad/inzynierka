@@ -131,7 +131,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Override
     public List<Product> getFromFilter(List<Integer> categories, List<Integer> shops, String name) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE shopid IN(?) AND categoryid IN(?) AND name LIKE CONCAT('%',?,'%') ORDER BY price DESC", Product.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE categoryid IN(?1) AND shopid IN(?2) AND name LIKE CONCAT('%',?3,'%') ORDER BY price DESC", Product.class);
         query.setParameter(1, categories);
         query.setParameter(2, shops);
         query.setParameter(3, name);
