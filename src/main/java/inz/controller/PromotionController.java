@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PromotionController {
 
     @Autowired
-    PromotionRepository promotionRepository;
+    private PromotionRepository promotionRepository;
 
     @PostMapping("/add")//dziala
     public ResponseEntity<?> addPromotion(@RequestBody Promotion promotion) {
