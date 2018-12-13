@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header/Header';
 import ProductSpace from './ProductsSpace/ProductSpace';
 import Loading from './Loading';
 import { Filter } from './Filters/Filter';
-
-import { getProducts } from '../reducers/action-creators';
+import { getProducts, getFilteredProducts } from '../reducers/action-creators';
 
 class AppContainer extends React.Component {
 
@@ -15,19 +13,31 @@ class AppContainer extends React.Component {
         this.state = {
             products: true,
             user: false,
-            productName: ''
+            productName: '',
+            categories: [],
+            shops: []
         };
     }
 
     specificSearch = (name) => {
-        console.log(name);
         this.setState({productName: name});
-        console.log(this.state.productName);
+    };
+
+    filterShop = (shops) => {
+        this.setState({shops: shops});
+    };
+
+    filterCategory = (categories) => {
+        this.setState({categories: categories});
     };
 
     componentWillMount() {
         this.props.getProducts();
-    }
+    };
+
+    filterProducts = () => {
+        this.props.getFilteredProducts();
+    };
 
     render() {
         return (
@@ -39,16 +49,12 @@ class AppContainer extends React.Component {
                 width: '100%',
                 height: '100%'
             }}>
-                <Header change={this.specificSearch} />
-                <h1>Filtry</h1>
-                <Filter />
+                <Header change={this.specificSearch} newFilter={this.filterProducts} />
+                <Filter filterShops={this.filterShop} filterCategory={this.filterCategory}/>
                 {this.props.isLoading ?
                     <Loading /> :
                     <ProductSpace productList={this.props.productList} />
                 }
-                <div>
-                    {this.props.children}
-                </div>
             </div>
         );
     }
@@ -63,7 +69,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getProducts: () => dispatch(getProducts())
+        getProducts: () => dispatch(getProducts()),
+        getFilteredProducts: (categories, shops, name) => dispatch(getFilteredProducts(categories, shops, name))
     }
 }
 

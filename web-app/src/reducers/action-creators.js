@@ -4,6 +4,12 @@ export function getProducts() {
     };
 }
 
+export function getFilteredProducts() {
+    return {
+        type: 'GET_FILTERED_PRODUCTS'
+    };
+}
+
 export function addProduct() {
     return {
         type: 'ADD_PRODUCT'

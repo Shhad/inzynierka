@@ -14,13 +14,11 @@ import reducerCategory from './reducers/categoryReducer';
 import reducerUser from './reducers/userReducer';
 
 //Sagas
-import favouriteSaga from './sagas/favouriteSagas';
-import rootSaga from './sagas/sagas';
-import shopSaga from './sagas/shopSagas';
-import categorySaga from './sagas/categorySagas';
-import userSaga from './sagas/userSagas';
-
-import reducer from './reducers/index';
+import favouriteSaga from './sagas/favouriteSaga';
+import rootSaga from './sagas/productSaga';
+import shopSaga from './sagas/shopSaga';
+import categorySaga from './sagas/categorySaga';
+import userSaga from './sagas/userSaga';
 
 // Create history
 export const browserHistory = customHistory;

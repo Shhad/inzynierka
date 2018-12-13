@@ -1,7 +1,4 @@
-import {
-    Map,
-    List
-} from 'immutable';
+import { Map, List } from 'immutable';
 
 const FAVOURITE_STATE = Map({
     categoryList: List([]),
