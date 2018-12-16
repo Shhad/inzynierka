@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header/Header';
-import { fromJS } from 'immutable'
+import history from '../history';
 
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -34,6 +34,9 @@ class UserContainer extends React.Component {
             saveButton: false,
             modifyButton: true
         };
+        if(!this.props.loggedIn) {
+            history.push('/')
+        }
     }
 
     componentDidMount() {
@@ -140,7 +143,7 @@ class UserContainer extends React.Component {
 
         return (
             <div>
-                <Header/>
+                <Header loggedIn={this.props.loggedIn} />
                 <AppBar style={{
                     position: 'static',
                     maxWidth: '800px',
@@ -153,9 +156,8 @@ class UserContainer extends React.Component {
                         <Tab label="Zmiana hasła" />
                     </Tabs>
                 </AppBar>
-                {this.rednderFrom()} &&
+                {this.rednderFrom()}
                 {value === 0 &&
-
                     <div style={{
                         alignContent: 'center',
                         alignItems: 'center',
@@ -166,9 +168,12 @@ class UserContainer extends React.Component {
 
                         {this.state.modifyButton &&
                             <Button onClick={this.handleClickModyfi} style={{
-                                margin: '0 auto'
+                                margin: '0 auto',
+                                border: '5px',
+                                borderColor: '#A59A9A',
+                                backgroundColor: '#3f51b5'
                             }}>
-                                Modyfikuj
+                                <h4 style={{color: 'white'}}>Modyfikuj</h4>
                             </Button>
                         }
                         {this.state.saveButton &&
@@ -183,7 +188,6 @@ class UserContainer extends React.Component {
                                 Anuluj
                             </Button>
                         }
-
                     </div>
                 }
                 {value === 1 &&
@@ -234,7 +238,8 @@ class UserContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        userData: state.getIn(['reducerUser','user'])
+        userData: state.getIn(['reducerUser','user']),
+        loggedIn: state.getIn(['reducerUser', 'isLogged'])
     };
 }
 

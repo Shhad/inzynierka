@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Product from './Product';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -10,12 +11,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 import { addProduct } from "../../reducers/action-creators";
+import MenuItem from "@material-ui/core/MenuItem";
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
 
-export default class ProductContainer extends React.Component {
+class ProductContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,18 +32,10 @@ export default class ProductContainer extends React.Component {
                 category: 0,
                 price: 0.00,
                 currency: '',
-                url: '',
                 link: ''
-            },
-            name: '',
-            description: '',
-            shop: 0,
-            category: 0,
-            price: 0.00,
-            currency: '',
-            url: '',
-            link: ''
+            }
         };
+        console.log(this.props.loggedIn);
     }
 
     componentWillMount() {
@@ -49,15 +43,7 @@ export default class ProductContainer extends React.Component {
     }
 
     validateDetails = () => {
-        console.log('Checking if everything is writen correctly');
-        console.log(this.state.newProductDialog.name);
-        console.log(this.state.newProductDialog.description);
-        console.log(this.state.newProductDialog.category);
-        console.log(this.state.newProductDialog.shop);
-        console.log(this.state.newProductDialog.price);
-        console.log(this.state.newProductDialog.currency);
-        console.log(this.state.newProductDialog.url);
-        console.log(this.state.newProductDialog.link);
+        this.props.addProduct(this.state.newProductDialog);
     };
 
     newProductStateChange = (evt) => {
@@ -83,20 +69,21 @@ export default class ProductContainer extends React.Component {
 
         return (
             <div className={'row'}>
-                {productList.map(product => <Product id={product.id} {...product}/>)}
+                {productList.map(product => <Product loggedIn={this.props.loggedIn} id={product.id} {...product}/>)}
 
-                <Fab style={{
-                        margin: 0,
-                        top: 'auto',
-                        right: 20,
-                        bottom: 20,
-                        left: 'auto',
-                        position: 'fixed',
-                        color: '#000000',
-                        backgroundColor: '#F24F4F'
-                    }} onClick={this.openNewDialog}>
+                {this.props.loggedIn && <Fab style={{
+                    margin: 0,
+                    top: 'auto',
+                    right: 20,
+                    bottom: 20,
+                    left: 'auto',
+                    position: 'fixed',
+                    color: '#000000',
+                    backgroundColor: '#F24F4F'
+                }} onClick={this.openNewDialog}>
                     <AddIcon />
-                </Fab>
+                </Fab>}
+
 
                 <Dialog
                     open={this.state.newProduct}
@@ -188,11 +175,10 @@ export default class ProductContainer extends React.Component {
                             />
                             <TextField
                                 autoFocus
-                                id="new-product-url"
-                                name='url'
+                                id="new-product-link"
+                                name='link'
                                 label="Link do zdjęcia"
                                 onBlur={this.newProductStateChange}
-                                helperText="Podaj link do zdjęcia"
                                 type='url'
                                 margin="normal"
                                 style={{
@@ -200,17 +186,26 @@ export default class ProductContainer extends React.Component {
                                 }}
                             />
                             <TextField
-                                autoFocus
-                                id="new-product-link"
-                                name='link'
-                                label="Link do sklepu"
-                                onBlur={this.newProductStateChange}
-                                type='url'
+                                disabled={this.state.modifyButton}
+                                id="standard-select-currency"
+                                select
+                                label="Sklep"
+                                value={this.state.shop}
+                                onChange={this.handleShopChange}
+                                helperText="Wybierz sklep"
                                 margin="normal"
                                 style={{
-                                    width: '400px'
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
                                 }}
-                            />
+                            >
+                                {this.props.shopList.map(option => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         </form>
                     </DialogContent>
                     <DialogActions>
@@ -229,15 +224,18 @@ export default class ProductContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        productList: state.get('productList'),
-        isLoading: state.getIn(['view', 'isLoading'])
+        productList: state.getIn(['reducerProduct', 'productList']),
+        shopList: state.getIn(['reducerShop', 'shopList']),
+        isLoading: state.getIn(['reducerProduct', 'view', 'isLoading'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        addProduct: () => dispatch(addProduct())
+        addProduct: (product) => dispatch(addProduct(product))
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductContainer);
 
 

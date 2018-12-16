@@ -103,7 +103,7 @@ class Header extends React.Component {
             search: String,
             anchorEl: null,
             mobileMoreAnchorEl: null,
-            auth: true,
+            auth: this.props.loggedIn,
         };
     }
 
@@ -148,8 +148,8 @@ class Header extends React.Component {
         history.push('/userpanel');
     };
 
-    goToCarts = () => {
-        history.push('/carts');
+    goShopping = () => {
+        history.push('/');
     };
 
     openNewWindow = () => window.open(window.location.href, '_blank');
@@ -168,8 +168,8 @@ class Header extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
+                <MenuItem onClick={this.goShopping}>Na zakupy!</MenuItem>
                 <MenuItem onClick={this.goToFavourites}>Ulubione</MenuItem>
-                <MenuItem onClick={this.goToCarts}>Moje koszyki</MenuItem>
                 <MenuItem onClick={this.goToUserProfile}>Konto</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>Wyloguj</MenuItem>
             </Menu>
@@ -243,15 +243,16 @@ class Header extends React.Component {
                                 onChange={this.handleChangeSearch}
                             />
                         </div>
-                        <SearchIcon onClick={this.passHandleChangeSearch}/>
+                        <FlatButton>
+                            <h4 style={{
+                                color: 'white',
+                                marginRight: '5px'
+                            }}>Szukaj  </h4>
+                            <SearchIcon onClick={this.passHandleChangeSearch}/>
+                        </FlatButton>
                         <div className={classes.grow} />
                         {auth &&
                         <div className={classes.sectionDesktop}>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={17} color="secondary">
-                                    <NotificationsIcon/>
-                                </Badge>
-                            </IconButton>
                             <IconButton
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                                 aria-haspopup="true"
@@ -260,6 +261,15 @@ class Header extends React.Component {
                             >
                                 <AccountCircle/>
                             </IconButton>
+                        </div>
+                        }
+                        {!auth &&
+                        <div className={classes.sectionDesktop}>
+                            <FlatButton style={{
+                                borderColor: '#A59A9A'
+                            }}>
+                                <h3 style={{ color: 'white' }}>Zaloguj</h3>
+                            </FlatButton>
                         </div>
                         }
                         <div className={classes.sectionMobile}>

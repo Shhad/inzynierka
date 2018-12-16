@@ -3,45 +3,61 @@ import {
     select,
     takeLatest
 } from 'redux-saga/effects';
+import {SERWER_LOCAL} from "../constants/AppConstants";
 
 const getAllShopsFromServer = () => {
-    const data = [
-        {
-            shopid: 1,
-            name: 'Tesco',
-            localization: 'null',
-            street: 'ul. Fajna',
-            number: '43',
-            country: 'Polska',
-            city: 'Wroclaw',
-            telnumber: '111222333',
-            site: 'www.google.com'
-        },
-        {
-            shopid: 2,
-            name: 'Biedronka',
-            localization: 'null',
-            street: 'ul. Niefajna',
-            number: '32',
-            country: 'Polska',
-            city: 'Wroclaw',
-            telnumber: '111222333',
-            site: 'www.google.com'
-        },
-        {
-            shopid: 3,
-            name: 'Netto',
-            localization: 'null',
-            street: 'ul. Dziwna',
-            number: '1',
-            country: 'Polska',
-            city: 'Wroclaw',
-            telnumber: '111222333',
-            site: 'www.google.com'
+        try {
+            console.log('fetching with get shops');
+            const response = fetch(`${SERWER_LOCAL}/api/shop/shops`,{
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response);
+            console.log(response.body);
+            return JSON.parse(response.body);
+        } catch(e) {
+            console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+            const data = [
+                {
+                    shopid: 1,
+                    name: 'Tesco',
+                    localization: 'null',
+                    street: 'ul. Fajna',
+                    number: '43',
+                    country: 'Polska',
+                    city: 'Wroclaw',
+                    telnumber: '111222333',
+                    site: 'www.google.com'
+                },
+                {
+                    shopid: 2,
+                    name: 'Biedronka',
+                    localization: 'null',
+                    street: 'ul. Niefajna',
+                    number: '32',
+                    country: 'Polska',
+                    city: 'Wroclaw',
+                    telnumber: '111222333',
+                    site: 'www.google.com'
+                },
+                {
+                    shopid: 3,
+                    name: 'Netto',
+                    localization: 'null',
+                    street: 'ul. Dziwna',
+                    number: '1',
+                    country: 'Polska',
+                    city: 'Wroclaw',
+                    telnumber: '111222333',
+                    site: 'www.google.com'
+                }
+            ];
+            console.log(data);
+            return data;
         }
-    ];
-    console.log(data);
-    return data;
 };
 
 function* loadAllShops () {

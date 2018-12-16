@@ -5,6 +5,7 @@ import {
 
 const INITIAL_STATE = Map({
     user: Map(),
+    isLogged: true,
     view: Map({
         isLoading: false,
         errorLoading: false,
@@ -14,12 +15,10 @@ const INITIAL_STATE = Map({
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
-        case 'GET_USER_DATA':
+        case 'GET_USER_SUCCESS':
             return state.merge({
-                view: {
-                    isLoading: true,
-                    errorLoading: false
-                }
+                isLogged: true,
+                user: action.payload
             });
         case 'GET_USER_DATA_SUCCESS':
             return state.merge({

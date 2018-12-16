@@ -17,6 +17,7 @@ const MenuProps = {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
             width: 250,
+            margin: 'auto'
         },
     },
 };
@@ -37,10 +38,27 @@ class FilterContainer extends React.Component {
 
     handleChangeCategory = event => {
         this.setState({ categories: event.target.value });
+        const filteredCategories = [];
+        this.props.categoryList.map(category => {
+            console.log(category.name);
+            if(this.state.categories.includes(category.name)){
+                filteredCategories.push(category);
+            }
+        });
+        console.log(filteredCategories);
+        this.props.filterCategory(filteredCategories);
     };
 
     handleChangeShop = event => {
-        this.setState({shops: event.target.value})
+        this.setState({shops: event.target.value});
+        const filteredShops = [];
+        this.props.shopList.map(shop => {
+            if(this.state.categories.includes(shop.name)){
+                filteredShops.push(shop);
+            }
+        });
+        console.log(filteredShops);
+        this.props.filterShop(filteredShops);
     };
 
     render() {
@@ -48,16 +66,18 @@ class FilterContainer extends React.Component {
         const shops = this.props.shopList;
         return (
             <div style={{
-                padding: '5px',
-                margin: '10px',
-                alignItems: 'center',
-                alignContent: 'center'
+                margin: '0 auto',
+                padding: '10px'
             }}>
                 <FormControl style={{
                     width: '200',
                     maxWidth: '300',
-                    alignContent: 'center',
-                    alignItems: 'center'
+                    margin: '0 auto',
+                    padding: '20px',
+                    border: '3px',
+                    borderColor: '#A59A9A',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
                 }}>
                     <InputLabel htmlFor="select-multiple-chip">Kategorie</InputLabel>
                     <Select
@@ -91,7 +111,13 @@ class FilterContainer extends React.Component {
                 </FormControl>
                 <FormControl style={{
                     width: '200',
-                    maxWidth: '300'
+                    maxWidth: '300',
+                    margin: '0 auto',
+                    padding: '20px',
+                    border: '3px',
+                    borderColor: '#A59A9A',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
                 }}>
                     <InputLabel htmlFor="select-multiple-chip">Sklepy</InputLabel>
                     <Select

@@ -5,6 +5,8 @@ import Header from './Header/Header';
 import FavouriteSpace from './FavouriteSpace/FavouriteSpace';
 import Loading from './Loading';
 
+import history from '../history';
+
 import { getFavourites } from '../reducers/action-creators';
 
 class FavouriteContainer extends React.Component {
@@ -15,6 +17,9 @@ class FavouriteContainer extends React.Component {
             products: true,
             user: false,
         };
+        if(!this.props.loggedIn) {
+            history.push('/');
+        }
     }
 
     componentWillMount() {
@@ -33,7 +38,7 @@ class FavouriteContainer extends React.Component {
                 width: '100%',
                 height: '100%'
             }}>
-                <Header />
+                <Header  loggedIn={this.props.loggedIn} />
                 {this.props.isLoading ?
                     <Loading /> :
                     <FavouriteSpace favouriteList={this.props.favouriteList} />
@@ -49,7 +54,8 @@ class FavouriteContainer extends React.Component {
 function mapStateToProps(state) {
     return {
         favouriteList: state.getIn(['reducerFavourite', 'favouriteList']),
-        isLoading: state.getIn(['reducerFavourite', 'view', 'isLoading'])
+        isLoading: state.getIn(['reducerFavourite', 'view', 'isLoading']),
+        loggedIn: state.getIn(['reducerUser', 'isLogged'])
     };
 }
 

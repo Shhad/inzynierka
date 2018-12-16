@@ -12,10 +12,11 @@ class AppContainer extends React.Component {
         super(props);
         this.state = {
             products: true,
-            user: false,
+            user: {},
             productName: '',
             categories: [],
-            shops: []
+            shops: [],
+            logIn: false
         };
     }
 
@@ -25,6 +26,7 @@ class AppContainer extends React.Component {
 
     filterShop = (shops) => {
         this.setState({shops: shops});
+        console.log(this.state.shops);
     };
 
     filterCategory = (categories) => {
@@ -49,11 +51,11 @@ class AppContainer extends React.Component {
                 width: '100%',
                 height: '100%'
             }}>
-                <Header change={this.specificSearch} newFilter={this.filterProducts} />
-                <Filter filterShops={this.filterShop} filterCategory={this.filterCategory}/>
+                <Header change={this.specificSearch} newFilter={this.filterProducts} loggedIn={this.props.loggedIn} />
+                <Filter filterShop={this.filterShop} filterCategory={this.filterCategory}/>
                 {this.props.isLoading ?
                     <Loading /> :
-                    <ProductSpace productList={this.props.productList} />
+                    <ProductSpace productList={this.props.productList} loggedIn={this.props.loggedIn}/>
                 }
             </div>
         );
@@ -63,7 +65,8 @@ class AppContainer extends React.Component {
 function mapStateToProps(state) {
     return {
         productList: state.getIn(['reducerProduct', 'productList']),
-        isLoading: state.getIn(['reducerProduct', 'view', 'isLoading'])
+        isLoading: state.getIn(['reducerProduct', 'view', 'isLoading']),
+        loggedIn: state.getIn(['reducerUser', 'isLogged'])
     };
 }
 

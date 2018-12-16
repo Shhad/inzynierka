@@ -123,7 +123,8 @@ export default class ProductContainer extends React.Component {
 function mapStateToProps(state) {
     return {
         productList: state.get('productList'),
-        isLoading: state.getIn(['view', 'isLoading'])
+        isLoading: state.getIn(['view', 'isLoading']),
+
     };
 }
 

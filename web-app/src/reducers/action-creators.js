@@ -4,21 +4,56 @@ export function getProducts() {
     };
 }
 
-export function getFilteredProducts() {
+export function getFilteredProducts(shops, categories, name) {
     return {
-        type: 'GET_FILTERED_PRODUCTS'
+        type: 'GET_FILTERED_PRODUCTS',
+        shops,
+        categories,
+        name
     };
 }
 
-export function addProduct() {
+export function addProduct(product) {
     return {
-        type: 'ADD_PRODUCT'
+        type: 'ADD_PRODUCT',
+        product
     };
 }
 
-export function getFavourites() {
+export function modifyProduct(product) {
     return {
-        type: 'GET_FAVOURITES'
+        type: 'MODIFY_PRODUCT',
+        product
+    };
+}
+
+export function addFavourite(favourite) {
+    return {
+        type: 'ADD_FAVOURITE',
+        favourite
+    }
+}
+
+export function addFavouriteProduct(productid, favouriteid) {
+    return {
+        type: 'ADD_FAVOURITE_PRODUCT',
+        productid,
+        favouriteid
+    }
+}
+
+export function deleteFavouriteProduct(productid, favouriteid) {
+    return {
+        type: 'DELETE_FAVOURITE_PRODUCT',
+        productid,
+        favouriteid
+    }
+}
+
+export function getFavourites(userid) {
+    return {
+        type: 'GET_FAVOURITES',
+        userid
     };
 }
 
@@ -34,8 +69,24 @@ export function getShops() {
     }
 }
 
-export function getUser() {
+export function getUser(login, pass) {
     return {
-        type: 'GET_USER'
+        type: 'GET_USER',
+        login,
+        pass
+    }
+}
+
+export function modifyUser(user) {
+    return {
+        type: 'MODIFY_USER',
+        user
+    }
+}
+
+export function addUser(user) {
+    return {
+        type: 'ADD_USER',
+        user
     }
 }

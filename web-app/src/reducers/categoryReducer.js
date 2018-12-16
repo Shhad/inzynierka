@@ -24,7 +24,7 @@ export default function (state = FAVOURITE_STATE, action) {
                 view: {
                     isLoading: false,
                     errorLoading: false,
-                    errorMessage: 'Wykonano idealnie.'
+                    errorMessage: 'Wykonano prawidlowo.'
                 }
             });
         case 'GET_CATEGORIES_FAILURE':
@@ -32,7 +32,7 @@ export default function (state = FAVOURITE_STATE, action) {
                 view: {
                     isLoading: false,
                     errorLoading: true,
-                    errorMessage: 'Wystąpił błąd podczas pobierania kategorii.'
+                    errorMessage: 'Wystapil błąd podczas pobierania kategorii.'
                 }
             });
         default: return state;

@@ -2,33 +2,95 @@ import {
     put,
     takeLatest
 } from 'redux-saga/effects';
+import {SERWER_LOCAL} from "../constants/AppConstants";
 
-const getUserParams = () => {
-    const data = {
-        userid: 1,
-        name: 'Adam',
-        surname: 'Nieadminowicz',
-        login: 'loginek',
-        password: 'haselko',
-        email: 'xd@xd.pl',
-        isAdmin: false
-    };
-    console.log(data);
-    return data;
+const getUserParams = (login, pass) => {
+    try {
+        console.log('fetching with get user');
+        const response = fetch(`${SERWER_LOCAL}/api/user/login`,{
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                login: login,
+                password: pass
+            })
+        });
+        console.log(response);
+        console.log(response.body);
+        return JSON.parse(response.body);
+    } catch(e) {
+        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        const data = {
+            userid: 1,
+            name: 'Adam',
+            surname: 'Nieadminowicz',
+            login: 'loginek',
+            password: 'haselko',
+            email: 'xd@xd.pl',
+            isAdmin: false
+        };
+        console.log(data);
+        return data;
+    }
 };
 
 const addUser = (user) => {
-    const resposne = {
-        status: 'ok'
-    };
-    return resposne;
+    try {
+        console.log('fetching with get user');
+        const response = fetch(`${SERWER_LOCAL}/api/user/add`,{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: 0,
+                name: user.name,
+                surname: user.surname,
+                login: user.login,
+                password: user.password,
+                mail: user.mail,
+                admin: false
+            })
+        });
+        console.log(response);
+        console.log(response.body);
+        return response.status;
+    } catch(e) {
+        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        return true;
+    }
 };
 
 const modifyUser = (user) => {
-    const resposne = {
-        status: 'ok'
-    };
-    return resposne;
+    try {
+        console.log('fetching with get user');
+        const response = fetch(`${SERWER_LOCAL}/api/user/modify`,{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: 0,
+                name: user.name,
+                surname: user.surname,
+                login: user.login,
+                password: user.password,
+                mail: user.mail,
+                admin: false
+            })
+        });
+        console.log(response);
+        console.log(response.body);
+        return response.status;
+    } catch(e) {
+        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        return true;
+    }
 };
 
 function* loadUser () {
@@ -40,18 +102,18 @@ function* loadUser () {
     }
 }
 
-function* addUserFunction(user) {
+function* addUserFunction(action) {
     try {
-        yield addUser(user);
+        yield addUser(action.user);
         yield put({ type: 'ADD_USER_SUCCESS'});
     } catch (e) {
         yield put({ type: 'ADD_USER_FAILURE', payload: e});
     }
 }
 
-function* modifyUserFunction(user) {
+function* modifyUserFunction(action) {
     try {
-        yield modifyUser(user);
+        yield modifyUser(action.user);
         yield put({ type: 'ADD_USER_SUCCESS'});
     } catch (e) {
         yield put({ type: 'ADD_USER_FAILURE', payload: e});
@@ -62,8 +124,17 @@ function* watchGetUser() {
     yield takeLatest('GET_USER', loadUser);
 }
 
+function* watchAddUser() {
+    yield takeLatest('ADD_USER', addUserFunction);
+}
+
+function* watchModifyUser() {
+    yield takeLatest('MODIFY_USER', modifyUserFunction);
+}
 export default function* userSaga() {
     yield [
-        watchGetUser()
+        watchGetUser(),
+        watchAddUser(),
+        watchModifyUser()
     ]
 }

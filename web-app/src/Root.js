@@ -7,12 +7,16 @@ import {Switch, Route, Router} from 'react-router';
 import { App } from "./components/AppContainer";
 import { User } from "./components/UserContainer";
 import { Favourite } from "./components/FavouriteContainer";
+import {Login} from './components/LoginContainer';
 
 
 export default class Root extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            logIn: false
+        }
     }
 
     static propTypes = {
