@@ -25,7 +25,7 @@ public class ShopController {
 	public ResponseEntity<?> addProduct(@RequestBody Shop shop) {
     	JSONObject response = new JSONObject();
         try {
-        	shop.setShopId(new Integer((int) shopRepository.count() + 1));
+        	shop.setShopId(shopRepository.getCount().intValue() + 1);
         	shopRepository.saveAndFlush(shop);
 
             response.put("status", "ok");

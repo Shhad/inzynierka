@@ -28,7 +28,7 @@ public class FavouriteController {
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         JSONObject response = new JSONObject();
         try {
-            favourite.setFavouriteId(favouriteRepository.getCount() + 1);
+            favourite.setFavouriteId(favouriteRepository.getCount().intValue() + 1);
             favouriteRepository.saveAndFlush(favourite);
 
             response.put("status", "ok");
@@ -52,7 +52,7 @@ public class FavouriteController {
             FavouriteProducts favouriteProducts = new FavouriteProducts();
             favouriteProducts.setFavouriteId(new Integer(json.get("favouriteid").toString()));
             favouriteProducts.setFavouriteId(new Integer(json.get("productid").toString()));
-            favouriteProducts.setId(favouriteProductsRepository.getCount() + 1);
+            favouriteProducts.setId(favouriteProductsRepository.getCount().intValue() + 1);
 
             favouriteProductsRepository.saveAndFlush(favouriteProducts);
 

@@ -1,5 +1,6 @@
 package inz.repository;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +23,16 @@ public class FavouriteRepositoryCustomImpl implements FavouriteRepositoryCustom 
 
 	@Override
 	public List<Favourite> getUserFavourites(int userid) {
-		Query query = entityManager.createNativeQuery("SELECT f FROM favourite f WHERE f.userid = ?", Favourite.class);
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"favourite\" WHERE userid = ?", Favourite.class);
 		query.setParameter(1, userid);
 
 		return (List<Favourite>) query.getResultList();
 	}
 
 	@Override
-	public int getCount() {
-		Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"favourite\"", Favourite.class);
+	public BigInteger getCount() {
+		Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"favourite\"");
 
-		return (int)query.getSingleResult();
+		return (BigInteger)query.getSingleResult();
 	}
 }

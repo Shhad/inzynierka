@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,9 +141,9 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public int getCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"product\"", Product.class);
+    public BigInteger getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"product\"");
 
-        return (int)query.getSingleResult();
+        return (BigInteger)query.getSingleResult();
     }
 }

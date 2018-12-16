@@ -1,5 +1,6 @@
 package inz.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -36,10 +37,10 @@ public class CartRepositoryCustomImpl implements CartRepositoryCustom {
 	}
 
 	@Override
-	public int getCount() {
-		Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"cart\"", Cart.class);
+	public BigInteger getCount() {
+		Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM \"cart\"");
 
-		return (int)query.getSingleResult();
+		return (BigInteger)query.getSingleResult();
 	}
 
 }

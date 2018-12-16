@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
+
 @Repository
 @Transactional(readOnly = true)
 public class UserRepositoryCustomImpl implements UserRepositoryCustom {
@@ -52,10 +54,10 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public int getCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"users\"", User.class);
+    public BigInteger getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"users\"");
 
-        return (int)query.getSingleResult();
+        return (BigInteger) query.getSingleResult();
     }
 }
 

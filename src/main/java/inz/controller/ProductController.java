@@ -41,7 +41,7 @@ public class ProductController {
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         JSONObject response = new JSONObject();
         try {
-        	product.setProductId(productRepository.getCount() + 1);
+        	product.setProductId(productRepository.getCount().intValue() + 1);
             productRepository.saveAndFlush(product);
             response.put("status", "ok");
 

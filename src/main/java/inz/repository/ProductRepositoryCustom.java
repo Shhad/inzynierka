@@ -2,6 +2,7 @@ package inz.repository;
 
 import inz.model.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,5 @@ public interface ProductRepositoryCustom {
     List<Product> getAllProductsFromFavourite(int favouriteid);
     List<Product> getAllProductsFromCart(int cartid);
     List<Product> getFromFilter(List<Integer> categories, List<Integer> shops, String name);
-    int getCount();
+    BigInteger getCount();
 }

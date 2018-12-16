@@ -49,21 +49,12 @@ public class UserController {
     }
 
     @PostMapping("/add")//dziala
-    public ResponseEntity<?> createUser(@RequestBody String body) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         User newUser = new User();
         JSONObject response = new JSONObject();
         try {
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(body);
-
-            newUser.setAdmin(false);
-            newUser.setLogin(json.get("login").toString());
-            if(json.containsKey("mail")) newUser.setMail(json.get("mail").toString());
-            newUser.setName(json.get("name").toString());
-            newUser.setPassword(json.get("password").toString());
-            newUser.setSurname(json.get("surname").toString());
-
-            userRepository.save(newUser);
+            user.setUserdId(userRepository.getCount().intValue() + 1);
+            userRepository.saveAndFlush(user);
 
             response.put("status", "ok");
 
@@ -85,7 +76,8 @@ public class UserController {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(body);
 
-            if(userRepository.getUserByLogin(json.get("login").toString()) != null) {
+            if(userRepository.getUserByLogin(json.get("login").toString()) != null &&
+                    userRepository.getUserByLogin(json.get("login").toString()).getPassword().equals(json.get("password").toString())) {
                 response.put("status", "ok");
                 response.put("data", userRepository.getUserByLogin(json.get("login").toString()));
             } else {

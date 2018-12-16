@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.math.BigInteger;
 
 @Repository
 @Transactional(readOnly = true)
@@ -51,9 +52,9 @@ public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsR
     }
 
     @Override
-    public int getCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"favouriteproducts\"", FavouriteProducts.class);
+    public BigInteger getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"favouriteproducts\"");
 
-        return (int)query.getSingleResult();
+        return (BigInteger)query.getSingleResult();
     }
 }

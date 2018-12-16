@@ -24,7 +24,7 @@ public class CategoryController {
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         JSONObject response = new JSONObject();
         try {
-            category.setCategoryId(categoryRepository.getCount() + 1);
+            category.setCategoryId(categoryRepository.getCount().intValue() + 1);
             categoryRepository.saveAndFlush(category);
 
             response.put("status", "ok");

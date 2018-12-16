@@ -1,5 +1,6 @@
 package inz.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,5 @@ public interface CartRepositoryCustom {
 
 	List<Cart> getUserCarts(Integer userid);
 	List<Cart> getFavouriteCart(Integer favouriteid);
-	int getCount();
+	BigInteger getCount();
 }

@@ -18,11 +18,11 @@ public class PromotionController {
     @Autowired
     private PromotionRepository promotionRepository;
 
-    @PostMapping("/add")//dziala
+    @PostMapping("/add")
     public ResponseEntity<?> addPromotion(@RequestBody Promotion promotion) {
         JSONObject response = new JSONObject();
         try {
-            promotion.setPromotionId(new Integer((int)promotionRepository.count() + 1));
+            promotion.setPromotionId((int) promotionRepository.count() + 1);
             promotionRepository.saveAndFlush(promotion);
             response.put("status", "ok");
 

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +21,10 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
     EntityManager entityManager;
 
     @Override
-    public int getCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"shop\"", Shop.class);
+    public BigInteger getCount() {
+        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"shop\"");
 
-        return (int)query.getSingleResult();
+        return (BigInteger)query.getSingleResult();
     }
 
     @Override
@@ -39,13 +40,6 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
         Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
         query.setParameter(1, name);
 
-        List<Shop> queryResult = query.getResultList();
-        final List<String> result = new ArrayList<String>();
-        for(int i = 0; i < queryResult.size(); i++) {
-            result.add(queryResult.get(i).getName());
-        }
-        return result;
+        return query.getResultList();
     }
-
-
 }
