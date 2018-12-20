@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -26,7 +27,8 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/checkexist")//dziala
+    @CrossOrigin
+    @PutMapping("/checkexist")
     public ResponseEntity<?> checkIfUserExist(@RequestBody String body) {
         JSONObject response = new JSONObject();
         try {
@@ -48,9 +50,10 @@ public class UserController {
         }
     }
 
-    @PostMapping("/add")//dziala
+    @CrossOrigin
+    @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody User user) {
-        User newUser = new User();
+        System.out.println("body: " + user);
         JSONObject response = new JSONObject();
         try {
             user.setUserdId(userRepository.getCount().intValue() + 1);
@@ -68,18 +71,18 @@ public class UserController {
         }
     }
 
-    @PutMapping("/login")
-    public ResponseEntity<?> login(@RequestBody String body) {
+    @CrossOrigin
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
         JSONObject response = new JSONObject();
-
+        System.out.println("body: " + user);
+        System.out.println("body login: " + user.getLogin());
+        System.out.println("body password: " + user.getPassword());
         try {
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(body);
-
-            if(userRepository.getUserByLogin(json.get("login").toString()) != null &&
-                    userRepository.getUserByLogin(json.get("login").toString()).getPassword().equals(json.get("password").toString())) {
+            if(userRepository.getUserByLogin(user.getLogin()) != null &&
+                    userRepository.getUserByLogin(user.getLogin()).getPassword().equals(user.getPassword())) {
                 response.put("status", "ok");
-                response.put("data", userRepository.getUserByLogin(json.get("login").toString()));
+                response.put("data", userRepository.getUserByLogin(user.getLogin()));
             } else {
                 response.put("status", "failure");
                 response.put("msg", "No user with this login and password found!");
@@ -87,11 +90,30 @@ public class UserController {
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             response.put("status", "failure");
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
+    @CrossOrigin
+    @PostMapping("/modify")
+    public ResponseEntity<?> modifyUser(@RequestBody User user) {
+        JSONObject response = new JSONObject();
+        try {
+            userRepository.updateUserPassword(user.getPassword(), user.getUserdId());
+
+            response.put("status", "ok");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.put("status", "failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+    @CrossOrigin
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody User user) {
         JSONObject response = new JSONObject();

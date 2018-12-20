@@ -12,18 +12,13 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -37,10 +32,12 @@ public class ProductController {
     @Autowired
     private ShopRepository shopRepository;
 
-    @PostMapping("/add")//dziala
+    @CrossOrigin
+    @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         JSONObject response = new JSONObject();
         try {
+            System.out.println(productRepository.getCount().intValue());
         	product.setProductId(productRepository.getCount().intValue() + 1);
             productRepository.saveAndFlush(product);
             response.put("status", "ok");
@@ -54,7 +51,25 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/promotions")//dziala
+    @CrossOrigin
+    @GetMapping("/all")
+    public ResponseEntity<?> getProducts() {
+        JSONObject response = new JSONObject();
+        try {
+            response.put("status", "ok");
+            response.put("data", productRepository.findAll());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception e) {
+            response.put("status","failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+    @CrossOrigin
+    @GetMapping("/promotions")
     public ResponseEntity<?> getPromotionProducts() {
     	JSONObject response = new JSONObject();
         try {
@@ -70,7 +85,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/names/{name}")//dziala
+    @CrossOrigin
+    @GetMapping("/names/{name}")
     public ResponseEntity<?> getProductsNames(@PathVariable("name") String name ) {
     	JSONObject response = new JSONObject();
         try {
@@ -86,7 +102,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/{name}")//dziala
+    @CrossOrigin
+    @GetMapping("/products/{name}")
     public ResponseEntity<?> getProductsByName(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {
@@ -102,6 +119,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/products/category/{category}")
     public ResponseEntity<?> getProductsFromCategory(@PathVariable("category") int category) {
     	JSONObject response = new JSONObject();
@@ -118,6 +136,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/products/shop/{shop}")
     public ResponseEntity<?> getProductsFromShop(@PathVariable("shop") int shop) {
     	JSONObject response = new JSONObject();
@@ -134,6 +153,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/products/favourite/{favouriteid}")
     public ResponseEntity<?> getProductsFromFavourite(@PathVariable("favouriteid") int favouriteid) {
     	JSONObject response = new JSONObject();
@@ -150,6 +170,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/products/cart/{cartid}")
     public ResponseEntity<?> getProductsFromCart(@PathVariable("cartid") int cartid) {
     	JSONObject response = new JSONObject();
@@ -166,9 +187,11 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/filter") //dziala
+    @CrossOrigin
+    @PostMapping("/products/filter")
     public ResponseEntity<?> getProductsFromFilter(@RequestBody String body) {
         JSONObject response = new JSONObject();
+        System.out.println("body: " + body);
         try {
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(body);
@@ -181,7 +204,7 @@ public class ProductController {
 
             while (i.hasNext()) {
                 JSONObject category = (JSONObject) i.next();
-                String categoryid = category.get("categoryid").toString();
+                String categoryid = category.get("categoryId").toString();
                 System.out.println(categoryid);
                 categories.add(Integer.parseInt(categoryid));
             }
@@ -191,7 +214,7 @@ public class ProductController {
 
             while (i.hasNext()) {
                 JSONObject shop = (JSONObject) i.next();
-                String shopid = shop.get("shopid").toString();
+                String shopid = shop.get("shopId").toString();
                 System.out.println(shopid);
                 shops.add(Integer.parseInt(shopid));
             }
@@ -208,6 +231,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/modify")
     public ResponseEntity<?> modifyProduct(@RequestBody Product product) {
     	JSONObject response = new JSONObject();

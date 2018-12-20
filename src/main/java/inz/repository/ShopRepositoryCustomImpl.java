@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
 
     @PersistenceContext
@@ -22,14 +22,16 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
 
     @Override
     public BigInteger getCount() {
-        Query query = entityManager.createNativeQuery("SELECT COUNT (*) FROM \"shop\"");
+        Query query = entityManager.createNativeQuery(
+                "SELECT COUNT (*) FROM \"shop\"");
 
         return (BigInteger)query.getSingleResult();
     }
 
     @Override
     public List<Shop> getShopsByName(String name) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
+        Query query = entityManager.createNativeQuery(
+                "SELECT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
         query.setParameter(1, name);
 
         return query.getResultList();
@@ -37,7 +39,8 @@ public class ShopRepositoryCustomImpl implements ShopRepositoryCustom {
 
     @Override
     public List<String> getShopsName(String name) {
-        Query query = entityManager.createNativeQuery("SELECT DISTINCT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
+        Query query = entityManager.createNativeQuery(
+                "SELECT DISTINCT * FROM \"shop\" WHERE name LIKE CONCAT(?,'%')", Shop.class);
         query.setParameter(1, name);
 
         return query.getResultList();

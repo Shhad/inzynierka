@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import inz.model.Cart;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class CartRepositoryCustomImpl implements CartRepositoryCustom {
 
 	@Autowired

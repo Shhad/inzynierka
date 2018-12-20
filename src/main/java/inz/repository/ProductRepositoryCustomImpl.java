@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Autowired
@@ -70,6 +70,8 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     public List<Product> getAllProductsFromCategory(Category category) {
         Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE categoryid = ?", Product.class);
         query.setParameter(1, category.getCategoryId());
+        System.out.println(category.getDescription());
+        category.setDescription(category.getDescription());
 
         return query.getResultList();
     }

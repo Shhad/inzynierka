@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
     @Autowired

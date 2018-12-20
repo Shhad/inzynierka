@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @PersistenceContext
@@ -20,7 +20,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @Override
     public User getUserByLogin(String login) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"users\" WHERE login = ?", User.class);
+        System.out.println(login);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"users\" WHERE login LIKE CONCAT(?)", User.class);
         query.setParameter(1, login);
 
         return (User) query.getResultList().get(0);

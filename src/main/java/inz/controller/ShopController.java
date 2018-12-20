@@ -4,16 +4,12 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import inz.model.Shop;
 import inz.repository.ShopRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/shop")
 public class ShopController {
@@ -21,7 +17,8 @@ public class ShopController {
 	@Autowired
 	private ShopRepository shopRepository;
 
-	@PostMapping("/add")//dziala
+    @CrossOrigin
+	@PostMapping("/add")
 	public ResponseEntity<?> addProduct(@RequestBody Shop shop) {
     	JSONObject response = new JSONObject();
         try {
@@ -39,7 +36,8 @@ public class ShopController {
         }
 	}
 
-	@GetMapping("/shops")//dziala
+    @CrossOrigin
+	@GetMapping("/shops")
 	public ResponseEntity<?> getShops() {
     	JSONObject response = new JSONObject();
         try {
@@ -55,7 +53,8 @@ public class ShopController {
         }
 	}
 
-	@GetMapping("/shops/{name}")//nie dziala
+    @CrossOrigin
+	@GetMapping("/shops/{name}")
 	public ResponseEntity<?> getShopsByName(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {
@@ -71,7 +70,8 @@ public class ShopController {
         }
 	}
 
-	@GetMapping("/names/{name}")//nie dziala
+    @CrossOrigin
+	@GetMapping("/names/{name}")
 	public ResponseEntity<?> getShopsNames(@PathVariable("name") String name) {
     	JSONObject response = new JSONObject();
         try {

@@ -6,13 +6,9 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -20,7 +16,8 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @PostMapping("/add")//dziala
+    @CrossOrigin
+    @PostMapping("/add")
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         JSONObject response = new JSONObject();
         try {
@@ -38,7 +35,8 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/categories")//dziala
+    @CrossOrigin
+    @GetMapping("/categories")
     public ResponseEntity<?> getCategories() {
     	JSONObject response = new JSONObject();
         try {

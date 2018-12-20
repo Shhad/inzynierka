@@ -6,13 +6,9 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
@@ -20,7 +16,8 @@ public class CartController {
     @Autowired
     private CartRepository cartRepository;
 
-    @PostMapping("/add")//dziala
+    @CrossOrigin
+    @PostMapping("/add")
     public ResponseEntity<?> addCart(@RequestBody Cart cart) {
         JSONObject response = new JSONObject();
         try {
@@ -38,6 +35,7 @@ public class CartController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/user/{userid}")
     public ResponseEntity<?> getUserCarts(@PathVariable("userid") int userid) {
     	JSONObject response = new JSONObject();
@@ -54,6 +52,7 @@ public class CartController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/favourite/{favouriteid}")
     public ResponseEntity<?> getFavouriteCarts(@PathVariable("favouriteid") int favouriteid) {
     	JSONObject response = new JSONObject();

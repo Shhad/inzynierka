@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import inz.model.Favourite;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class FavouriteRepositoryCustomImpl implements FavouriteRepositoryCustom {
 
 	@Autowired

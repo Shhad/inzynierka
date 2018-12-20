@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/favourite")
 public class FavouriteController {
@@ -24,7 +25,8 @@ public class FavouriteController {
     @Autowired
     private FavouriteProductsRepository favouriteProductsRepository;
 
-    @PostMapping("/add")//dziala
+    @CrossOrigin
+    @PostMapping("/add")
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         JSONObject response = new JSONObject();
         try {
@@ -42,19 +44,14 @@ public class FavouriteController {
         }
     }
 
+    @CrossOrigin
     @PostMapping("/add2")
-    public ResponseEntity<?> addFavouriteProduct(@RequestBody String body) {
+    public ResponseEntity<?> addFavouriteProduct(@RequestBody FavouriteProducts body) {
         JSONObject response = new JSONObject();
         try {
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(body);
+            body.setId(favouriteProductsRepository.getCount().intValue() + 1);
 
-            FavouriteProducts favouriteProducts = new FavouriteProducts();
-            favouriteProducts.setFavouriteId(new Integer(json.get("favouriteid").toString()));
-            favouriteProducts.setFavouriteId(new Integer(json.get("productid").toString()));
-            favouriteProducts.setId(favouriteProductsRepository.getCount().intValue() + 1);
-
-            favouriteProductsRepository.saveAndFlush(favouriteProducts);
+            favouriteProductsRepository.saveAndFlush(body);
 
             response.put("status", "ok");
 
@@ -67,7 +64,8 @@ public class FavouriteController {
         }
     }
 
-    @GetMapping("/all")//zwraca referencje
+    @CrossOrigin
+    @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<?> getAllFavourites() {
         JSONObject response = new JSONObject();
@@ -84,12 +82,13 @@ public class FavouriteController {
         }
     }
 
-    @GetMapping("/favourites/{userid}")//zwraca referencje
-    public ResponseEntity<?> getUserFavourites(@PathVariable("userid") int userid) {
+    @CrossOrigin
+    @GetMapping("/favourites/{userid}")
+    public ResponseEntity<?> getUserFavourites(@PathVariable("userid") String userid) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", favouriteRepository.getUserFavourites(userid));
+            response.put("data", favouriteRepository.getUserFavourites(Integer.parseInt(userid)));
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
@@ -100,11 +99,12 @@ public class FavouriteController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{favouriteid}/{productid}")
-    public ResponseEntity<?> deleteProductFromFavourite(@PathVariable("favouriteid") int favouriteid, @PathVariable("productid") int productid) {
+    public ResponseEntity<?> deleteProductFromFavourite(@PathVariable("favouriteid") String favouriteid, @PathVariable("productid") String productid) {
     	JSONObject response = new JSONObject();
         try {
-        	favouriteProductsRepository.deleteProduct(productid, favouriteid);
+        	favouriteProductsRepository.deleteProduct(Integer.parseInt(productid), Integer.parseInt(favouriteid));
 
             response.put("status", "ok");
 

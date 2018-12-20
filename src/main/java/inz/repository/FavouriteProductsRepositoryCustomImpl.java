@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.math.BigInteger;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class FavouriteProductsRepositoryCustomImpl implements FavouriteProductsRepositoryCustom {
 
     @Autowired
