@@ -1,4 +1,6 @@
 import React from 'react';
+import { deleteFavouriteProduct} from "../../reducers/action-creators";
+import { connect } from 'react-redux';
 
 //Material UI components
 import { withStyles } from '@material-ui/core/styles';
@@ -45,7 +47,7 @@ class Product extends React.Component {
     };
 
     handleDeleteProduct = () => {
-        console.log('Product deleted from favourites');
+        this.props.deleteFavourite(this.props.favouriteId, this.props.id);
     };
 
     render() {
@@ -82,7 +84,7 @@ class Product extends React.Component {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            <img src={this.props.url} alt={'Product pic'} style={{
+                            <img src={this.props.link} alt={'Product pic'} style={{
                                 width: '100%',
                                 maxWidth: '500px'
                             }}/>
@@ -129,4 +131,10 @@ class Product extends React.Component {
     }
 }
 
-export default withStyles(styles)(Product);
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteFavourite: (favourite, product) => dispatch(deleteFavouriteProduct(favourite, product))
+    }
+}
+
+export default connect(mapDispatchToProps)(withStyles(styles)(Product));

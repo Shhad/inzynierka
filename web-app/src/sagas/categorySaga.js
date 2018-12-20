@@ -11,46 +11,21 @@ const getCategories = () => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
-        console.log(response);
-        console.log(response.body);
-        return JSON.parse(response.body);
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        const data = [
-            {
-                categoryid: 1,
-                name: 'nabial',
-                description: 'Rzeczy mleczne',
-
-            },
-            {
-                categoryid: 2,
-                name: 'pieczywo',
-                description: 'Rzeczy mleczne',
-
-            },
-            {
-                categoryid: 3,
-                name: 'produkty miesne',
-                description: 'Rzeczy mleczne',
-
-            },
-            {
-                categoryid: 4,
-                name: 'warzywa',
-                description: 'Rzeczy mleczne',
-
-            },
-            {
-                categoryid: 5,
-                name: 'owoce',
-                description: 'Rzeczy mleczne',
-
-            }
-        ];
-        console.log(data);
-        return data;
+        return [];
     }
 };
 
@@ -72,14 +47,3 @@ export default function* categorySaga() {
         watchGetCategories()
     ]
 }
-/*
-fetch('35.228.103.221:8080/api/category/categories',{
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    })
-        .then(response => {
-            return response.json();
-        });
- */

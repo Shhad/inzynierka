@@ -34,36 +34,48 @@ class FilterContainer extends React.Component {
     componentWillMount() {
         this.props.getShops();
         this.props.getCategories();
+        if(this.props.shopList.length > 0 && this.props.categoryList.length > 0) {
+            this.props.shopList.forEach(shop => {
+                if(!this.state.shops.includes(shop.name)) {
+                    this.state.shops.push(shop.name);
+                }
+            });
+            this.props.categoryList.forEach(category => {
+                if(!this.state.categories.includes(category.name)) {
+                    this.state.categories.push(category.name);
+                }
+            });
+        }
     };
 
     handleChangeCategory = event => {
         this.setState({ categories: event.target.value });
-        const filteredCategories = [];
-        this.props.categoryList.map(category => {
-            console.log(category.name);
-            if(this.state.categories.includes(category.name)){
-                filteredCategories.push(category);
-            }
+        const categoryObjects = [];
+        event.target.value.forEach(value => {
+            this.props.categoryList.forEach(category => {
+                if(category.name == value) {
+                    categoryObjects.push(category);
+                }
+            })
         });
-        console.log(filteredCategories);
-        this.props.filterCategory(filteredCategories);
+        this.props.filterCategory(categoryObjects);
     };
 
     handleChangeShop = event => {
         this.setState({shops: event.target.value});
-        const filteredShops = [];
-        this.props.shopList.map(shop => {
-            if(this.state.categories.includes(shop.name)){
-                filteredShops.push(shop);
-            }
+        const shopObjects = [];
+        event.target.value.forEach(value => {
+            this.props.shopList.forEach(shop => {
+                if(shop.name == value) {
+                    shopObjects.push(shop);
+                }
+            })
         });
-        console.log(filteredShops);
-        this.props.filterShop(filteredShops);
+        this.props.filterShop(shopObjects);
     };
 
     render() {
-        const categories = this.props.categoryList;
-        const shops = this.props.shopList;
+
         return (
             <div style={{
                 margin: '0 auto',
@@ -102,7 +114,7 @@ class FilterContainer extends React.Component {
                         }}
                         MenuProps={MenuProps}
                     >
-                        {categories.map(category => (
+                        {this.props.categoryList.map(category => (
                             <MenuItem key={category.name} value={category.name} >
                                 {category.name}
                             </MenuItem>
@@ -137,7 +149,7 @@ class FilterContainer extends React.Component {
                         )}
                         MenuProps={MenuProps}
                     >
-                        {shops.map(shop => (
+                        {this.props.shopList.map(shop => (
                             <MenuItem key={shop.name} value={shop.name} >
                                 {shop.name}
                             </MenuItem>

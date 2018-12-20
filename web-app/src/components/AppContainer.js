@@ -26,7 +26,6 @@ class AppContainer extends React.Component {
 
     filterShop = (shops) => {
         this.setState({shops: shops});
-        console.log(this.state.shops);
     };
 
     filterCategory = (categories) => {
@@ -38,7 +37,7 @@ class AppContainer extends React.Component {
     };
 
     filterProducts = () => {
-        this.props.getFilteredProducts();
+        this.props.getFilteredProducts(this.state.shops, this.state.categories, this.state.productName);
     };
 
     render() {
@@ -51,7 +50,7 @@ class AppContainer extends React.Component {
                 width: '100%',
                 height: '100%'
             }}>
-                <Header change={this.specificSearch} newFilter={this.filterProducts} loggedIn={this.props.loggedIn} />
+                <Header change={this.specificSearch} newfilter={this.filterProducts} loggedIn={this.props.loggedIn} />
                 <Filter filterShop={this.filterShop} filterCategory={this.filterCategory}/>
                 {this.props.isLoading ?
                     <Loading /> :
@@ -73,7 +72,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getProducts: () => dispatch(getProducts()),
-        getFilteredProducts: (categories, shops, name) => dispatch(getFilteredProducts(categories, shops, name))
+        getFilteredProducts: (shops, categories, name) => dispatch(getFilteredProducts(shops, categories, name))
     }
 }
 

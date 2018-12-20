@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
-import { addProduct } from "../../reducers/action-creators";
+import {addProduct, getShops, getCategories} from "../../reducers/action-creators";
 import MenuItem from "@material-ui/core/MenuItem";
 
 function Transition(props) {
@@ -26,24 +26,44 @@ class ProductContainer extends React.Component {
             newProduct: false,
             productDetail: false,
             newProductDialog: {
+                productId: 0,
+                shopId: 0,
+                categoryId: 0,
                 name: '',
                 description: '',
-                shop: 0,
-                category: 0,
                 price: 0.00,
                 currency: '',
                 link: ''
-            }
+            },
+            shop: '',
+            category: ''
         };
-        console.log(this.props.loggedIn);
     }
 
     componentWillMount() {
-        console.log(this.props.productList);
+        getShops();
+        getCategories();
     }
 
     validateDetails = () => {
-        this.props.addProduct(this.state.newProductDialog);
+        const newProduct = this.state.newProductDialog;
+        let shopID;
+        this.props.shopList.forEach(shop => {
+            if(shop.name == this.state.shop) {
+                console.log('znaleziony sklep')
+                shopID = shop.shopId;
+            }
+        });
+        newProduct.shopId = shopID;
+        let catID;
+        this.props.categoryList.forEach(shop => {
+            if(shop.name == this.state.category) {
+                console.log('znaleziony sklep')
+                catID = shop.categoryId;
+            }
+        });
+        newProduct.categoryId = catID;
+        this.props.addProduct(newProduct);
     };
 
     newProductStateChange = (evt) => {
@@ -64,12 +84,26 @@ class ProductContainer extends React.Component {
         this.setState({ newProduct: false });
     };
 
+    handleShopChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({shop: value});
+    };
+
+    handleCategoryChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({category: value});
+    };
+
     render() {
         const productList = this.props.productList;
 
         return (
             <div className={'row'}>
-                {productList.map(product => <Product loggedIn={this.props.loggedIn} id={product.id} {...product}/>)}
+                {productList.map(product => <Product loggedIn={this.props.loggedIn} shopId={product.shopId} {...product}/>)}
 
                 {this.props.loggedIn && <Fab style={{
                     margin: 0,
@@ -125,29 +159,45 @@ class ProductContainer extends React.Component {
                             >
                             </TextField>
                             <TextField
-                                autoFocus
-                                id="new-product-shop"
-                                name='shop'
+                                id="standard-select-currency"
+                                select
                                 label="Sklep"
-                                onBlur={this.newProductStateChange}
-                                helperText="Wpisz sklep w którym znajduje się produkt"
+                                value={this.state.shop}
+                                onChange={this.handleShopChange}
+                                helperText="Wybierz sklep"
                                 margin="normal"
                                 style={{
-                                    width: '400px'
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
                                 }}
-                            />
+                            >
+                                {this.props.shopList.map(option => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                             <TextField
-                                autoFocus
-                                id="new-product-category"
-                                name='category'
+                                id="standard-select-currency"
+                                select
                                 label="Kategoria"
-                                onBlur={this.newProductStateChange}
-                                helperText="Wpisz kategorię"
+                                value={this.state.category}
+                                onChange={this.handleCategoryChange}
+                                helperText="Wybierz kategorię"
                                 margin="normal"
                                 style={{
-                                    width: '400px'
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
                                 }}
-                            />
+                            >
+                                {this.props.categoryList.map(option => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                             <TextField
                                 autoFocus
                                 id="new-product-price"
@@ -185,27 +235,6 @@ class ProductContainer extends React.Component {
                                     width: '400px'
                                 }}
                             />
-                            <TextField
-                                disabled={this.state.modifyButton}
-                                id="standard-select-currency"
-                                select
-                                label="Sklep"
-                                value={this.state.shop}
-                                onChange={this.handleShopChange}
-                                helperText="Wybierz sklep"
-                                margin="normal"
-                                style={{
-                                    marginTop: '19px',
-                                    width: '400px',
-                                    padding: '10px'
-                                }}
-                            >
-                                {this.props.shopList.map(option => (
-                                    <MenuItem key={option.name} value={option.name}>
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
                         </form>
                     </DialogContent>
                     <DialogActions>
@@ -226,12 +255,15 @@ function mapStateToProps(state) {
     return {
         productList: state.getIn(['reducerProduct', 'productList']),
         shopList: state.getIn(['reducerShop', 'shopList']),
+        categoryList: state.getIn(['reducerCategory', 'categoryList']),
         isLoading: state.getIn(['reducerProduct', 'view', 'isLoading'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        getShops: () => dispatch(getShops()),
+        getCategories: () => dispatch(getCategories()),
         addProduct: (product) => dispatch(addProduct(product))
     }
 }

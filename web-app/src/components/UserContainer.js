@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { getUser } from '../reducers/action-creators';
+import { getUser, modifyUser } from '../reducers/action-creators';
 
 function TabContainer(props) {
     return (
@@ -32,7 +32,15 @@ class UserContainer extends React.Component {
         this.state = {
             value: 0,
             saveButton: false,
-            modifyButton: true
+            modifyButton: true,
+            newUser: {
+                name: '',
+                surname: '',
+                mail: '',
+                login: '',
+            },
+            oldPass: '',
+            newPass: ''
         };
         if(!this.props.loggedIn) {
             history.push('/')
@@ -47,99 +55,45 @@ class UserContainer extends React.Component {
         this.setState({ value });
     };
 
-    handleClickModyfi = () => {
+    handleClickModify = () => {
         this.setState({ modifyButton: false});
-        this.rednderFrom();
-        console.log('modyfing');
     };
 
     handleClickSave = () => {
-        this.setState({ saveButton: false });
-        this.setState({ modifyButton: true });
+        const user = this.state.newUser;
+        user.password = this.props.userData.password;
+        this.props.modifyUser(user);
     };
 
     handleClickCanel = () => {
-        this.setState({ saveButton: false });
         this.setState({ modifyButton: true });
     };
 
-    handlePasswordChange = () => {
-        console.log('password change');
+    newUserChange = (evt) => {
+        const target = evt.target;
+        const name = target.name;
+        const value = target.value;
+
+        const newUser = {...this.state.newUser};
+        newUser[name] = value;
+        this.setState({newUser});
     };
 
-    rednderFrom() {
-        return (
-            <div style={{
-                alignContent: 'center',
-                alignItems: 'center',
-                maxWidth: '800px',
-                margin: '0 auto',
-                verticalAlign: 100
-            }}>
-        <form style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            margin: '0 auto'
-        }}
-              noValidate
-              autoComplete="off">
-            <TextField
-                disabled={this.state.modifyButton}
-                defaultValue={this.props.userData.name}
-                id="name-text"
-                label="Imię"
-                style={{
-                    marginTop: '19px',
-                    width: '400px',
-                    margin: '0 auto',
-                    padding: '10px'
-                }}
-            />
-            <TextField
-                disabled={this.state.modifyButton}
-                defaultValue={this.props.userData.surname}
-                id="surname-text"
-                label="Nazwisko"
-                style={{
-                    marginTop: '19px',
-                    width: '400px',
-                    margin: '0 auto',
-                    padding: '10px'
-                }}
-            />
-            <TextField
-                disabled={this.state.modifyButton}
-                defaultValue={this.props.userData.login}
-                id="login-text"
-                label="Login"
-                style={{
-                    marginTop: '19px',
-                    width: '400px',
-                    margin: '0 auto',
-                    padding: '10px'
-                }}
-            />
-            <TextField
-                disabled={this.state.modifyButton}
-                defaultValue={this.props.userData.email}
-                id="email-text"
-                label="Mail"
-                style={{
-                    marginTop: '19px',
-                    width: '400px',
-                    margin: '0 auto',
-                    padding: '10px'
-                }}
-            />
-        </form>
-            </div>
-        )
-    }
+    handlePasswordChange = (evt) => {
+        const value = evt.target.value;
+        const name = evt.target.name;
+        this.setState({[name]: value});
+    };
+
+    handleNewPass = () => {
+        const user = this.props.userData;
+        user.password = this.state.newPass;
+        this.props.modifyUser(user);
+    };
 
     render() {
         const { classes } = this.props;
         const { value } = this.state;
-        console.log(this.props.userData);
 
         return (
             <div>
@@ -156,7 +110,80 @@ class UserContainer extends React.Component {
                         <Tab label="Zmiana hasła" />
                     </Tabs>
                 </AppBar>
-                {this.rednderFrom()}
+                {value === 0 &&
+                    <div style={{
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        maxWidth: '800px',
+                        margin: '0 auto',
+                        verticalAlign: 100
+                    }}>
+                <form style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    margin: '0 auto'
+                }}
+                      noValidate
+                      autoComplete="off">
+                    <TextField
+                        disabled={this.state.modifyButton}
+                        defaultValue={this.props.userData.name}
+                        id="name-text"
+                        name={"name"}
+                        onBlur={this.newUserChange}
+                        label="Imię"
+                        style={{
+                            marginTop: '19px',
+                            width: '400px',
+                            margin: '0 auto',
+                            padding: '10px'
+                        }}
+                    />
+                    <TextField
+                        disabled={this.state.modifyButton}
+                        defaultValue={this.props.userData.surname}
+                        id="surname-text"
+                        name={"surname"}
+                        onBlur={this.newUserChange}
+                        label="Nazwisko"
+                        style={{
+                            marginTop: '19px',
+                            width: '400px',
+                            margin: '0 auto',
+                            padding: '10px'
+                        }}
+                    />
+                    <TextField
+                        disabled={this.state.modifyButton}
+                        defaultValue={this.props.userData.login}
+                        id="login-text"
+                        name={"login"}
+                        onBlur={this.newUserChange}
+                        label="Login"
+                        style={{
+                            marginTop: '19px',
+                            width: '400px',
+                            margin: '0 auto',
+                            padding: '10px'
+                        }}
+                    />
+                    <TextField
+                        disabled={this.state.modifyButton}
+                        defaultValue={this.props.userData.mail}
+                        id="email-text"
+                        name={"mail"}
+                        onBlur={this.newUserChange}
+                        label="Mail"
+                        style={{
+                            marginTop: '19px',
+                            width: '400px',
+                            margin: '0 auto',
+                            padding: '10px'
+                        }}
+                    />
+                </form>
+                    </div>
+                }
                 {value === 0 &&
                     <div style={{
                         alignContent: 'center',
@@ -167,7 +194,7 @@ class UserContainer extends React.Component {
                     }}>
 
                         {this.state.modifyButton &&
-                            <Button onClick={this.handleClickModyfi} style={{
+                            <Button onClick={this.handleClickModify} style={{
                                 margin: '0 auto',
                                 border: '5px',
                                 borderColor: '#A59A9A',
@@ -207,6 +234,8 @@ class UserContainer extends React.Component {
                           autoComplete="off">
                         <TextField
                             id="name-text"
+                            name="oldPass"
+                            onBlur={this.handlePasswordChange}
                             label="Stare haslo"
                             style={{
                                 marginTop: '19px',
@@ -217,6 +246,8 @@ class UserContainer extends React.Component {
                         />
                         <TextField
                             id="surname-text"
+                            name="newPass"
+                            onBlur={this.handlePasswordChange}
                             label="Nowe haslo"
                             style={{
                                 marginTop: '19px',
@@ -226,7 +257,7 @@ class UserContainer extends React.Component {
                             }}
                         />
                     </form>
-                    <Button onClick={this.handlePasswordChange}>
+                    <Button onClick={this.handleNewPass}>
                         Zmien haslo
                     </Button>
                 </div>
@@ -245,7 +276,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUser: () => dispatch(getUser())
+        getUser: () => dispatch(getUser()),
+        modifyUser: (user) => dispatch(modifyUser(user))
     }
 }
 

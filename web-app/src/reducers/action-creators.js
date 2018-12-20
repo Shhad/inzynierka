@@ -4,6 +4,12 @@ export function getProducts() {
     };
 }
 
+export function getProductsAll() {
+    return {
+        type: 'GET_PRODUCTS_ALL'
+    };
+}
+
 export function getFilteredProducts(shops, categories, name) {
     return {
         type: 'GET_FILTERED_PRODUCTS',
@@ -27,26 +33,28 @@ export function modifyProduct(product) {
     };
 }
 
-export function addFavourite(favourite) {
+export function addFavourite(favouriteId, userId, name) {
     return {
         type: 'ADD_FAVOURITE',
-        favourite
+        favouriteId,
+        userId,
+        name
     }
 }
 
-export function addFavouriteProduct(productid, favouriteid) {
+export function addFavouriteProduct(productId, favouriteId) {
     return {
         type: 'ADD_FAVOURITE_PRODUCT',
-        productid,
-        favouriteid
+        productId,
+        favouriteId
     }
 }
 
-export function deleteFavouriteProduct(productid, favouriteid) {
+export function deleteFavouriteProduct(productId, favouriteId) {
     return {
         type: 'DELETE_FAVOURITE_PRODUCT',
-        productid,
-        favouriteid
+        productId,
+        favouriteId
     }
 }
 

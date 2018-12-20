@@ -22,15 +22,6 @@ import userSaga from './sagas/userSaga';
 
 // Create history
 export const browserHistory = customHistory;
-const reduxRouterMiddleware = routerMiddleware(browserHistory);
-
-const epicMiddleware = createEpicMiddleware();
-
-const middlewares = [
-    thunkMiddleware,
-    reduxRouterMiddleware,
-    epicMiddleware
-];
 
 const sagaMiddleware = createSagaMiddleware();
 const favouriteMiddleware = createSagaMiddleware();

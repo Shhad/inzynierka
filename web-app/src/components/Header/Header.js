@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../history';
+import { getUser, addUser } from "../../reducers/action-creators";
+import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,9 +21,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
 
 const VERSSION = '0.0.1';
 
@@ -95,6 +101,10 @@ const styles = theme => ({
     },
 });
 
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -104,6 +114,19 @@ class Header extends React.Component {
             anchorEl: null,
             mobileMoreAnchorEl: null,
             auth: this.props.loggedIn,
+            login: '',
+            password: '',
+            loginDialog: false,
+            addUser: false,
+            newUserDialog: {
+                userId: 0,
+                name: '',
+                surname: '',
+                login: '',
+                password: '',
+                mail: '',
+                admin: false
+            }
         };
     }
 
@@ -111,12 +134,53 @@ class Header extends React.Component {
         const target = event.target;
         const value = target.value;
         this.setState({search: value});
-        console.log(this.state.search);
+    };
+
+    handleOpenRegisterDialog = () => {
+        this.setState({addUser: true});
+    };
+
+    handleCloseRegisterDialog = () => {
+        this.setState({addUser: false});
+    };
+
+    handleRegister =() => {
+        this.props.addUser(this.state.newUserDialog);
+        this.handleCloseRegisterDialog();
+    };
+
+    newUserStateChange = (evt) => {
+        const target = evt.target;
+        const name = target.name;
+        const value = target.value;
+
+        const newUserDialog = {...this.state.newUserDialog};
+        newUserDialog[name] = value;
+        this.setState({newUserDialog});
+    };
+
+    handleOpenLoginDialog = () => {
+        this.setState({loginDialog: true});
+    };
+
+    handleCloseLoginDialog = () => {
+        this.setState({loginDialog: false});
+    };
+
+    handleLogin =() => {
+        this.props.getUser(this.state.login, this.state.password);
+        this.handleCloseLoginDialog();
+    };
+
+    handleChangeSt = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
     };
 
     passHandleChangeSearch = () => {
-        console.log(this.props);
         this.props.change(this.state.search);
+        this.props.newfilter();
     };
 
     handleChange = event => {
@@ -210,14 +274,7 @@ class Header extends React.Component {
 
         return (
             <div className={classes.root}>
-                <FormGroup>
-                    <FormControlLabel
-                        control={
-                            <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
-                        }
-                        label={auth ? 'Logout' : 'Login'}
-                    />
-                </FormGroup>
+
                 <AppBar position="static">
                     <Toolbar>
                         <FlatButton onClick={this.openNewWindow} style={{
@@ -251,7 +308,7 @@ class Header extends React.Component {
                             <SearchIcon onClick={this.passHandleChangeSearch}/>
                         </FlatButton>
                         <div className={classes.grow} />
-                        {auth &&
+                        {this.props.userid &&
                         <div className={classes.sectionDesktop}>
                             <IconButton
                                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
@@ -263,12 +320,21 @@ class Header extends React.Component {
                             </IconButton>
                         </div>
                         }
-                        {!auth &&
+                        {!this.props.userid &&
+                            <div className={classes.sectionDesktop}>
+                            <FlatButton style={{
+                            borderColor: '#A59A9A'
+                        }} onClick={this.handleOpenLoginDialog}>
+                            <h3 style={{ color: 'white' }}>Zaloguj</h3>
+                            </FlatButton>
+                            </div>
+                        }
+                        {!this.props.userid &&
                         <div className={classes.sectionDesktop}>
                             <FlatButton style={{
                                 borderColor: '#A59A9A'
-                            }}>
-                                <h3 style={{ color: 'white' }}>Zaloguj</h3>
+                            }} onClick={this.handleOpenRegisterDialog}>
+                                <h3 style={{ color: 'white' }}>Zarejestru</h3>
                             </FlatButton>
                         </div>
                         }
@@ -281,6 +347,155 @@ class Header extends React.Component {
                 </AppBar>
                 {renderMenu}
                 {renderMobileMenu}
+                <Dialog
+                    open={this.state.loginDialog}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleCloseLoginDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        Zaloguj się
+                    </DialogTitle>
+                    <DialogContent>
+                        <form style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            margin: '0 auto'
+                        }}
+                              noValidate
+                              autoComplete="off">
+                            <TextField
+                                onBlur={this.handleChangeSt('login')}
+                                value={this.props.name}
+                                id="login"
+                                label="Login"
+                                style={{
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
+                                }}
+                            />
+                            <TextField
+                                onBlur={this.handleChangeSt('password')}
+                                defaultValue={this.props.description}
+                                type="password"
+                                id="haslo"
+                                label="Hasło"
+                                style={{
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
+                                }}
+                            />
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleLogin} color="primary">
+                            Zaloguj
+                        </Button>
+                        <Button color='primary' onClick={this.handleCloseLoginDialog}>
+                            Anuluj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Dialog
+                    open={this.state.addUser}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleCloseRegisterDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        {"Dodaj nowe konto"}
+                    </DialogTitle>
+                    <DialogContent style={{
+                        display: 'inline',
+                        overflowY: 'scroll'
+                    }}>
+                        <form>
+                            <TextField
+                                autoFocus
+                                id="new-product-name"
+                                name='name'
+                                label="Imię"
+                                onBlur={this.newUserStateChange}
+                                helperText="Wpisz nazwe produktu"
+                                margin="normal"
+                                style={{
+                                    width: '400px'
+                                }}
+                            />
+                            <TextField
+                                id="new-product-descr"
+                                name='surname'
+                                label="Nazwisko"
+                                onBlur={this.newUserStateChange}
+                                margin="normal"
+                                fullWidth
+                                multiline
+                            >
+                            </TextField>
+                            <TextField
+                                autoFocus
+                                id="new-product-shop"
+                                name='login'
+                                label="Login"
+                                onBlur={this.newUserStateChange}
+                                margin="normal"
+                                style={{
+                                    width: '400px'
+                                }}
+                            />
+                            <TextField
+                                autoFocus
+                                id="new-product-category"
+                                name='password'
+                                label="Hasło"
+                                onBlur={this.newProductStateChange}
+                                type="password"
+                                margin="normal"
+                                style={{
+                                    width: '400px'
+                                }}
+                            />
+                            <TextField
+                                autoFocus
+                                id="new-product-price"
+                                name='password'
+                                label="Powtórz hasło"
+                                onBlur={this.newUserStateChange}
+                                type='password'
+                                margin="normal"
+                                style={{
+                                    width: '400px'
+                                }}
+                            />
+                            <TextField
+                                autoFocus
+                                id="new-product-currency"
+                                name='mail'
+                                label="Mail"
+                                onBlur={this.newUserStateChange}
+                                margin="normal"
+                                style={{
+                                    width: '400px'
+                                }}
+                            />
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleRegister} color="primary">
+                            Zarejestruj
+                        </Button>
+                        <Button onClick={this.handleCloseRegisterDialog} color="primary">
+                            Anuluj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
@@ -290,4 +505,17 @@ Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+function mapStateToProps(state) {
+    return {
+        userid: state.getIn(['reducerUser', 'isLogged'])
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getUser: (login, password) => dispatch(getUser(login, password)),
+        addUser: (user) => dispatch(addUser(user))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));

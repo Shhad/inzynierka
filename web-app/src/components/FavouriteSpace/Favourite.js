@@ -11,10 +11,6 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader'
 
 import Product from './Product';
-import Loading from '../Loading';
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
 
 const styles = {
     card: {
@@ -38,14 +34,7 @@ class Favourite extends React.Component {
     };
 
     render() {
-        console.log('FAVOURITE');
-        console.log(this.props.products);
         const productsList = this.props.products;
-        console.log(productsList);
-        productsList.map(product => {
-            console.log(product.name);
-        });
-        const nameGroup = 'Grupa: ' + this.props.name + ':';
         return (
             <div style={{
                 float: 'left',
@@ -68,7 +57,7 @@ class Favourite extends React.Component {
                                     width: '50%'
                                 }}
                             >
-                                {productsList.map(product => <Product id={product.productid} {...product} />)}
+                                {productsList.map(product => <Product favouriteId={this.props.id} id={product.productId} {...product} />)}
                             </List>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>

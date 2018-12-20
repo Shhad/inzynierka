@@ -1,5 +1,7 @@
 import React from 'react';
 import Favourite from './Favourite';
+import { connect } from 'react-redux';
+
 import Fab from '@material-ui/core/Fab';
 import Zoom from '@material-ui/core/Zoom';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,13 +14,13 @@ import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
-import { addProduct } from "../../reducers/action-creators";
+import { addFavourite } from "../../reducers/action-creators";
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
 
-export default class ProductContainer extends React.Component {
+class ProductContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -26,14 +28,19 @@ export default class ProductContainer extends React.Component {
             newProduct: false,
             productDetail: false,
             newFavouriteDialog: {
-                name: String
+                name: String,
+                userId: props.userId
             }
         };
     }
 
     validateDetails = () => {
-        console.log('Checking if everything is writen correctly');
-        console.log(this.state.newFavouriteDialog.name);
+        const favourite = {
+            favouriteId: 0,
+            userId: this.props.userId,
+            name: this.state.newFavouriteDialog.name
+        };
+        this.props.addFavourite(favourite);
     };
 
     newFavouriteStateChange = (evt) => {
@@ -61,7 +68,7 @@ export default class ProductContainer extends React.Component {
                 display: 'block'
             }}>
 
-                {favouriteList.map(favourite => <Favourite id={favourite.favouriteid} {...favourite}/>)}
+                {favouriteList.map(favourite => <Favourite id={favourite.favouriteId} {...favourite}/>)}
 
                 <Fab style={{
                     margin: 0,
@@ -122,16 +129,14 @@ export default class ProductContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        productList: state.get('productList'),
-        isLoading: state.getIn(['view', 'isLoading']),
-
+        userId: state.getIn(['reducerUser', 'user', 'userId'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        addProduct: () => dispatch(addProduct())
+        addFavourite: (fav) => dispatch(addFavourite(fav))
     }
 }
 
-
+export const FavouriteSpace = connect(mapStateToProps, mapDispatchToProps)(ProductContainer);

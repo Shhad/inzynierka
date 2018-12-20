@@ -17,116 +17,77 @@ const getUserFavourites = (userid) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
-        console.log(response);
-        console.log(response.body);
-
-        return JSON.parse(response.body);
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        const data = [
-            {
-                favouriteid: 1,
-                userid: 1,
-                name: 'moja grupa ulubiona1'
-            },
-            {
-                favouriteid: 1,
-                userid: 1,
-                name: 'moj ulubione jogurty'
-            }
-        ];
-        return data;
+        return [];
     }
 };
 
-const getUserFavouritesProducts = (userid) => {
+const getProductsOfFavourite = async(favouriteId) => {
+    const response = await fetch(`${SERWER_LOCAL}/api/product/products/favourite/${favouriteId}`,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => response.json())
+        .then(data => {
+            return data.data;
+        })
+        .catch(error => {
+            console.log(`Error occurred: ${error}.`);
+            return false;
+        });
+    return response;
+};
+
+const getUserFavouritesProducts = async(userid) => {
     try {
         console.log('getting favourite user');
-        const response = fetch(`${SERWER_LOCAL}/api/favourite/${userid}`,{
+        let responseData;
+        const response = await fetch(`${SERWER_LOCAL}/api/favourite/favourites/${userid}`,{
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             }
-        });
-        console.log(response);
-        console.log(response.body);
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log('favourites properly taken');
+                    console.log(data.data);
+                    responseData = data.data;
+                    console.log(responseData);
+                    return data.data;
+                } else {
+                    console.log(`Something went wrong with fetching favourites`);
+                    return false;
+                }
+            })
+            .catch(error => {
+                console.log(`Error occurred: ${error}.`);
+                return false;
+            });
+        await response;
 
-        const favouriteDetail = JSON.parse(response.body);
-        const response2 = fetch(`${SERWER_LOCAL}/api/favourite/products/${userid}`,{
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log(response2);
-        console.log(response2.body);
-        return JSON.parse(response.body);
+        await Promise.all(responseData.map(async favourite => {
+            favourite.products = await getProductsOfFavourite(favourite.favouriteId);
+        }));
+
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        const data = [
-            {
-                favouriteid: 1,
-                userid: 1,
-                name: 'moja grupa ulubiona1',
-                products: [
-                    {
-                        productid: 3,
-                        categoryid: 1,
-                        shopid: 1,
-                        name: 'Chleb żytni',
-                        description: 'Chleb żytni z nutką ziarenek żytnihc. O smaku żytnim.',
-                        price: 4.35,
-                        currency: 'PLN',
-                        link: 'http://cdn.przepisy100.pl/v/pl/7/7e770033f9e5bf87371dd35037e80e3a.jpg',
-                        url: 'http://cdn.przepisy100.pl/v/pl/7/7e770033f9e5bf87371dd35037e80e3a.jpg'
-                    },
-                    {
-                        productid: 5,
-                        categoryid: 1,
-                        shopid: 1,
-                        name: 'Chleb',
-                        description: 'Chleb taki bardzo smaczny, lekko pszenny lekko nie pszenny.',
-                        price: 2.37,
-                        currency: 'PLN',
-                        link: 'https://cdn3.tmbi.com/toh/GoogleImagesPostCard/exps32480_MRR153791D09_18_6b.jpg',
-                        url: 'https://cdn3.tmbi.com/toh/GoogleImagesPostCard/exps32480_MRR153791D09_18_6b.jpg'
-                    }
-                ]
-            },
-            {
-                favouriteid: 1,
-                userid: 1,
-                name: 'moj ulubione jogurty',
-                products: [
-                    {
-                        productid: 10,
-                        categoryid: 2,
-                        shopid: 'Biedronka',
-                        name: 'Jogurt malinowy Jogobella, 500ml',
-                        description: 'Bardzo suchy chleb dla konia. Idealny dla konia',
-                        price: 2.69,
-                        currency: 'PLN',
-                        link: 'http://konie.t8.pl/media/images/suchy_chleb.jpg',
-                        url: 'http://promyczek-lowicz.pl/userdata/gfx/a55af9ed63e5eba977a8f64550754cc0.jpg'
-                    },
-                    {
-                        productid: 7,
-                        categoryid: 1,
-                        shopid: 'Biedronka',
-                        name: 'Jogurt truskawkowy Jogobella, 500ml',
-                        description: 'Chleb żytni z nutką ziarenek żytnihc. O smaku żytnim.',
-                        price: 2.69,
-                        currency: 'PLN',
-                        link: 'http://cdn.przepisy100.pl/v/pl/7/7e770033f9e5bf87371dd35037e80e3a.jpg',
-                        url: 'https://img.e-piotripawel.pl/4014500021560.jpg'
-                    }
-                ]
-            }
-        ];
-        return data;
+        return [];
     }
 };
 
@@ -139,18 +100,26 @@ const addFavouriteProduct = (favouriteid, productid) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: {
-                favouriteid: favouriteid,
-                productid: productid
-            }
-        });
-        console.log(response);
-        console.log(response.body);
-
-        return JSON.parse(response.body);
+            body: JSON.stringify({
+                id: 0,
+                favouriteId: favouriteid,
+                productId: productid
+            })
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        return true;
+        return false;
     }
 };
 
@@ -163,19 +132,26 @@ const addFavourite = (favouriteid, userid, name) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: {
+            body: JSON.stringify({
                 favouriteId: favouriteid,
                 userId: userid,
                 name: name
-            }
-        });
-        console.log(response);
-        console.log(response.body);
-
-        return JSON.parse(response.body);
+            })
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        return true;
+        return false;
     }
 };
 
@@ -188,20 +164,27 @@ const deleteProductFromFavourite = (favourite, product) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
-        console.log(response);
-        console.log(response.body);
-
-        return JSON.parse(response.body);
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        return true;
+        return false;
     }
 };
 
 function* addFavouriteFunction (action) {
     try {
-        yield addFavourite(action.favourite);
+        yield addFavourite(action.favouriteId, action.userId, action.name);
         yield put({ type: 'GET_FAVOURITES'});
     } catch (e) {
         yield put({ type: 'ADD_FAVOURITE_FAILURE', payload: e});

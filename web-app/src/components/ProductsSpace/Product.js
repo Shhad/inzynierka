@@ -1,5 +1,5 @@
 import React from 'react';
-import {getShops, getCategories } from '../../reducers/action-creators';
+import {getShops, getCategories, getFavourites, addFavouriteProduct } from '../../reducers/action-creators';
 import { connect } from 'react-redux';
 import { modifyProduct } from '../../reducers/action-creators';
 
@@ -47,13 +47,23 @@ class Product extends React.Component {
             description: this.props.description,
             price: this.props.price,
             shopid: this.props.shopId,
-            shop: this.props.shopList.map(shop => {
-                if(this.props.shopId == shop.shopId) {
-                    console.log('jest sklep');
-                    return shop.name;
-                }
-            })
+            shop: '',
+            shops: [],
+            favourite: '',
+            openFavourite: false
         };
+    }
+
+    componentWillMount() {
+        this.props.getShops();
+        this.props.getFavourites(this.props.userId);
+        let name;
+        this.props.shopList.forEach(shop => {
+            if (this.props.shopId == shop.shopId) {
+                name = shop.name;
+            }
+        });
+        this.setState({shop: name});
     }
 
     handleModifyButton = () => {
@@ -75,6 +85,14 @@ class Product extends React.Component {
             currency: this.props.currency,
             link: this.props.link
         };
+        let shopID;
+        this.props.shopList.forEach(shop => {
+            if(shop.name == this.state.shop) {
+                console.log('znaleziony sklep')
+                shopID = shop.shopId;
+            }
+        });
+        product.shopId = shopID;
         this.props.modifyProduct(product);
     };
 
@@ -96,18 +114,38 @@ class Product extends React.Component {
         const target = event.target;
         const value = target.value;
 
-        const shopID = this.props.shopList.map(shop => {
-            if(shop.name === value) {
-                return shop.shopid;
+        this.setState({shop: value});
+    };
+
+    handleFavourite = () => {
+        const productId = this.props.shopId;
+        let favouriteId;
+        this.props.favouriteList.forEach(favourite => {
+            console.log(favourite.name);
+            if(favourite.name === this.state.favourite) {
+                favouriteId = favourite.favouriteId;
             }
         });
-        this.setState({shopid: shopID});
+        this.props.addFavouriteProduct(productId, favouriteId);
+    };
+
+    handleFavouriteChange = (event) => {
+        const value = event.target.value;
+        this.setState({favourite: value})
+    };
+
+    handleOpenFavourite = () => {
+        this.setState({openFavourite: true})
+    };
+
+    handleCloseFavourite = () => {
+        this.setState({openFavourite: false})
     };
 
     render() {
         const { productid, url, name,  desc, shop } = this.props;
         const price = 'Cena: ' + this.props.price + ' ' + this.props.currency;
-        const shopp = 'Sklep: ' + this.props.shopid;
+        const shopp = 'Sklep: ' + this.state.shop;
         return (
             <div style={{
                 float: 'left',
@@ -119,7 +157,7 @@ class Product extends React.Component {
                             style={{
                                 height: '140px'
                             }}
-                            image={this.props.url}
+                            image={this.props.link}
                             title="Shopping"
                         />
                         <CardContent style={{
@@ -211,24 +249,12 @@ class Product extends React.Component {
                             />
                             <TextField
                                 disabled={this.state.modifyButton}
-                                defaultValue={this.props.shopid}
-                                id="shop-text"
-                                label="Sklep"
-                                style={{
-                                    marginTop: '19px',
-                                    width: '400px',
-                                    padding: '10px'
-                                }}
-                            />
-                            <TextField
-                                disabled={this.state.modifyButton}
                                 id="standard-select-currency"
                                 select
                                 label="Sklep"
                                 value={this.state.shop}
                                 onChange={this.handleShopChange}
                                 helperText="Wybierz sklep"
-                                margin="normal"
                                 style={{
                                     marginTop: '19px',
                                     width: '400px',
@@ -256,7 +282,7 @@ class Product extends React.Component {
                         }
                         {this.props.loggedIn && this.state.modifyButton &&
                             <FlatButton>
-                            <Favorite />
+                            <Favorite onClick={this.handleOpenFavourite}/>
                             </FlatButton>
                         }
                         {!this.state.modifyButton &&
@@ -272,6 +298,71 @@ class Product extends React.Component {
 
                     </DialogActions>
                 </Dialog>
+                <Dialog
+                    open={this.state.openFavourite}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleCloseFavourite}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        Wybierz grupę
+                    </DialogTitle>
+                    <DialogContent>
+                        <Divider/>
+                        <form style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            margin: '0 auto'
+                        }}
+                              noValidate
+                              autoComplete="off">
+                            {(this.props.favouriteList.length > 0) &&
+                            <TextField
+                                id="standard-select-currency"
+                                select
+                                label="Wybierz grupę"
+                                value={this.state.favourite}
+                                onChange={this.handleFavouriteChange}
+                                style={{
+                                    marginTop: '19px',
+                                    width: '400px',
+                                    padding: '10px'
+                                }}
+                            >
+                                {this.props.favouriteList.map(option => (
+                                    <MenuItem key={option.name} value={option.name}>
+                                        {option.name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            }
+                            {(this.props.favouriteList.length == 0) &&
+                                <TextField
+                                    disabled={true}
+                                    value={'Brak grup ulubionych! \n Dodaj grupy!'}
+                                    style={{
+                                        marginTop: '19px',
+                                        width: '400px',
+                                        padding: '10px'
+                                    }}
+                                    label={'Ważne'}
+                                >
+
+                                </TextField>
+                            }
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleFavourite} color="primary">
+                            OK
+                        </Button>
+                        <Button onClick={this.handleCloseFavourite} color="primary">
+                            Anuluj
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
 
         );
@@ -280,46 +371,19 @@ class Product extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        shopList: state.getIn(['reducerShop', 'shopList'])
+        shopList: state.getIn(['reducerShop', 'shopList']),
+        favouriteList: state.getIn(['reducerFavourite', 'favouriteList']),
+        userId: state.getIn(['reducerUser', 'user', 'userId'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getShops: () => dispatch(getShops()),
-        modifyProduct: (product) => dispatch(modifyProduct(product))
+        modifyProduct: (product) => dispatch(modifyProduct(product)),
+        getFavourites: (userId) => dispatch(getFavourites(userId)),
+        addFavouriteProduct: (productId, favouriteId) => dispatch(addFavouriteProduct(productId, favouriteId))
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Product));
-
-/*
-<DialogContentText id={'product-price'} style={{
-                            fontWeight: 800,
-                            color: '#333333'
-                        }}>
-                            Cena: {this.props.price} {this.props.currency}
-                        </DialogContentText>
-                        <DialogContentText id ={'product-desc'} style={{
-                            fontWeight: 600,
-                            color: '#333333',
-                            fontStyle: 'italic'
-                        }}>
-                            Opis:
-                        </DialogContentText>
-                        <DialogContentText id ={'product-desc'} style={{
-                            fontWeight: 200,
-                            color: '#333333',
-                            fontStyle: 'italic'
-                        }}>
-                            {this.props.description}
-                        </DialogContentText>
-
-                        <DialogContentText id ={'product-desc'} style={{
-                            fontWeight: 400,
-                            color: '#333333',
-                            fontStyle: 'italic'
-                        }}>
-                            {this.props.link}
-                        </DialogContentText>
- */

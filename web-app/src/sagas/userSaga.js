@@ -8,32 +8,36 @@ const getUserParams = (login, pass) => {
     try {
         console.log('fetching with get user');
         const response = fetch(`${SERWER_LOCAL}/api/user/login`,{
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                userId: 0,
+                name: '',
+                surname: '',
                 login: login,
-                password: pass
+                password: pass,
+                mail: '',
+                admin: false
             })
-        });
-        console.log(response);
-        console.log(response.body);
-        return JSON.parse(response.body);
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
-        const data = {
-            userid: 1,
-            name: 'Adam',
-            surname: 'Nieadminowicz',
-            login: 'loginek',
-            password: 'haselko',
-            email: 'xd@xd.pl',
-            isAdmin: false
-        };
-        console.log(data);
-        return data;
+        return {};
     }
 };
 
@@ -55,10 +59,18 @@ const addUser = (user) => {
                 mail: user.mail,
                 admin: false
             })
-        });
-        console.log(response);
-        console.log(response.body);
-        return response.status;
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
         return true;
@@ -75,7 +87,7 @@ const modifyUser = (user) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                userId: 0,
+                userId: user.userId,
                 name: user.name,
                 surname: user.surname,
                 login: user.login,
@@ -83,20 +95,32 @@ const modifyUser = (user) => {
                 mail: user.mail,
                 admin: false
             })
-        });
-        console.log(response);
-        console.log(response.body);
-        return response.status;
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
     } catch(e) {
         console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
         return true;
     }
 };
 
-function* loadUser () {
+function* loadUser (action) {
     try {
-        const userParams = yield getUserParams();
-        yield put({ type: 'GET_USER_SUCCESS', payload: userParams});
+        const userParams = yield getUserParams(action.login, action.pass);
+        if(userParams == false) {
+            yield put({ type: 'GET_USER_WRONG' });
+        } else {
+            yield put({ type: 'GET_USER_SUCCESS', payload: userParams});
+        }
     } catch (e) {
         yield put({type: 'GET_USER_FAILURE', payload: e});
     }

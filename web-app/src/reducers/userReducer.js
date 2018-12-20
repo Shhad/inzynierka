@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = Map({
     user: Map(),
-    isLogged: true,
+    isLogged: false,
     view: Map({
         isLoading: false,
         errorLoading: false,
@@ -20,35 +20,34 @@ export default function (state = INITIAL_STATE, action) {
                 isLogged: true,
                 user: action.payload
             });
-        case 'GET_USER_DATA_SUCCESS':
-            return state.merge({
-                user: action.payload,
-                view: {
-                    isLoading: false,
-                    errorLoading: false,
-                    errorMessage: 'Wykonano idealnie.'
-                }
-            });
-        case 'GET_USER_DATA_FAILURE':
+        case 'GET_USER_FAILURE':
             return state.merge({
                 view: {
                     isLoading: false,
                     errorLoading: true,
-                    errorMessage: 'Wystąpił błąd podczas pobierania użytkownika.'
+                    errorMessage: 'Wystąpił błąd podczas logowania!'
+                }
+            });
+        case 'GET_USER_WRONG':
+            return state.merge({
+                view: {
+                    isLoading: false,
+                    errorLoading: true,
+                    errorMessage: 'Złe hasło lub login!'
                 }
             });
         case 'ADD_USER_SUCCESS':
             return state.merge({
                 view: {
                     errorLoading: false,
-                    errorMessage: ''
+                    errorMessage: 'Pomyślnie dodano użytkownika!'
                 }
             });
         case 'ADD_USER_FAILURE':
             return state.merge({
                 view: {
                     errorLoading: true,
-                    errorMessage: 'Wystąpił błąd podczas dodawania użytkownika.'
+                    errorMessage: 'Wystąpił błąd podczas dodawania użytkownika!'
                 }
             });
         default: return state;

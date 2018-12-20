@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header/Header';
-import FavouriteSpace from './FavouriteSpace/FavouriteSpace';
+import { FavouriteSpace } from './FavouriteSpace/FavouriteSpace';
 import Loading from './Loading';
 
 import history from '../history';
@@ -23,12 +23,10 @@ class FavouriteContainer extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getFavourites();
+        this.props.getFavourites(this.props.userId);
     }
 
     render() {
-        console.log('FavouriteContainer');
-        console.log(this.props.favouriteList);
         return (
             <div style={{
                 padding: '5px',
@@ -55,14 +53,15 @@ function mapStateToProps(state) {
     return {
         favouriteList: state.getIn(['reducerFavourite', 'favouriteList']),
         isLoading: state.getIn(['reducerFavourite', 'view', 'isLoading']),
-        loggedIn: state.getIn(['reducerUser', 'isLogged'])
+        loggedIn: state.getIn(['reducerUser', 'isLogged']),
+        userId: state.getIn(['reducerUser', 'user', 'userId'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getFavourites: () => dispatch(getFavourites())
+        getFavourites: (userID) => dispatch(getFavourites(userID))
     }
 }
 
-export const Favourite = connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer);
+export const FavouriteC = connect(mapStateToProps, mapDispatchToProps)(FavouriteContainer);

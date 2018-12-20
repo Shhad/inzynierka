@@ -6,8 +6,7 @@ import {Switch, Route, Router} from 'react-router';
 
 import { App } from "./components/AppContainer";
 import { User } from "./components/UserContainer";
-import { Favourite } from "./components/FavouriteContainer";
-import {Login} from './components/LoginContainer';
+import { FavouriteC } from "./components/FavouriteContainer";
 
 
 export default class Root extends React.Component {
@@ -32,7 +31,7 @@ export default class Root extends React.Component {
                             <Switch>
                                 <Route exact path="/" component={App}/>
                                 <Route path="/userpanel" component={User}/>
-                                <Route path="/favourite" component={Favourite}/>
+                                <Route path="/favourite" component={FavouriteC}/>
                             </Switch>
                         </div>
                     </Router>

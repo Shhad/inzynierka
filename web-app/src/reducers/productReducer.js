@@ -22,6 +22,13 @@ export default function (state = INITIAL_STATE, action) {
                     errorLoading: false
                 }
             });
+        case 'GET_PRODUCTS_ALL':
+            return state.merge({
+                view: {
+                    isLoading: true,
+                    errorLoading: false
+                }
+            });
         case 'GET_PRODUCTS_SUCCESS':
             return state.merge({
                 productList: action.payload,
