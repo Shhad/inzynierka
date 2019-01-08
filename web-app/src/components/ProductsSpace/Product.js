@@ -2,6 +2,7 @@ import React from 'react';
 import {getShops, getCategories, getFavourites, addFavouriteProduct } from '../../reducers/action-creators';
 import { connect } from 'react-redux';
 import { modifyProduct } from '../../reducers/action-creators';
+import {store} from "../../index";
 
 //Material UI components
 import { withStyles } from '@material-ui/core/styles';
@@ -50,14 +51,22 @@ class Product extends React.Component {
             shop: '',
             shops: [],
             favourite: '',
-            openFavourite: false
+            openFavourite: false,
+            userId: 0
         };
+
+        store.subscribe(() => {
+            const state = store.getState();
+            this.setState({
+                userId: state.getIn(['reducerUser', 'user', 'userId'])
+            });
+        });
     }
 
     componentWillMount() {
         this.props.getShops();
-        this.props.getFavourites(this.props.userId);
-        let name;
+        let name ='';
+
         this.props.shopList.forEach(shop => {
             if (this.props.shopId == shop.shopId) {
                 name = shop.name;
@@ -88,7 +97,6 @@ class Product extends React.Component {
         let shopID;
         this.props.shopList.forEach(shop => {
             if(shop.name == this.state.shop) {
-                console.log('znaleziony sklep')
                 shopID = shop.shopId;
             }
         });
@@ -97,6 +105,9 @@ class Product extends React.Component {
     };
 
     handleClickOpen = () => {
+        if(this.state.userId != 0 || this.state.userId != undefined) {
+            this.props.getFavourites(this.state.userId);
+        }
         this.setState({ open: true });
     };
 
@@ -118,15 +129,15 @@ class Product extends React.Component {
     };
 
     handleFavourite = () => {
-        const productId = this.props.shopId;
+        const productId = this.props.productId;
         let favouriteId;
         this.props.favouriteList.forEach(favourite => {
-            console.log(favourite.name);
             if(favourite.name === this.state.favourite) {
                 favouriteId = favourite.favouriteId;
             }
         });
         this.props.addFavouriteProduct(productId, favouriteId);
+        this.handleCloseFavourite();
     };
 
     handleFavouriteChange = (event) => {
@@ -143,7 +154,6 @@ class Product extends React.Component {
     };
 
     render() {
-        const { productid, url, name,  desc, shop } = this.props;
         const price = 'Cena: ' + this.props.price + ' ' + this.props.currency;
         const shopp = 'Sklep: ' + this.state.shop;
         return (
@@ -196,7 +206,7 @@ class Product extends React.Component {
                         <DialogContentText style={{
                             margin: 'auto'
                         }}>
-                            <img src={this.props.url} alt={'Product pic'} style={{
+                            <img src={this.props.link} alt={'Product pic'} style={{
                                 width: '100%',
                                 maxWidth: '300px',
                                 margin: 'auto'

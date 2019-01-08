@@ -21,6 +21,7 @@ class AppContainer extends React.Component {
     }
 
     specificSearch = (name) => {
+        console.log(name);
         this.setState({productName: name});
     };
 
@@ -37,7 +38,18 @@ class AppContainer extends React.Component {
     };
 
     filterProducts = () => {
+        console.log('Shops');
+        console.log(this.state.shops);
+        console.log('categories');
+        console.log(this.state.categories);
+        console.log('name');
+        console.log(this.state.productName);
         this.props.getFilteredProducts(this.state.shops, this.state.categories, this.state.productName);
+    };
+
+    handleLoggedIn = () => {
+        console.log('setstate to logged in');
+        this.setState({logIn: true});
     };
 
     render() {
@@ -50,7 +62,7 @@ class AppContainer extends React.Component {
                 width: '100%',
                 height: '100%'
             }}>
-                <Header change={this.specificSearch} newfilter={this.filterProducts} loggedIn={this.props.loggedIn} />
+                <Header change={this.specificSearch} newfilter={this.filterProducts} loggedIn={this.props.loggedIn} handleLogin={this.handleLoggedIn}/>
                 <Filter filterShop={this.filterShop} filterCategory={this.filterCategory}/>
                 {this.props.isLoading ?
                     <Loading /> :

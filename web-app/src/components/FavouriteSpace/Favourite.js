@@ -57,7 +57,7 @@ class Favourite extends React.Component {
                                     width: '50%'
                                 }}
                             >
-                                {productsList.map(product => <Product favouriteId={this.props.id} id={product.productId} {...product} />)}
+                                {productsList.map(product => <Product favouriteId={this.props.id} productId={product.productId} {...product} />)}
                             </List>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>

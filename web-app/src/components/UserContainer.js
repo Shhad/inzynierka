@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { getUser, modifyUser } from '../reducers/action-creators';
+import { getUser, modifyUser, modifyUserPassword } from '../reducers/action-creators';
 
 function TabContainer(props) {
     return (
@@ -34,10 +34,10 @@ class UserContainer extends React.Component {
             saveButton: false,
             modifyButton: true,
             newUser: {
-                name: '',
-                surname: '',
-                mail: '',
-                login: '',
+                name: this.props.userData.name,
+                surname: this.props.userData.surname,
+                mail: this.props.userData.mail,
+                login: this.props.userData.login,
             },
             oldPass: '',
             newPass: ''
@@ -62,6 +62,12 @@ class UserContainer extends React.Component {
     handleClickSave = () => {
         const user = this.state.newUser;
         user.password = this.props.userData.password;
+        user.userId = this.props.userData.userId;
+        if(user.login == '') user.login = this.props.userData.login;
+        if(user.name == '') user.login = this.props.userData.name;
+        if(user.surname == '') user.login = this.props.userData.surname;
+        if(user.mail == '') user.login = this.props.userData.mail;
+        console.log(user);
         this.props.modifyUser(user);
     };
 
@@ -88,7 +94,12 @@ class UserContainer extends React.Component {
     handleNewPass = () => {
         const user = this.props.userData;
         user.password = this.state.newPass;
-        this.props.modifyUser(user);
+        user.name = this.props.userData.name;
+        user.surname = this.props.userData.surname;
+        user.mail = this.props.userData.mail;
+        user.userId = this.props.userData.userId;
+        user.login = this.props.userData.login;
+        this.props.modifyUserPassword(user);
     };
 
     render() {
@@ -203,16 +214,26 @@ class UserContainer extends React.Component {
                                 <h4 style={{color: 'white'}}>Modyfikuj</h4>
                             </Button>
                         }
-                        {this.state.saveButton &&
+                        {!this.state.modifyButton &&
                             <Button onClick={this.handleClickSave} style={{
-                                padding: '10px'
+                                padding: '10px',
+                                margin: '10px',
+                                border: '5px',
+                                borderColor: '#A59A9A',
+                                backgroundColor: '#3f51b5'
                             }}>
-                                Zapisz
-                            </Button> &&
-                            <Button onClick={this.handleClickCanel()} style={{
-                                padding: '10px'
+                                <h4 style={{color: 'white'}}>Zapisz</h4>
+                            </Button>
+                        }
+                        {!this.state.modifyButton &&
+                            <Button onClick={this.handleClickCanel} style={{
+                                padding: '10px',
+                                margin: '10px',
+                                border: '5px',
+                                borderColor: '#A59A9A',
+                                backgroundColor: '#3f51b5'
                             }}>
-                                Anuluj
+                                <h4 style={{color: 'white'}}>Anuluj</h4>
                             </Button>
                         }
                     </div>
@@ -277,7 +298,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getUser: () => dispatch(getUser()),
-        modifyUser: (user) => dispatch(modifyUser(user))
+        modifyUser: (user) => dispatch(modifyUser(user)),
+        modifyUserPassword: (user) => dispatch(modifyUserPassword(user))
     }
 }
 

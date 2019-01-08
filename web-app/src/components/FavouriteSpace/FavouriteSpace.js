@@ -40,7 +40,7 @@ class ProductContainer extends React.Component {
             userId: this.props.userId,
             name: this.state.newFavouriteDialog.name
         };
-        this.props.addFavourite(favourite);
+        this.props.addFavourite(favourite.favouriteId, favourite.userId, favourite.name);
     };
 
     newFavouriteStateChange = (evt) => {
@@ -135,7 +135,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addFavourite: (fav) => dispatch(addFavourite(fav))
+        addFavourite: (favouriteId, userId, name) => dispatch(addFavourite(favouriteId, userId, name))
     }
 }
 

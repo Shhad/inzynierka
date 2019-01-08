@@ -10,8 +10,9 @@ import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
-import {addProduct, getShops, getCategories} from "../../reducers/action-creators";
+import {addProduct, getShops, getCategories, getFavourites} from "../../reducers/action-creators";
 import MenuItem from "@material-ui/core/MenuItem";
+import { store } from '../../index';
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
@@ -36,8 +37,16 @@ class ProductContainer extends React.Component {
                 link: ''
             },
             shop: '',
-            category: ''
+            category: '',
+            userId: 0
         };
+
+        store.subscribe(() => {
+            const state = store.getState();
+            this.setState({
+                userId: state.getIn(['reducerUser', 'user', 'userId'])
+            });
+        });
     }
 
     componentWillMount() {
@@ -50,7 +59,6 @@ class ProductContainer extends React.Component {
         let shopID;
         this.props.shopList.forEach(shop => {
             if(shop.name == this.state.shop) {
-                console.log('znaleziony sklep')
                 shopID = shop.shopId;
             }
         });
@@ -58,7 +66,6 @@ class ProductContainer extends React.Component {
         let catID;
         this.props.categoryList.forEach(shop => {
             if(shop.name == this.state.category) {
-                console.log('znaleziony sklep')
                 catID = shop.categoryId;
             }
         });
@@ -264,6 +271,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getShops: () => dispatch(getShops()),
         getCategories: () => dispatch(getCategories()),
+        getFavourites: (userId) => dispatch(getFavourites(userId)),
         addProduct: (product) => dispatch(addProduct(product))
     }
 }

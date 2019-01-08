@@ -1,9 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { combineReducers } from 'redux-immutable'
 import customHistory from './history';
-import { routerMiddleware } from 'react-router-redux';
-import thunkMiddleware from 'redux-thunk';
-import { createEpicMiddleware } from 'redux-observable';
 import  createSagaMiddleware from 'redux-saga';
 
 //Reducers
@@ -29,7 +26,7 @@ const shopMiddleware = createSagaMiddleware();
 const categoryMiddleware = createSagaMiddleware();
 const userMiddleware = createSagaMiddleware();
 
-const configureStore = (initialState) => {
+const configureStore = () => {
     const store = createStore(
         combineReducers({reducerProduct, reducerFavourite, reducerShop, reducerCategory, reducerUser}),
         compose(

@@ -113,6 +113,42 @@ const modifyUser = (user) => {
     }
 };
 
+const modifyPassword = (user) => {
+    try {
+        console.log('fetching with get user');
+        const response = fetch(`${SERWER_LOCAL}/api/user/modifypass`,{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: user.userId,
+                name: user.name,
+                surname: user.surname,
+                login: user.login,
+                password: user.password,
+                mail: user.mail,
+                admin: false
+            })
+        }).then(response => response.json())
+            .then(data => {
+                if(data.status === 'ok') {
+                    console.log(data.data);
+                    return data.data;
+                } else {
+                    console.log('not good');
+                    return false;
+                }
+            })
+            .catch(error => console.log(`Error occurred: ${error}.`));
+        return response;
+    } catch(e) {
+        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        return true;
+    }
+};
+
 function* loadUser (action) {
     try {
         const userParams = yield getUserParams(action.login, action.pass);
@@ -144,6 +180,15 @@ function* modifyUserFunction(action) {
     }
 }
 
+function* modifyUserPasswordFunction(action) {
+    try {
+        yield modifyPassword(action.user);
+        yield put({ type: 'MODIFY_USER_PASSWORD_SUCCESS'});
+    } catch (e) {
+        yield put({ type: 'MODIFY_USER_PASSWORD_FAILURE', payload: e});
+    }
+}
+
 function* watchGetUser() {
     yield takeLatest('GET_USER', loadUser);
 }
@@ -155,10 +200,16 @@ function* watchAddUser() {
 function* watchModifyUser() {
     yield takeLatest('MODIFY_USER', modifyUserFunction);
 }
+
+function* watchModifyUserPassword() {
+    yield takeLatest('MODIFY_USER_PASSWORD', modifyUserFunction);
+}
+
 export default function* userSaga() {
     yield [
         watchGetUser(),
         watchAddUser(),
-        watchModifyUser()
+        watchModifyUser(),
+        watchModifyUserPassword()
     ]
 }

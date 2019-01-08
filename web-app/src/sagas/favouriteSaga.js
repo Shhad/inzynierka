@@ -94,6 +94,8 @@ const getUserFavouritesProducts = async(userid) => {
 const addFavouriteProduct = (favouriteid, productid) => {
     try {
         console.log('adding favourite product');
+        console.log(favouriteid);
+        console.log(productid);
         const response = fetch(`${SERWER_LOCAL}/api/favourite/add2`,{
             method: 'POST',
             headers: {
@@ -133,12 +135,13 @@ const addFavourite = (favouriteid, userid, name) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                favouriteId: favouriteid,
+                favouriteId: 0,
                 userId: userid,
                 name: name
             })
         }).then(response => response.json())
             .then(data => {
+                console.log(data);
                 if(data.status === 'ok') {
                     console.log(data.data);
                     return data.data;
@@ -193,7 +196,7 @@ function* addFavouriteFunction (action) {
 
 function* addProductToFavouriteFunction (action) {
     try {
-        yield addFavouriteProduct(action.favouriteid, action.productid);
+        yield addFavouriteProduct(action.favouriteId, action.productId);
         yield put({ type: 'GET_FAVOURITES'});
     } catch (e) {
         yield put({ type: 'ADD_TO_FAVOURITE_FAILURE', payload: e});
@@ -202,8 +205,7 @@ function* addProductToFavouriteFunction (action) {
 
 function* deleteProductFromFavouriteFunction (action) {
     try {
-        yield deleteProductFromFavourite(action.favouriteid, action.productid);
-        yield put({ type: 'GET_FAVOURITES'});
+        yield deleteProductFromFavourite(action.favouriteId, action.productId);
     } catch (e) {
         yield put({ type: 'DELETE_FROM_FAVOURITE_FAILURE', payload: e});
     }

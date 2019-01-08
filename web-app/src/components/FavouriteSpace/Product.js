@@ -1,5 +1,5 @@
 import React from 'react';
-import { deleteFavouriteProduct} from "../../reducers/action-creators";
+import { deleteFavouriteProduct, getFavourites } from "../../reducers/action-creators";
 import { connect } from 'react-redux';
 
 //Material UI components
@@ -47,7 +47,8 @@ class Product extends React.Component {
     };
 
     handleDeleteProduct = () => {
-        this.props.deleteFavourite(this.props.favouriteId, this.props.id);
+        this.props.deleteFavourite(this.props.productId, this.props.favouriteId, this.props.userId);
+        this.props.getFavourites(this.props.userId);
     };
 
     render() {
@@ -131,10 +132,17 @@ class Product extends React.Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
     return {
-        deleteFavourite: (favourite, product) => dispatch(deleteFavouriteProduct(favourite, product))
+        userId: state.getIn(['reducerUser', 'user', 'userId'])
     }
 }
 
-export default connect(mapDispatchToProps)(withStyles(styles)(Product));
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteFavourite: (productId, favouriteId, userId) => dispatch(deleteFavouriteProduct(productId, favouriteId, userId)),
+        getFavourites: (userId) => dispatch(getFavourites(userId))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Product));

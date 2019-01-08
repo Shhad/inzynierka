@@ -50,11 +50,12 @@ export function addFavouriteProduct(productId, favouriteId) {
     }
 }
 
-export function deleteFavouriteProduct(productId, favouriteId) {
+export function deleteFavouriteProduct(productId, favouriteId, userId) {
     return {
         type: 'DELETE_FAVOURITE_PRODUCT',
         productId,
-        favouriteId
+        favouriteId,
+        userId
     }
 }
 
@@ -92,9 +93,22 @@ export function modifyUser(user) {
     }
 }
 
+export function modifyUserPassword(user) {
+    return {
+        type: 'MODIFY_USER_PASSWORD',
+        user
+    }
+}
+
 export function addUser(user) {
     return {
         type: 'ADD_USER',
         user
+    }
+}
+
+export function logout() {
+    return {
+        type: 'LOGOUT'
     }
 }

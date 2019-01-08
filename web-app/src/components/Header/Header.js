@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../history';
-import { getUser, addUser } from "../../reducers/action-creators";
+import { getUser, addUser, logout, getFavourites } from "../../reducers/action-creators";
 import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -108,7 +108,6 @@ function Transition(props) {
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.state = {
             search: String,
             anchorEl: null,
@@ -133,7 +132,12 @@ class Header extends React.Component {
     handleChangeSearch = (event) => {
         const target = event.target;
         const value = target.value;
+        console.log(value);
         this.setState({search: value});
+    };
+
+    sendChangeSearch = () => {
+        this.props.change(this.state.search);
     };
 
     handleOpenRegisterDialog = () => {
@@ -169,6 +173,7 @@ class Header extends React.Component {
 
     handleLogin =() => {
         this.props.getUser(this.state.login, this.state.password);
+        this.props.handleLogin();
         this.handleCloseLoginDialog();
     };
 
@@ -179,7 +184,6 @@ class Header extends React.Component {
     };
 
     passHandleChangeSearch = () => {
-        this.props.change(this.state.search);
         this.props.newfilter();
     };
 
@@ -192,6 +196,7 @@ class Header extends React.Component {
     };
 
     handleMenuClose = () => {
+        this.props.logout();
         this.setState({ anchorEl: null });
         this.handleMobileMenuClose();
     };
@@ -298,6 +303,7 @@ class Header extends React.Component {
                                     input: classes.inputInput,
                                 }}
                                 onChange={this.handleChangeSearch}
+                                onBlur={this.sendChangeSearch}
                             />
                         </div>
                         <FlatButton>
@@ -507,14 +513,17 @@ Header.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        userid: state.getIn(['reducerUser', 'isLogged'])
+        userid: state.getIn(['reducerUser', 'isLogged']),
+        userId: state.getIn(['reducerUser', 'user', 'userId'])
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getUser: (login, password) => dispatch(getUser(login, password)),
-        addUser: (user) => dispatch(addUser(user))
+        addUser: (user) => dispatch(addUser(user)),
+        logout: () => dispatch(logout()),
+        getFavourites: (userId) => dispatch(getFavourites(userId))
     };
 }
 

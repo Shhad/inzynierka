@@ -50,6 +50,15 @@ export default function (state = INITIAL_STATE, action) {
                     errorMessage: 'Wystąpił błąd podczas dodawania użytkownika!'
                 }
             });
+        case 'LOGOUT':
+            return state.merge({
+                isLogged: false,
+                user: {},
+                view: {
+                    errorLoading: false,
+                    errorMessage: 'Pomyślnie wylogowano!'
+                }
+            });
         default: return state;
     }
 }
