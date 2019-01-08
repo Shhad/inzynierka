@@ -101,7 +101,24 @@ public class UserController {
     public ResponseEntity<?> modifyUser(@RequestBody User user) {
         JSONObject response = new JSONObject();
         try {
-            userRepository.updateUserPassword(user.getPassword(), user.getUserdId());
+            userRepository.updateUserMail(user.getMail(), user.getName(), user.getSurname(), user.getLogin(), user.getUserId());
+
+            response.put("status", "ok");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.put("status", "failure");
+            response.put("msg", e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+    @CrossOrigin
+    @PostMapping("/modifypass")
+    public ResponseEntity<?> modifyPassword(@RequestBody User user) {
+        JSONObject response = new JSONObject();
+        try {
+            userRepository.updateUserPassword(user.getPassword(), user.getUserId());
 
             response.put("status", "ok");
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -119,7 +136,7 @@ public class UserController {
         JSONObject response = new JSONObject();
         try {
             //userRepository.delete(user);
-            userRepository.deleteById(user.getUserdId());
+            userRepository.deleteById(user.getUserId());
 
             response.put("status", "ok");
             return new ResponseEntity<>(response, HttpStatus.OK);

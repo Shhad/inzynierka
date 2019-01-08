@@ -10,9 +10,9 @@ import java.math.BigInteger;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "userid")
-    private Integer userdId;
+    private Integer userId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -43,12 +43,12 @@ public class User implements Serializable {
         this.admin = admin;
     }
 
-    public Integer getUserdId() {
-        return userdId;
+    public Integer getUserId() {
+        return userId;
     }
 
     public void setUserdId(Integer userdId) {
-        this.userdId = userdId;
+        this.userId = userdId;
     }
 
     public String getName() {

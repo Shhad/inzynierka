@@ -1,5 +1,6 @@
 package inz.controller;
 
+import inz.model.Category;
 import inz.model.Favourite;
 import inz.model.Product;
 import inz.model.Shop;
@@ -199,25 +200,51 @@ public class ProductController {
             List<Integer> categories = new ArrayList<Integer>();
             List<Integer> shops = new ArrayList<Integer>();
 
-            JSONArray cat = (JSONArray) json.get("categories");
-            Iterator i = cat.iterator();
+            System.out.println("Body: " + body);
 
-            while (i.hasNext()) {
-                JSONObject category = (JSONObject) i.next();
-                String categoryid = category.get("categoryId").toString();
-                System.out.println(categoryid);
-                categories.add(Integer.parseInt(categoryid));
+            JSONArray cat = (JSONArray) json.get("categories");
+
+            if(cat.size() == 0) {
+                System.out.println("categories null");
+                List<Category> categoriesAll = categoryRepository.findAll();
+                Iterator i = categoriesAll.iterator();
+
+                while(i.hasNext()) {
+                    categories.add(((Category) i.next()).getCategoryId());
+                }
+            } else {
+                Iterator i = cat.iterator();
+
+                while (i.hasNext()) {
+                    JSONObject category = (JSONObject) i.next();
+                    String categoryid = category.get("categoryId").toString();
+                    System.out.println(categoryid);
+                    categories.add(Integer.parseInt(categoryid));
+                }
             }
 
             JSONArray sh = (JSONArray) json.get("shops");
-            i = sh.iterator();
 
-            while (i.hasNext()) {
-                JSONObject shop = (JSONObject) i.next();
-                String shopid = shop.get("shopId").toString();
-                System.out.println(shopid);
-                shops.add(Integer.parseInt(shopid));
+            if(sh.size() == 0) {
+                System.out.println("shops null");
+                List<Shop> shopsAll = shopRepository.findAll();
+                Iterator i = shopsAll.iterator();
+
+                while(i.hasNext()) {
+                    shops.add(((Shop) i.next()).getShopId());
+                }
+            } else {
+                Iterator i = sh.iterator();
+
+                while (i.hasNext()) {
+                    JSONObject shop = (JSONObject) i.next();
+                    String shopid = shop.get("shopId").toString();
+                    System.out.println(shopid);
+                    shops.add(Integer.parseInt(shopid));
+                }
             }
+
+            System.out.println("Name: " + json.get("name").toString());
 
             response.put("status", "ok");
             response.put("data", productRepository.getFromFilter(categories, shops, json.get("name").toString()));

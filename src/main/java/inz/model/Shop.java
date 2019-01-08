@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class Shop implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "shopid")
     private Integer shopId;
 

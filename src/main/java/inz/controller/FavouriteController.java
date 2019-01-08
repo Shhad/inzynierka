@@ -30,6 +30,8 @@ public class FavouriteController {
     public ResponseEntity<?> addFavourite(@RequestBody Favourite favourite) {
         JSONObject response = new JSONObject();
         try {
+            System.out.println(favourite.getFavouriteId());
+            System.out.println(favouriteRepository.getCount().intValue());
             favourite.setFavouriteId(favouriteRepository.getCount().intValue() + 1);
             favouriteRepository.saveAndFlush(favourite);
 

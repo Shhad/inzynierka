@@ -6,14 +6,10 @@ import java.math.BigInteger;
 
 @Entity
 @Table(name = "favourite")
-@SqlResultSetMapping(name="JediResult", classes = {
-        @ConstructorResult(targetClass = Favourite.class,
-                columns = {@ColumnResult(name="favouriteid"), @ColumnResult(name="userid"), @ColumnResult(name="name")})
-})
 public class Favourite implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "favouriteid")
     private Integer favouriteId;
 

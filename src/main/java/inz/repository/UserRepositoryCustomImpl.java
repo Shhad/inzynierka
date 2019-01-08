@@ -39,16 +39,19 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public void updateUserMail(String mail, Integer id) {
-        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET mail = ? WHERE id = ?", User.class);
+    public void updateUserMail(String mail, String name, String surname, String login, Integer id) {
+        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET mail = ?, name = ?, surname = ?, login = ? WHERE userid = ?", User.class);
         query.setParameter(1, mail);
-        query.setParameter(2, id);
+        query.setParameter(2, name);
+        query.setParameter(3, surname);
+        query.setParameter(4, login);
+        query.setParameter(5, id);
         query.executeUpdate();
     }
 
     @Override
     public void updateUserPassword(String pass, Integer id) {
-        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET password = ? WHERE id = ?", User.class);
+        Query query = entityManager.createNativeQuery("UPDATE \"users\" SET password = ? WHERE userid = ?", User.class);
         query.setParameter(1, pass);
         query.setParameter(2, id);
         query.executeUpdate();

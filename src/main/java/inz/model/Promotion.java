@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class Promotion implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "promotionid")
     private Integer promotionId;
 

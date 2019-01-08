@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class Cart implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "cartid", nullable = false)
     private Integer cartId;
 
@@ -21,7 +21,7 @@ public class Cart implements Serializable {
 
     @Column(name = "price",nullable = false)
     private double price;
-    
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -64,7 +64,7 @@ public class Cart implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     public String getName() {
         return name;
     }
