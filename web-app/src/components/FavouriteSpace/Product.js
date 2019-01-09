@@ -60,7 +60,7 @@ class Product extends React.Component {
                     width: '400px'
                 }}>
                     <ListItemIcon onClick={this.handleClickOpen} >
-                        <img src={this.props.url} alt={'Product pic'} style={{
+                        <img src={this.props.link} alt={'Product pic'} style={{
                             maxHeight: '50px',
                             maxWidth: '50xp'
                         }}/>

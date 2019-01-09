@@ -3,20 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="718ee3d9-c8c5-4108-9c9e-b706dd4ee457" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/AppContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/AppContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Favourite.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Favourite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/FavouriteSpace.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/FavouriteSpace.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/Header/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/ProductsSpace/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/ProductsSpace/Product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/ProductsSpace/ProductSpace.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/ProductsSpace/ProductSpace.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/UserContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/UserContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/reducers/action-creators.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/reducers/action-creators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/reducers/userReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/favouriteSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/favouriteSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/userSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/userSaga.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/store.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +83,7 @@
     <session id="1204026832">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="16" />
+          <entry key="project.closed" value="18" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="2" />
@@ -104,11 +91,11 @@
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.26" value="2" />
           <entry key="project.open.time.27" value="2" />
-          <entry key="project.open.time.4" value="3" />
+          <entry key="project.open.time.4" value="4" />
           <entry key="project.open.time.5" value="2" />
-          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -134,15 +121,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="18513" />
+          <entry key="js" value="18517" />
           <entry key="scss" value="2" />
-          <entry key="txt" value="20" />
+          <entry key="txt" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="18513" />
-          <entry key="PLAIN_TEXT" value="20" />
+          <entry key="JavaScript" value="18517" />
+          <entry key="PLAIN_TEXT" value="38" />
           <entry key="SCSS" value="2" />
         </counts>
       </usages-collector>
@@ -188,11 +175,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2193">
-              <caret line="143" column="66" selection-start-line="143" selection-start-column="66" selection-end-line="143" selection-end-column="66" />
+            <state relative-caret-position="346">
+              <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -203,16 +190,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/AppContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
+            <state relative-caret-position="986">
               <caret line="64" column="39" lean-forward="true" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/Header/Header.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1140">
+            <state relative-caret-position="1870">
               <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
             </state>
           </provider>
@@ -221,7 +208,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/UserContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="1445">
               <caret line="98" column="38" lean-forward="true" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="38" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
@@ -321,12 +308,12 @@
         <option value="$PROJECT_DIR$/web-app/src/components/ProductsSpace/Product.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Favourite.js" />
         <option value="$PROJECT_DIR$/web-app/src/sagas/favouriteSaga.js" />
-        <option value="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/AppContainer.js" />
         <option value="$PROJECT_DIR$/web-app/src/sagas/userSaga.js" />
         <option value="$PROJECT_DIR$/web-app/src/reducers/action-creators.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/UserContainer.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/Header/Header.js" />
+        <option value="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" />
       </list>
     </option>
   </component>
@@ -357,10 +344,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1592" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1696" />
-    <option name="height" value="1066" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -368,23 +355,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="inzweb" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="inzweb" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -473,13 +443,30 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="inzweb" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="inzweb" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Flow JS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../rest/inzynierka" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -554,7 +541,9 @@
       <workItem from="1546696201060" duration="16486000" />
       <workItem from="1546786702715" duration="7147000" />
       <workItem from="1546842582000" duration="16000" />
-      <workItem from="1546927905964" duration="2812000" />
+      <workItem from="1546927905964" duration="2880000" />
+      <workItem from="1547014071256" duration="1244000" />
+      <workItem from="1547053100689" duration="598000" />
     </task>
     <task id="LOCAL-00001" summary="Added LoginContainer">
       <created>1544713220988</created>
@@ -563,11 +552,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544713220988</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed several bugs">
+      <created>1546934480333</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1546934480333</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149115000" />
+    <option name="totallyTimeSpent" value="151025000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -579,9 +575,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1592" y="-8" width="1696" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21454768" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21979435" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -595,7 +591,7 @@
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.3287483" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.26902464" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.2678331" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
@@ -645,7 +641,8 @@
       <path value="$PROJECT_DIR$/web-app" />
     </ignored-roots>
     <MESSAGE value="Added LoginContainer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added LoginContainer" />
+    <MESSAGE value="Fixed several bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed several bugs" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -814,9 +811,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -850,12 +844,26 @@
     <entry file="file://$PROJECT_DIR$/web-app/src/reducers/favouriteReducers.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js">
+    <entry file="file://$PROJECT_DIR$/web-app/src/components/AppContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2193">
-          <caret line="143" column="66" selection-start-line="143" selection-start-column="66" selection-end-line="143" selection-end-column="66" />
+        <state relative-caret-position="986">
+          <caret line="64" column="39" lean-forward="true" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/src/components/Header/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1870">
+          <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/src/components/UserContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="98" column="38" lean-forward="true" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="38" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -874,27 +882,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/components/UserContainer.js">
+    <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="98" column="38" lean-forward="true" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="38" />
+        <state relative-caret-position="346">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/components/AppContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="64" column="39" lean-forward="true" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/components/Header/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1140">
-          <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
         </state>
       </provider>
     </entry>
