@@ -7,12 +7,12 @@ import {
     select,
     takeLatest
 } from 'redux-saga/effects';
-import { SERWER_LOCAL, SERWER_PROD} from "../constants/AppConstants";
+import { SERWER_PROD, SERWER_PROD} from "../constants/AppConstants";
 
 const getProductsPromotionFromServer = () => {
     try {
         console.log('getting promotion products');
-        const response = fetch(`${SERWER_LOCAL}/api/product/promotions`,{
+        const response = fetch(`${SERWER_PROD}/api/product/promotions`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -31,7 +31,7 @@ const getProductsPromotionFromServer = () => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
 
         return [];
     }
@@ -40,7 +40,7 @@ const getProductsPromotionFromServer = () => {
 const getProductsFromServer = () => {
     try {
         console.log('getting promotion products');
-        const response = fetch(`${SERWER_LOCAL}/api/product/all`,{
+        const response = fetch(`${SERWER_PROD}/api/product/all`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -59,7 +59,7 @@ const getProductsFromServer = () => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
 
         return [];
     }
@@ -68,7 +68,7 @@ const getProductsFromServer = () => {
 const getProductsFilterFromServer = (categories, shops, name) => {
     try {
         console.log('getting filtered products');
-        const response = fetch(`${SERWER_LOCAL}/api/product/products/filter`,{
+        const response = fetch(`${SERWER_PROD}/api/product/products/filter`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -92,7 +92,7 @@ const getProductsFilterFromServer = (categories, shops, name) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
 
         return [];
     }
@@ -101,7 +101,7 @@ const getProductsFilterFromServer = (categories, shops, name) => {
 const modifyProduct = (product) => {
     try {
         console.log('fetching with modify product');
-        const response = fetch(`${SERWER_LOCAL}/api/product/modify`,{
+        const response = fetch(`${SERWER_PROD}/api/product/modify`,{
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -130,14 +130,14 @@ const modifyProduct = (product) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
     }
 };
 
 const addProduct = (product) => {
     try {
         console.log('fetching with add product');
-        const response = fetch(`${SERWER_LOCAL}/api/product/add`,{
+        const response = fetch(`${SERWER_PROD}/api/product/add`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -166,7 +166,7 @@ const addProduct = (product) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`)
+        console.log(`Could not fetch data from ${SERWER_PROD}.`)
     }
 };
 

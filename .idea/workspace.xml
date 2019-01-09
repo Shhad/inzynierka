@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="718ee3d9-c8c5-4108-9c9e-b706dd4ee457" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/categorySaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/categorySaga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/favouriteSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/favouriteSaga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/productSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/productSaga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/shopSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/shopSaga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/sagas/userSaga.js" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/sagas/userSaga.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +108,7 @@
           <entry key="html" value="1" />
           <entry key="ico" value="1" />
           <entry key="jpg" value="2" />
-          <entry key="js" value="165" />
+          <entry key="js" value="167" />
           <entry key="json" value="3" />
           <entry key="scss" value="2" />
         </counts>
@@ -114,21 +118,21 @@
           <entry key="HTML" value="1" />
           <entry key="Image" value="3" />
           <entry key="JSON" value="3" />
-          <entry key="JavaScript" value="165" />
+          <entry key="JavaScript" value="167" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="SCSS" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="18517" />
+          <entry key="js" value="18522" />
           <entry key="scss" value="2" />
           <entry key="txt" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="18517" />
+          <entry key="JavaScript" value="18522" />
           <entry key="PLAIN_TEXT" value="38" />
           <entry key="SCSS" value="2" />
         </counts>
@@ -137,30 +141,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/src/Root.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="8" column="61" selection-start-line="8" selection-start-column="61" selection-end-line="8" selection-end-column="61" />
-              <folding>
-                <element signature="e#45#80#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/FavouriteSpace.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Favourite.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -175,7 +155,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="346">
@@ -183,6 +163,27 @@
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web-app/src/sagas/categorySaga.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-app/src/constants/AppConstants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -247,7 +248,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>console.log</find>
+      <find>SERWER_LOCAL</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>SERWER_PROD</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -291,7 +297,6 @@
         <option value="$PROJECT_DIR$/web-app/src/routes.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/Test1.js" />
         <option value="$PROJECT_DIR$/web-app/src/reducers/categoryReducer.js" />
-        <option value="$PROJECT_DIR$/web-app/src/constants/AppConstants.js" />
         <option value="$PROJECT_DIR$/web-app/src/Root.js" />
         <option value="$PROJECT_DIR$/web-app/src/reducers/productReducer.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/Filters/Filter.js" />
@@ -314,6 +319,7 @@
         <option value="$PROJECT_DIR$/web-app/src/components/UserContainer.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/Header/Header.js" />
         <option value="$PROJECT_DIR$/web-app/src/components/FavouriteSpace/Product.js" />
+        <option value="$PROJECT_DIR$/web-app/src/constants/AppConstants.js" />
       </list>
     </option>
   </component>
@@ -466,7 +472,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Flow JS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../rest/inzynierka" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -543,7 +549,7 @@
       <workItem from="1546842582000" duration="16000" />
       <workItem from="1546927905964" duration="2880000" />
       <workItem from="1547014071256" duration="1244000" />
-      <workItem from="1547053100689" duration="598000" />
+      <workItem from="1547053100689" duration="1739000" />
     </task>
     <task id="LOCAL-00001" summary="Added LoginContainer">
       <created>1544713220988</created>
@@ -563,7 +569,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151025000" />
+    <option name="totallyTimeSpent" value="152166000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -725,13 +731,6 @@
     <entry file="file://$PROJECT_DIR$/web-app/src/components/LoginContainer.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/constants/AppConstants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="55" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web-app/src/reducers/categoryReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
@@ -743,13 +742,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/src/sagas/categorySaga.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -888,6 +880,23 @@
           <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/src/constants/AppConstants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/src/sagas/categorySaga.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

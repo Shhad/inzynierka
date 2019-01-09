@@ -3,12 +3,12 @@ import {
     select,
     takeLatest
 } from 'redux-saga/effects';
-import {SERWER_LOCAL} from "../constants/AppConstants";
+import {SERWER_PROD} from "../constants/AppConstants";
 
 const getAllShopsFromServer = () => {
         try {
             console.log('fetching with get shops');
-            const response = fetch(`${SERWER_LOCAL}/api/shop/shops`,{
+            const response = fetch(`${SERWER_PROD}/api/shop/shops`,{
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
@@ -27,7 +27,7 @@ const getAllShopsFromServer = () => {
                 .catch(error => console.log(`Error occurred: ${error}.`));
             return response;
         } catch(e) {
-            console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+            console.log(`Could not fetch data from ${SERWER_PROD}.`);
 
             return [];
         }

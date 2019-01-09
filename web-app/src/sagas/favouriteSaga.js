@@ -6,12 +6,12 @@ import {
     put,
     takeLatest
 } from 'redux-saga/effects';
-import {SERWER_LOCAL} from "../constants/AppConstants";
+import {SERWER_PROD} from "../constants/AppConstants";
 
 const getUserFavourites = (userid) => {
     try {
         console.log('getting favourite user');
-        const response = fetch(`${SERWER_LOCAL}/api/favourite/favourites/${userid}`,{
+        const response = fetch(`${SERWER_PROD}/api/favourite/favourites/${userid}`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -30,13 +30,13 @@ const getUserFavourites = (userid) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return [];
     }
 };
 
 const getProductsOfFavourite = async(favouriteId) => {
-    const response = await fetch(`${SERWER_LOCAL}/api/product/products/favourite/${favouriteId}`,{
+    const response = await fetch(`${SERWER_PROD}/api/product/products/favourite/${favouriteId}`,{
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -56,7 +56,7 @@ const getUserFavouritesProducts = async(userid) => {
     try {
         console.log('getting favourite user');
         let responseData;
-        const response = await fetch(`${SERWER_LOCAL}/api/favourite/favourites/${userid}`,{
+        const response = await fetch(`${SERWER_PROD}/api/favourite/favourites/${userid}`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -86,7 +86,7 @@ const getUserFavouritesProducts = async(userid) => {
 
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return [];
     }
 };
@@ -96,7 +96,7 @@ const addFavouriteProduct = (favouriteid, productid) => {
         console.log('adding favourite product');
         console.log(favouriteid);
         console.log(productid);
-        const response = fetch(`${SERWER_LOCAL}/api/favourite/add2`,{
+        const response = fetch(`${SERWER_PROD}/api/favourite/add2`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -120,7 +120,7 @@ const addFavouriteProduct = (favouriteid, productid) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return false;
     }
 };
@@ -128,7 +128,7 @@ const addFavouriteProduct = (favouriteid, productid) => {
 const addFavourite = (favouriteid, userid, name) => {
     try {
         console.log('getting filtered products');
-        const response = fetch(`${SERWER_LOCAL}/api/favourite/add`,{
+        const response = fetch(`${SERWER_PROD}/api/favourite/add`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -153,7 +153,7 @@ const addFavourite = (favouriteid, userid, name) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return false;
     }
 };
@@ -161,7 +161,7 @@ const addFavourite = (favouriteid, userid, name) => {
 const deleteProductFromFavourite = (favourite, product) => {
     try {
         console.log('getting filtered products');
-        const response = fetch(`${SERWER_LOCAL}/api/favourite/delete/${favourite}/${product}`,{
+        const response = fetch(`${SERWER_PROD}/api/favourite/delete/${favourite}/${product}`,{
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -180,7 +180,7 @@ const deleteProductFromFavourite = (favourite, product) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return false;
     }
 };

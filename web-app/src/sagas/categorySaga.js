@@ -1,11 +1,11 @@
 import { delay } from 'redux-saga';
 import { put, takeLatest } from 'redux-saga/effects';
-import {SERWER_LOCAL} from "../constants/AppConstants";
+import {SERWER_PROD} from "../constants/AppConstants";
 
 const getCategories = () => {
     try {
         console.log('fetching with get categories');
-        const response = fetch(`${SERWER_LOCAL}/api/category/categories`,{
+        const response = fetch(`${SERWER_PROD}/api/category/categories`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -24,7 +24,7 @@ const getCategories = () => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return [];
     }
 };

@@ -2,12 +2,12 @@ import {
     put,
     takeLatest
 } from 'redux-saga/effects';
-import {SERWER_LOCAL} from "../constants/AppConstants";
+import {SERWER_PROD} from "../constants/AppConstants";
 
 const getUserParams = (login, pass) => {
     try {
         console.log('fetching with get user');
-        const response = fetch(`${SERWER_LOCAL}/api/user/login`,{
+        const response = fetch(`${SERWER_PROD}/api/user/login`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -36,7 +36,7 @@ const getUserParams = (login, pass) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return {};
     }
 };
@@ -44,7 +44,7 @@ const getUserParams = (login, pass) => {
 const addUser = (user) => {
     try {
         console.log('fetching with get user');
-        const response = fetch(`${SERWER_LOCAL}/api/user/add`,{
+        const response = fetch(`${SERWER_PROD}/api/user/add`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -72,7 +72,7 @@ const addUser = (user) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return true;
     }
 };
@@ -80,7 +80,7 @@ const addUser = (user) => {
 const modifyUser = (user) => {
     try {
         console.log('fetching with get user');
-        const response = fetch(`${SERWER_LOCAL}/api/user/modify`,{
+        const response = fetch(`${SERWER_PROD}/api/user/modify`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -108,7 +108,7 @@ const modifyUser = (user) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return true;
     }
 };
@@ -116,7 +116,7 @@ const modifyUser = (user) => {
 const modifyPassword = (user) => {
     try {
         console.log('fetching with get user');
-        const response = fetch(`${SERWER_LOCAL}/api/user/modifypass`,{
+        const response = fetch(`${SERWER_PROD}/api/user/modifypass`,{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -144,7 +144,7 @@ const modifyPassword = (user) => {
             .catch(error => console.log(`Error occurred: ${error}.`));
         return response;
     } catch(e) {
-        console.log(`Could not fetch data from ${SERWER_LOCAL}.`);
+        console.log(`Could not fetch data from ${SERWER_PROD}.`);
         return true;
     }
 };
