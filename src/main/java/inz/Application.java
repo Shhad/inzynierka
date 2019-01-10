@@ -16,7 +16,7 @@ public class Application extends SpringBootServletInitializer {
 
     private static final Class<Application> applicationClass = Application.class;
 
-    public static void main(String[] args) {
+    void start(String[] args) {
         SpringApplication.run(applicationClass, args);
     }
 }
