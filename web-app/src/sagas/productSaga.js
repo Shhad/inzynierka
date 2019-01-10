@@ -7,7 +7,7 @@ import {
     select,
     takeLatest
 } from 'redux-saga/effects';
-import { SERWER_PROD, SERWER_PROD} from "../constants/AppConstants";
+import { SERWER_PROD } from "../constants/AppConstants";
 
 const getProductsPromotionFromServer = () => {
     try {
