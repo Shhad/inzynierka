@@ -352,7 +352,6 @@ class Header extends React.Component {
                     </Toolbar>
                 </AppBar>
                 {renderMenu}
-                {renderMobileMenu}
                 <Dialog
                     open={this.state.loginDialog}
                     TransitionComponent={Transition}
