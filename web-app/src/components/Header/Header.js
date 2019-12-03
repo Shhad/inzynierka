@@ -29,7 +29,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 
-const VERSSION = '0.0.1';
+const VERSSION = '1.0.0';
 
 const styles = theme => ({
     root: {
@@ -210,7 +210,7 @@ class Header extends React.Component {
     };
 
     goToFavourites = () => {
-        history.push('/favourite');
+        history.push('/order');
     };
 
     goToUserProfile = () => {
@@ -237,8 +237,8 @@ class Header extends React.Component {
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
-                <MenuItem onClick={this.goShopping}>Na zakupy!</MenuItem>
-                <MenuItem onClick={this.goToFavourites}>Ulubione</MenuItem>
+                <MenuItem onClick={this.goShopping}>Przeglądaj produkty</MenuItem>
+                <MenuItem onClick={this.goToFavourites}>Zamówienia</MenuItem>
                 <MenuItem onClick={this.goToUserProfile}>Konto</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>Wyloguj</MenuItem>
             </Menu>

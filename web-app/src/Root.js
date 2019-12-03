@@ -31,7 +31,7 @@ export default class Root extends React.Component {
                             <Switch>
                                 <Route exact path="/" component={App}/>
                                 <Route path="/userpanel" component={User}/>
-                                <Route path="/favourite" component={FavouriteC}/>
+                                <Route path="/order" component={FavouriteC}/>
                             </Switch>
                         </div>
                     </Router>

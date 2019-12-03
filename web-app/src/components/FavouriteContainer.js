@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header/Header';
-import { FavouriteSpace } from './FavouriteSpace/FavouriteSpace';
+import { OrderSpace } from './FavouriteSpace/OrderSpace';
 import Loading from './Loading';
 
 import history from '../history';
@@ -39,7 +39,7 @@ class FavouriteContainer extends React.Component {
                 <Header  loggedIn={this.props.loggedIn} />
                 {this.props.isLoading ?
                     <Loading /> :
-                    <FavouriteSpace favouriteList={this.props.favouriteList} />
+                    <OrderSpace favouriteList={this.props.favouriteList} />
                 }
                 <div>
                     {this.props.children}
