@@ -10,6 +10,6 @@ import inz.model.Cart;
 public interface CartRepositoryCustom {
 
 	List<Cart> getUserCarts(Integer userid);
-	List<Cart> getFavouriteCart(Integer favouriteid);
+	List<Cart> getOrderCart(Integer orderid);
 	BigInteger getCount();
 }

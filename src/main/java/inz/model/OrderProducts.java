@@ -5,33 +5,33 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "favouriteproducts")
-public class FavouriteProducts implements Serializable {
+@Table(name = "orderproducts")
+public class OrderProducts implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "favouriteid", nullable = false)
-    private Integer favouriteId;
+    @Column(name = "orderid", nullable = false)
+    private Integer orderId;
 
     @Column(name = "productid", nullable = false)
     private Integer productId;
 
-    public FavouriteProducts() {}
+    public OrderProducts() {}
 
-    public FavouriteProducts(Integer favouriteId, Integer productId) {
-        this.favouriteId = favouriteId;
+    public OrderProducts(Integer orderId, Integer productId) {
+        this.orderId = orderId;
         this.productId = productId;
     }
 
-    public Integer getFavouriteId() {
-        return favouriteId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setFavouriteId(Integer favouriteId) {
-        this.favouriteId = favouriteId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getProductId() {

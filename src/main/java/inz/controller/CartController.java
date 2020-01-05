@@ -53,12 +53,12 @@ public class CartController {
     }
 
     @CrossOrigin
-    @GetMapping("/favourite/{favouriteid}")
-    public ResponseEntity<?> getFavouriteCarts(@PathVariable("favouriteid") int favouriteid) {
+    @GetMapping("/order/{orderid}")
+    public ResponseEntity<?> getOrderCarts(@PathVariable("orderid") int orderid) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", cartRepository.getFavouriteCart(favouriteid));
+            response.put("data", cartRepository.getOrderCart(orderid));
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {

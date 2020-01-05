@@ -5,8 +5,6 @@ import inz.model.*;
 import java.math.BigInteger;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 public interface ProductRepositoryCustom {
 
     boolean modifyProduct(Product product);
@@ -17,9 +15,9 @@ public interface ProductRepositoryCustom {
     List<Product> getAllProductsFromCategory(int category);
     List<Product> getAllProductsFromShop(Shop shop);
     List<Product> getAllProductsFromShop(int shop);
-    List<Product> getAllProductsFromFavourite(Favourite favourite);
+    List<Product> getAllProductsFromOrder(Order order);
     List<Product> getAllProductsFromCart(Cart cart);
-    List<Product> getAllProductsFromFavourite(int favouriteid);
+    List<Product> getAllProductsFromOrder(int orderid);
     List<Product> getAllProductsFromCart(int cartid);
     List<Product> getFromFilter(List<Integer> categories, List<Integer> shops, String name);
     BigInteger getCount();

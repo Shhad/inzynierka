@@ -22,16 +22,16 @@ public class CartRepositoryCustomImpl implements CartRepositoryCustom {
 
 	@Override
 	public List<Cart> getUserCarts(Integer userid) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM cart WHERE favouriteid IN (SELECT favouriteid FROM \"favourite\" WHERE userid = ?)", Cart.class);
+		Query query = entityManager.createNativeQuery("SELECT * FROM cart WHERE orderid IN (SELECT orderid FROM \"order\" WHERE userid = ?)", Cart.class);
 		query.setParameter(1, userid);
 
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Cart> getFavouriteCart(Integer favouriteid) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM \"cart\" WHERE favouriteid = ?", Cart.class);
-		query.setParameter(1, favouriteid);
+	public List<Cart> getOrderCart(Integer orderid) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"cart\" WHERE orderid = ?", Cart.class);
+		query.setParameter(1, orderid);
 
 		return query.getResultList();
 	}

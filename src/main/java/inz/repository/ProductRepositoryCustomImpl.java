@@ -85,16 +85,16 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<Product> getAllProductsFromFavourite(Favourite favourite) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"favouriteproducts\" WHERE favouriteid = ?)", Product.class);
-        query.setParameter(1, favourite.getFavouriteId());
+    public List<Product> getAllProductsFromOrder(Order order) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"orderproducts\" WHERE orderid = ?)", Product.class);
+        query.setParameter(1, order.getOrderId());
 
         return query.getResultList();
     }
 
     @Override
     public List<Product> getAllProductsFromCart(Cart cart) {
-        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"favouriteproducts\" WHERE favouriteid = (SELECT favouriteid FROM \"cart\" WHERE cartid = ?))", Product.class);
+        Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT DISTINCT productid FROM \"orderproducts\" WHERE orderid = (SELECT orderid FROM \"cart\" WHERE cartid = ?))", Product.class);
         query.setParameter(1, cart.getCartId());
 
         return query.getResultList();
@@ -117,16 +117,16 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 	}
 
 	@Override
-	public List<Product> getAllProductsFromFavourite(int favouriteid) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT productid FROM \"favouriteproducts\" WHERE favouriteid = ?)", Product.class);
-		query.setParameter(1, favouriteid);
+	public List<Product> getAllProductsFromOrder(int orderid) {
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT productid FROM \"orderproducts\" WHERE orderid = ?)", Product.class);
+		query.setParameter(1, orderid);
 
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Product> getAllProductsFromCart(int cartid) {
-		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT productid FROM \"favouriteproducts\" WHERE favuriteid IN (SELECT favouriteid FROM \"cart\" WHERE cartid = ?))", Product.class);
+		Query query = entityManager.createNativeQuery("SELECT * FROM \"product\" WHERE productid IN (SELECT productid FROM \"orderproducts\" WHERE favuriteid IN (SELECT orderid FROM \"cart\" WHERE cartid = ?))", Product.class);
 		query.setParameter(1, cartid);
 
 		return query.getResultList();

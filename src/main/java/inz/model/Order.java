@@ -5,13 +5,13 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "favourite")
-public class Favourite implements Serializable {
+@Table(name = "order")
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "favouriteid")
-    private Integer favouriteId;
+    @Column(name = "orderid")
+    private Integer orderId;
 
     @Column(name = "userid", nullable = false)
     private Integer userId;
@@ -19,20 +19,20 @@ public class Favourite implements Serializable {
     @Column(name = "name")
     private String name;
 
-    public Favourite() {}
+    public Order() {}
 
-    public Favourite(Integer favouriteId, Integer userId, String name) {
-        this.favouriteId = favouriteId;
+    public Order(Integer orderId, Integer userId, String name) {
+        this.orderId = orderId;
         this.userId = userId;
         this.name = name;
     }
 
-    public Integer getFavouriteId() {
-        return favouriteId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setFavouriteId(Integer favouriteId) {
-        this.favouriteId = favouriteId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getUserId() {

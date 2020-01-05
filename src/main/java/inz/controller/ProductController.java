@@ -1,7 +1,6 @@
 package inz.controller;
 
 import inz.model.Category;
-import inz.model.Favourite;
 import inz.model.Product;
 import inz.model.Shop;
 import inz.repository.CategoryRepository;
@@ -155,12 +154,12 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @GetMapping("/products/favourite/{favouriteid}")
-    public ResponseEntity<?> getProductsFromFavourite(@PathVariable("favouriteid") int favouriteid) {
+    @GetMapping("/products/order/{orderid}")
+    public ResponseEntity<?> getProductsFromOrder(@PathVariable("orderid") int orderid) {
     	JSONObject response = new JSONObject();
         try {
             response.put("status", "ok");
-            response.put("data", productRepository.getAllProductsFromFavourite(favouriteid));
+            response.put("data", productRepository.getAllProductsFromOrder(orderid));
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception e) {
