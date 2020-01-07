@@ -1,6 +1,6 @@
 import { Map, List } from 'immutable';
 
-const FAVOURITE_STATE = Map({
+const ORDER_STATE = Map({
     categoryList: List([]),
     view: Map({
         isLoading: false,
@@ -9,7 +9,7 @@ const FAVOURITE_STATE = Map({
     })
 });
 
-export default function (state = FAVOURITE_STATE, action) {
+export default function (state = ORDER_STATE, action) {
     switch (action.type) {
         case 'GET_CATEGORIES':
             return state.merge({

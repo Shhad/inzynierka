@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import history from '../../history';
-import { getUser, addUser, logout, getFavourites } from "../../reducers/action-creators";
+import { getUser, addUser, logout, getOrders } from "../../reducers/action-creators";
 import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -209,8 +209,8 @@ class Header extends React.Component {
         this.setState({ mobileMoreAnchorEl: null });
     };
 
-    goToFavourites = () => {
-        history.push('/favourite');
+    goToOrders = () => {
+        history.push('/order');
     };
 
     goToUserProfile = () => {
@@ -238,7 +238,7 @@ class Header extends React.Component {
                 onClose={this.handleMenuClose}
             >
                 <MenuItem onClick={this.goShopping}>Na zakupy!</MenuItem>
-                <MenuItem onClick={this.goToFavourites}>Ulubione</MenuItem>
+                <MenuItem onClick={this.goToOrders}>Ulubione</MenuItem>
                 <MenuItem onClick={this.goToUserProfile}>Konto</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>Wyloguj</MenuItem>
             </Menu>
@@ -523,7 +523,7 @@ function mapDispatchToProps(dispatch) {
         getUser: (login, password) => dispatch(getUser(login, password)),
         addUser: (user) => dispatch(addUser(user)),
         logout: () => dispatch(logout()),
-        getFavourites: (userId) => dispatch(getFavourites(userId))
+        getOrders: (userId) => dispatch(getOrders(userId))
     };
 }
 

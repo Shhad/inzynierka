@@ -6,12 +6,12 @@ import  createSagaMiddleware from 'redux-saga';
 //Reducers
 import reducerProduct from './reducers/productReducer';
 import reducerShop from './reducers/shopReducer';
-import reducerFavourite from './reducers/favouriteReducers';
+import reducerOrder from './reducers/orderReducers';
 import reducerCategory from './reducers/categoryReducer';
 import reducerUser from './reducers/userReducer';
 
 //Sagas
-import favouriteSaga from './sagas/favouriteSaga';
+import orderSaga from './sagas/orderSaga';
 import rootSaga from './sagas/productSaga';
 import shopSaga from './sagas/shopSaga';
 import categorySaga from './sagas/categorySaga';
@@ -21,17 +21,17 @@ import userSaga from './sagas/userSaga';
 export const browserHistory = customHistory;
 
 const sagaMiddleware = createSagaMiddleware();
-const favouriteMiddleware = createSagaMiddleware();
+const orderMiddleware = createSagaMiddleware();
 const shopMiddleware = createSagaMiddleware();
 const categoryMiddleware = createSagaMiddleware();
 const userMiddleware = createSagaMiddleware();
 
 const configureStore = () => {
     const store = createStore(
-        combineReducers({reducerProduct, reducerFavourite, reducerShop, reducerCategory, reducerUser}),
+        combineReducers({reducerProduct, reducerOrder, reducerShop, reducerCategory, reducerUser}),
         compose(
             applyMiddleware(sagaMiddleware),
-            applyMiddleware(favouriteMiddleware),
+            applyMiddleware(orderMiddleware),
             applyMiddleware(shopMiddleware),
             applyMiddleware(categoryMiddleware),
             applyMiddleware(userMiddleware),
@@ -39,7 +39,7 @@ const configureStore = () => {
         )
     );
     sagaMiddleware.run(rootSaga);
-    favouriteMiddleware.run(favouriteSaga);
+    orderMiddleware.run(orderSaga);
     shopMiddleware.run(shopSaga);
     categoryMiddleware.run(categorySaga);
     userMiddleware.run(userSaga);

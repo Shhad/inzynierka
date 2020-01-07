@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
-import {addProduct, getShops, getCategories, getFavourites} from "../../reducers/action-creators";
+import {addProduct, getShops, getCategories, getOrders} from "../../reducers/action-creators";
 import MenuItem from "@material-ui/core/MenuItem";
 import { store } from '../../index';
 
@@ -271,7 +271,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getShops: () => dispatch(getShops()),
         getCategories: () => dispatch(getCategories()),
-        getFavourites: (userId) => dispatch(getFavourites(userId)),
+        getOrders: (userId) => dispatch(getOrders(userId)),
         addProduct: (product) => dispatch(addProduct(product))
     }
 }

@@ -12,7 +12,7 @@ import { SERWER_PROD } from "../constants/AppConstants";
 const getProductsPromotionFromServer = () => {
     try {
         console.log('getting promotion products');
-        const response = fetch(`${SERWER_PROD}/api/product/promotions`,{
+        const response = fetch(`${SERWER_PROD}/api/product/all`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

@@ -1,0 +1,59 @@
+import {
+    Map,
+    List,
+    fromJS
+} from 'immutable';
+
+const ORDER_STATE = Map({
+    orderList: List([
+    ]),
+    view: Map({
+        isLoading: false,
+        errorLoading: false,
+        errorMessage: String
+    })
+});
+
+export default function (state = ORDER_STATE, action) {
+    switch (action.type) {
+        case 'GET_ORDERS':
+            return state.merge({
+                view: {
+                    isLoading: true,
+                    errorLoading: false
+                }
+            });
+        case 'GET_ORDERS_SUCCESS':
+            return state.merge({
+                orderList: action.payload,
+                view: {
+                    isLoading: false,
+                    errorLoading: false,
+                    errorMessage: 'Wykonano idealnie.'
+                }
+            });
+        case 'GET_ORDERS_FAILURE':
+            return state.merge({
+                view: {
+                    isLoading: false,
+                    errorLoading: true,
+                    errorMessage: 'Wystąpił błąd podczas pobierania zamowien.'
+                }
+            });
+        case 'ADD_ORDER_SUCCESS':
+            return state.merge({
+                view: {
+                    errorLoading: false,
+                    errorMessage: ''
+                }
+            });
+        case 'ADD_ORDER_FAILURE':
+            return state.merge({
+                view: {
+                    errorLoading: true,
+                    errorMessage: 'Wystąpił błąd podczas dodawania nowych zamówień.'
+                }
+            });
+        default: return state;
+    }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getShops, getCategories, getFavourites, addFavouriteProduct } from '../../reducers/action-creators';
+import {getShops, getCategories, getOrders, addOrderProduct } from '../../reducers/action-creators';
 import { connect } from 'react-redux';
 import { modifyProduct } from '../../reducers/action-creators';
 import {store} from "../../index";
@@ -50,8 +50,8 @@ class Product extends React.Component {
             shopid: this.props.shopId,
             shop: '',
             shops: [],
-            favourite: '',
-            openFavourite: false,
+            order: '',
+            openOrder: false,
             userId: 0
         };
 
@@ -106,7 +106,7 @@ class Product extends React.Component {
 
     handleClickOpen = () => {
         if(this.state.userId != 0 || this.state.userId != undefined) {
-            this.props.getFavourites(this.state.userId);
+            this.props.getOrders(this.state.userId);
         }
         this.setState({ open: true });
     };
@@ -128,29 +128,29 @@ class Product extends React.Component {
         this.setState({shop: value});
     };
 
-    handleFavourite = () => {
+    handleOrder = () => {
         const productId = this.props.productId;
-        let favouriteId;
-        this.props.favouriteList.forEach(favourite => {
-            if(favourite.name === this.state.favourite) {
-                favouriteId = favourite.favouriteId;
+        let orderId;
+        this.props.orderList.forEach(order => {
+            if(order.name === this.state.order) {
+                orderId = order.orderId;
             }
         });
-        this.props.addFavouriteProduct(productId, favouriteId);
-        this.handleCloseFavourite();
+        this.props.addOrderProduct(productId, orderId);
+        this.handleCloseOrder();
     };
 
-    handleFavouriteChange = (event) => {
+    handleOrderChange = (event) => {
         const value = event.target.value;
-        this.setState({favourite: value})
+        this.setState({order: value})
     };
 
-    handleOpenFavourite = () => {
-        this.setState({openFavourite: true})
+    handleOpenOrder = () => {
+        this.setState({openOrder: true})
     };
 
-    handleCloseFavourite = () => {
-        this.setState({openFavourite: false})
+    handleCloseOrder = () => {
+        this.setState({openOrder: false})
     };
 
     render() {
@@ -292,7 +292,7 @@ class Product extends React.Component {
                         }
                         {this.props.loggedIn && this.state.modifyButton &&
                             <FlatButton>
-                            <Favorite onClick={this.handleOpenFavourite}/>
+                            <Favorite onClick={this.handleOpenOrder}/>
                             </FlatButton>
                         }
                         {!this.state.modifyButton &&
@@ -309,10 +309,10 @@ class Product extends React.Component {
                     </DialogActions>
                 </Dialog>
                 <Dialog
-                    open={this.state.openFavourite}
+                    open={this.state.openOrder}
                     TransitionComponent={Transition}
                     keepMounted
-                    onClose={this.handleCloseFavourite}
+                    onClose={this.handleCloseOrder}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
@@ -328,27 +328,27 @@ class Product extends React.Component {
                         }}
                               noValidate
                               autoComplete="off">
-                            {(this.props.favouriteList.length > 0) &&
+                            {(this.props.orderList.length > 0) &&
                             <TextField
                                 id="standard-select-currency"
                                 select
                                 label="Wybierz grupę"
-                                value={this.state.favourite}
-                                onChange={this.handleFavouriteChange}
+                                value={this.state.order}
+                                onChange={this.handleOrderChange}
                                 style={{
                                     marginTop: '19px',
                                     width: '400px',
                                     padding: '10px'
                                 }}
                             >
-                                {this.props.favouriteList.map(option => (
+                                {this.props.orderList.map(option => (
                                     <MenuItem key={option.name} value={option.name}>
                                         {option.name}
                                     </MenuItem>
                                 ))}
                             </TextField>
                             }
-                            {(this.props.favouriteList.length == 0) &&
+                            {(this.props.orderList.length == 0) &&
                                 <TextField
                                     disabled={true}
                                     value={'Brak grup ulubionych! \n Dodaj grupy!'}
@@ -365,10 +365,10 @@ class Product extends React.Component {
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleFavourite} color="primary">
+                        <Button onClick={this.handleOrder} color="primary">
                             OK
                         </Button>
-                        <Button onClick={this.handleCloseFavourite} color="primary">
+                        <Button onClick={this.handleCloseOrder} color="primary">
                             Anuluj
                         </Button>
                     </DialogActions>
@@ -382,7 +382,7 @@ class Product extends React.Component {
 function mapStateToProps(state) {
     return {
         shopList: state.getIn(['reducerShop', 'shopList']),
-        favouriteList: state.getIn(['reducerFavourite', 'favouriteList']),
+        orderList: state.getIn(['reducerOrder', 'orderList']),
         userId: state.getIn(['reducerUser', 'user', 'userId'])
     };
 }
@@ -391,8 +391,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getShops: () => dispatch(getShops()),
         modifyProduct: (product) => dispatch(modifyProduct(product)),
-        getFavourites: (userId) => dispatch(getFavourites(userId)),
-        addFavouriteProduct: (productId, favouriteId) => dispatch(addFavouriteProduct(productId, favouriteId))
+        getOrders: (userId) => dispatch(getOrders(userId)),
+        addOrderProduct: (productId, orderId) => dispatch(addOrderProduct(productId, orderId))
     }
 }
 

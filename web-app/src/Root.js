@@ -6,7 +6,7 @@ import {Switch, Route, Router} from 'react-router';
 
 import { App } from "./components/AppContainer";
 import { User } from "./components/UserContainer";
-import { FavouriteC } from "./components/FavouriteContainer";
+import { OrderC } from "./components/OrderContainer";
 
 
 export default class Root extends React.Component {
@@ -31,7 +31,7 @@ export default class Root extends React.Component {
                             <Switch>
                                 <Route exact path="/" component={App}/>
                                 <Route path="/userpanel" component={User}/>
-                                <Route path="/favourite" component={FavouriteC}/>
+                                <Route path="/order" component={OrderC}/>
                             </Switch>
                         </div>
                     </Router>

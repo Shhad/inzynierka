@@ -33,35 +33,35 @@ export function modifyProduct(product) {
     };
 }
 
-export function addFavourite(favouriteId, userId, name) {
+export function addOrder(orderId, userId, name) {
     return {
-        type: 'ADD_FAVOURITE',
-        favouriteId,
+        type: 'ADD_ORDER',
+        orderId,
         userId,
         name
     }
 }
 
-export function addFavouriteProduct(productId, favouriteId) {
+export function addOrderProduct(productId, orderId) {
     return {
-        type: 'ADD_FAVOURITE_PRODUCT',
+        type: 'ADD_ORDER_PRODUCT',
         productId,
-        favouriteId
+        orderId
     }
 }
 
-export function deleteFavouriteProduct(productId, favouriteId, userId) {
+export function deleteOrderProduct(productId, orderId, userId) {
     return {
-        type: 'DELETE_FAVOURITE_PRODUCT',
+        type: 'DELETE_ORDER_PRODUCT',
         productId,
-        favouriteId,
+        orderId,
         userId
     }
 }
 
-export function getFavourites(userid) {
+export function getOrders(userid) {
     return {
-        type: 'GET_FAVOURITES',
+        type: 'GET_ORDERS',
         userid
     };
 }
