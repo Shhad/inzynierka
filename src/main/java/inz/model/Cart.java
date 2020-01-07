@@ -13,8 +13,8 @@ public class Cart implements Serializable {
     @Column(name = "cartid", nullable = false)
     private Integer cartId;
 
-    @Column(name = "favouriteid", nullable = false)
-    private Integer favouriteId;
+    @Column(name = "orderid", nullable = false)
+    private Integer orderId;
 
     @Column(name = "shopid", nullable = false)
     private Integer shopId;
@@ -27,8 +27,8 @@ public class Cart implements Serializable {
 
     public Cart(){}
 
-    public Cart(Integer favouriteId, Integer shopId, double price) {
-        this.favouriteId = favouriteId;
+    public Cart(Integer orderId, Integer shopId, double price) {
+        this.orderId = orderId;
         this.shopId = shopId;
         this.price = price;
     }
@@ -41,12 +41,12 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-    public Integer getFavouriteId() {
-        return favouriteId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setFavouriteId(Integer favouriteId) {
-        this.favouriteId = favouriteId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getShopId() {
